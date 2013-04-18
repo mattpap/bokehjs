@@ -68,6 +68,9 @@ def test(testname):
     return flask.render_template("tests.html", jslibs=jslibs,
             hemfiles=hemfiles, tests=tests)
 
+@app.route("/embed_test/")
+def embed_test():
+    return flask.render_template("embed_test.html")
 
 alldemos = {
 
