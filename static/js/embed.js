@@ -13,61 +13,55 @@
     var foundEls = Bokeh.foundEls;
 
     // This is read by silp.min.js and a player is created for each one
-    if(!Bokeh.settings) Bokeh.settings = [];
-    var settings = Bokeh.settings;
+    if(!Bokeh.settings) {
+        Bokeh.settings = [];
+        var settings = Bokeh.settings;
 
-    var findInjections = function() {
-        console.log("findInjections");
-        var els = document.getElementsByTagName('script');
-        console.log(els);
-        window.els2= els;
-        var re = /.*embed.js.*/;
+        var findInjections = function() {
+            var els = document.getElementsByTagName('script');
+            window.els2= els;
+            var re = /.*embed.js.*/;
 
-        for(var i = 0; i < els.length; i++) {
-            var el = els[i];
-            console.log(i,el);
-            if(el.src.match(re) && foundEls.indexOf(el) < 0) {
-                foundEls.push(el);
-                //var info = utils.parseQueryString(el.src),
-                var info = parseEl(el);
-                console.log(info)
-                // Create container div
-                var d = document.createElement('div');
-                var container = document.createElement('div');
+            for(var i = 0; i < els.length; i++) {
+                var el = els[i];
+                if(el.src.match(re) && foundEls.indexOf(el) < 0) {
+                    foundEls.push(el);
+                    //var info = utils.parseQueryString(el.src),
+                    var info = parseEl(el);
+                    // Create container div
+                    var d = document.createElement('div');
+                    var container = document.createElement('div');
 
-                el.parentNode.insertBefore(container, el);
-                info['container'] = container;
+                    el.parentNode.insertBefore(container, el);
+                    info['container'] = container;
 
-                settings.push(info);
+                    settings.push(info);
+                }
+            };
+        };
+        var callFuncs = function() {
+            for(var i=0; i < settings.length; i++){
+                window.addPlot(settings[i]);
             }
         };
+        
+        var addOnload = function(func){
+            if (window.attachEvent){
+                window.attachEvent('onload', func);}
+            else {
+                window.addEventListener('load', func, false);}
+        };
+        addOnload(findInjections);
+        addOnload(callFuncs);
     };
-    var callFuncs = function() {
-        for(var i=0; i < settings.length; i++){
-            window.addPlot(settings[i]);
-        }
-    };
-    
-    var addOnload = function(func){
-        if (window.attachEvent){
-            window.attachEvent('onload', func);}
-        else {
-            window.addEventListener('load', func, false);}
-    };
-    addOnload(findInjections);
-    addOnload(callFuncs);
-
     var parseEl = function(el){
         var attrs = el.attributes;
         var bokehRe = /bokeh.*/
         var info = {};
         var bokehCount = 0;
         window.attrs = attrs;
-        console.log(attrs);
         for(var i=0; i < attrs.length; i++){
-            console.log("attrs", i);
             var attr = attrs[i];
-            console.log(attr);
             if(attrs[i].name.match(bokehRe)){
                 info[attrs[i].name] = attrs[i].value;
                 bokehCount++;
