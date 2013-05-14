@@ -1,5 +1,4 @@
-base = require("./base")
-Collections = base.Collections
+Collections = require("./base").Collections
 Rand = require('../common/random').Rand
 
 zip = () ->
