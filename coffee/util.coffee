@@ -9,6 +9,11 @@ typeIsArray = ( value ) ->
     typeof value.splice is 'function' and
     not ( value.propertyIsEnumerable 'length' )
 
+zip = () ->
+  lengthArray = (arr.length for arr in arguments)
+  length = Math.min(lengthArray...)
+  for i in [0...length]
+    arr[i] for arr in arguments
 
 this.make_plot = (div_id, data_source, defaults, glyphspecs, xrange, yrange, tools=false, dims=[400, 400], axes=true) ->
 
