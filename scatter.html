@@ -2,17 +2,19 @@
 <html>
 
   <head>
+    <title>bokeh.js scatter plot example</title>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta name="description" content="bokeh.js : " />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <link type="text/css" rel="stylesheet" href="stylesheets/jquery-ui.min.css"/>
+    <link type="text/css" rel="stylesheet" href="stylesheets/bootstrap.min.css"/>
 
-    <title>bokeh.js</title>
+    <script type="text/javascript" src="js/bokeh.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript" src="js/scatter.js"></script>
   </head>
-
-  <script type="text/javascript" src="js/bokeh.js"></script>
-  <script type="text/javascript" src="js/scatter.js"></script>
 
   <body>
 
@@ -31,7 +33,7 @@
         <h3>Scatter Plot Example</h3>
 
         <div id="plot">
-          <script>scatter = require("./js/scatter"); scatter.scatter_demo("#plot");</script>
+          <script>this.scatter_demo("#plot");</script>
         </div>
 
       </section>

@@ -1,9 +1,16 @@
 base = require("./base")
 Collections = base.Collections
-Rand = require('../common/random').Rand
+
+typeIsArray = ( value ) ->
+  value and
+    typeof value is 'object' and
+    value instanceof Array and
+    typeof value.length is 'number' and
+    typeof value.splice is 'function' and
+    not ( value.propertyIsEnumerable 'length' )
 
 
-make_plot = (div_id, data_source, defaults, glyphspecs, xrange, yrange, tools=false, dims=[400, 400], axes=true) ->
+this.make_plot = (div_id, data_source, defaults, glyphspecs, xrange, yrange, tools=false, dims=[400, 400], axes=true) ->
 
   plot_tools = []
   if tools
@@ -110,42 +117,3 @@ make_plot = (div_id, data_source, defaults, glyphspecs, xrange, yrange, tools=fa
     div.append(view.$el)
   _.defer(myrender)
 
-
-zip = () ->
-  lengthArray = (arr.length for arr in arguments)
-  length = Math.min(lengthArray...)
-  for i in [0...length]
-    arr[i] for arr in arguments
-
-scatter_demo = (div_id) ->
-  r = new Rand(123456789)
-
-  x = (r.randf()*100 for i in _.range(4000))
-  y = (r.randf()*100 for i in _.range(4000))
-  radii = (r.randf()+0.3 for i in _.range(4000))
-  colors = ("rgb(#{ Math.floor(50+2*val[0]) }, #{ Math.floor(30+2*val[1]) }, 150)" for val in zip(x, y))
-  source = Collections('ColumnDataSource').create(
-    data:
-      x: x
-      y: y
-      radius: radii
-      fill: colors
-  )
-
-  xdr = Collections('Range1d').create({start: 0, end: 100})
-  ydr = Collections('Range1d').create({start: 0, end: 100})
-
-  scatter = {
-    x: 'x'
-    y: 'y'
-    radius: 'radius'
-    radius_units: 'data'
-    fill: 'fill'
-    fill_alpha: 0.6
-    type: 'circle',
-    line_color: null
-  }
-
-  make_plot(div_id, source, {}, [scatter], xdr, ydr, true, [600, 600])
-
-exports.scatter_demo = scatter_demo
