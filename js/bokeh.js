@@ -28498,7 +28498,7 @@ _.setdefault = function(obj, key, value){
   auto_interval = function(data_low, data_high) {
     " Calculates the tick interval for a range.\n\nThe boundaries for the data to be plotted on the axis are::\n\n    data_bounds = (data_low,data_high)\n\nThe function chooses the number of tick marks, which can be between\n3 and 9 marks (including end points), and chooses tick intervals at\n1, 2, 2.5, 5, 10, 20, ... TODO\n\nReturns\n-------\ninterval : float\n    tick mark interval for axis";
 
-    var candidate_intervals, diff, divisions, i, ind, interval, j, magic_intervals, max, min, newdiff, nticks, _i, _j, _k, _len, _ref, _ref1, _ref2;
+    var candidate_intervals, diff, divisions, expv, f, i, ind, interval, j, magic_intervals, max, min, newdiff, nticks, _i, _j, _k, _len, _ref, _ref1, _ref2;
     divisions = [8, 7, 6, 5, 4, 3];
     magic_intervals = [1.0, 2.0, 2.5, 5.0, 10.0];
     candidate_intervals = [];
@@ -28508,10 +28508,12 @@ _.setdefault = function(obj, key, value){
       candidate_intervals.push([min, max, interval]);
     }
     diff = 10000;
-    ind = -1;
+    ind = 0;
     for (i = _j = 0, _ref1 = candidate_intervals.length - 1; 0 <= _ref1 ? _j <= _ref1 : _j >= _ref1; i = 0 <= _ref1 ? ++_j : --_j) {
       for (j = _k = 0, _ref2 = magic_intervals.length - 1; 0 <= _ref2 ? _k <= _ref2 : _k >= _ref2; j = 0 <= _ref2 ? ++_k : --_k) {
-        newdiff = Math.abs(candidate_intervals[i][2] - magic_intervals[i]);
+        expv = Math.floor(log10(candidate_intervals[i][2]));
+        f = candidate_intervals[i][2] / Math.pow(10.0, expv);
+        newdiff = Math.abs(f - magic_intervals[i]);
         if (newdiff < diff) {
           diff = newdiff;
           ind = i;
@@ -28631,14 +28633,19 @@ _.setdefault = function(obj, key, value){
     };
 
     ViewState.prototype.sx_to_device = function(x) {
-      return x;
+      return x + 0.5;
     };
 
     ViewState.prototype.sy_to_device = function(y) {
-      return this.get('canvas_height') - y;
+      return this.get('canvas_height') - y + 0.5;
     };
 
     ViewState.prototype.v_sx_to_device = function(xx) {
+      var idx, x, _i, _len;
+      for (idx = _i = 0, _len = xx.length; _i < _len; idx = ++_i) {
+        x = xx[idx];
+        xx[idx] = x + 0.5;
+      }
       return xx;
     };
 
@@ -28647,20 +28654,25 @@ _.setdefault = function(obj, key, value){
       canvas_height = this.get('canvas_height');
       for (idx = _i = 0, _len = yy.length; _i < _len; idx = ++_i) {
         y = yy[idx];
-        yy[idx] = canvas_height - y;
+        yy[idx] = canvas_height - y + 0.5;
       }
       return yy;
     };
 
     ViewState.prototype.device_to_sx = function(x) {
-      return x;
+      return x - 0.5;
     };
 
     ViewState.prototype.device_to_sy = function(y) {
-      return this.get('canvas_height') - y;
+      return this.get('canvas_height') - y - 0.5;
     };
 
     ViewState.prototype.v_device_to_sx = function(xx) {
+      var idx, x, _i, _len;
+      for (idx = _i = 0, _len = xx.length; _i < _len; idx = ++_i) {
+        x = xx[idx];
+        xx[idx] = x - 0.5;
+      }
       return xx;
     };
 
@@ -28669,7 +28681,7 @@ _.setdefault = function(obj, key, value){
       canvas_height = this.get('canvas_height');
       for (idx = _i = 0, _len = yy.length; _i < _len; idx = ++_i) {
         y = yy[idx];
-        yy[idx] = y - canvas_height;
+        yy[idx] = y - canvas_height - 0.5;
       }
       return yy;
     };
@@ -33437,7 +33449,7 @@ _.setdefault = function(obj, key, value){
   _.extend(LinearAxis.prototype.display_defaults, {
     level: 'overlay',
     axis_line_color: 'black',
-    axis_line_width: 2,
+    axis_line_width: 1,
     axis_line_alpha: 1.0,
     axis_line_join: 'miter',
     axis_line_cap: 'butt',
