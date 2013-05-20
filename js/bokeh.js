@@ -32005,17 +32005,33 @@ _.setdefault = function(obj, key, value){
     };
 
     QuadView.prototype._set_data = function(data) {
+      var i, _i, _ref, _results;
       this.data = data;
       this.left = this.glyph_props.v_select('left', data);
       this.top = this.glyph_props.v_select('top', data);
       this.right = this.glyph_props.v_select('right', data);
-      return this.bottom = this.glyph_props.v_select('bottom', data);
+      this.bottom = this.glyph_props.v_select('bottom', data);
+      this.mask = new Array(data.length - 1);
+      _results = [];
+      for (i = _i = 0, _ref = this.mask.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+        _results.push(this.mask[i] = true);
+      }
+      return _results;
     };
 
     QuadView.prototype._render = function() {
-      var ctx, _ref, _ref1;
+      var ctx, i, ih, iw, _i, _ref, _ref1, _ref2;
       _ref = this.plot_view.map_to_screen(this.left, this.glyph_props.left.units, this.top, this.glyph_props.top.units), this.sx0 = _ref[0], this.sy0 = _ref[1];
       _ref1 = this.plot_view.map_to_screen(this.right, this.glyph_props.right.units, this.bottom, this.glyph_props.bottom.units), this.sx1 = _ref1[0], this.sy1 = _ref1[1];
+      iw = this.plot_view.view_state.get('inner_width');
+      ih = this.plot_view.view_state.get('inner_height');
+      for (i = _i = 0, _ref2 = this.mask.length - 1; 0 <= _ref2 ? _i <= _ref2 : _i >= _ref2; i = 0 <= _ref2 ? ++_i : --_i) {
+        if ((this.sx0[i] < 0 && sx1[i] < 0) || (sx0[i] > iw && sx1[i] > iw) || (this.sy0[i] < 0 && sy1[i] < 0) || (sy0[i] > ih && sy1[i] > ih)) {
+          this.mask[i] = false;
+        } else {
+          this.mask[i] = true;
+        }
+      }
       ctx = this.plot_view.ctx;
       ctx.save();
       if (this.glyph_props.fast_path) {
@@ -32032,7 +32048,7 @@ _.setdefault = function(obj, key, value){
         this.glyph_props.fill_properties.set(ctx, this.glyph_props);
         ctx.beginPath();
         for (i = _i = 0, _ref = this.sx0.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
-          if (isNaN(this.sx0[i] + this.sy0[i] + this.sx1[i] + this.sy1[i])) {
+          if (isNaN(this.sx0[i] + this.sy0[i] + this.sx1[i] + this.sy1[i]) || !this.mask[i]) {
             continue;
           }
           ctx.rect(this.sx0[i], this.sy0[i], this.sx1[i] - this.sx0[i], this.sy1[i] - this.sy0[i]);
@@ -32043,7 +32059,7 @@ _.setdefault = function(obj, key, value){
         this.glyph_props.line_properties.set(ctx, this.glyph_props);
         ctx.beginPath();
         for (i = _j = 0, _ref1 = this.sx0.length - 1; 0 <= _ref1 ? _j <= _ref1 : _j >= _ref1; i = 0 <= _ref1 ? ++_j : --_j) {
-          if (isNaN(this.sx0[i] + this.sy0[i] + this.sx1[i] + this.sy1[i])) {
+          if (isNaN(this.sx0[i] + this.sy0[i] + this.sx1[i] + this.sy1[i]) || !this.mask[i]) {
             continue;
           }
           ctx.rect(this.sx0[i], this.sy0[i], this.sx1[i] - this.sx0[i], this.sy1[i] - this.sy0[i]);
@@ -32056,7 +32072,7 @@ _.setdefault = function(obj, key, value){
       var i, _i, _ref, _results;
       _results = [];
       for (i = _i = 0, _ref = this.sx0.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
-        if (isNaN(this.sx0[i] + this.sy0[i] + this.sx1[i] + this.sy1[i])) {
+        if (isNaN(this.sx0[i] + this.sy0[i] + this.sx1[i] + this.sy1[i]) || !this.mask[i]) {
           continue;
         }
         ctx.beginPath();
