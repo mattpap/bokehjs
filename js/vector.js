@@ -57,14 +57,18 @@
     line = {
       xs: 'xs',
       ys: 'ys',
-      type: 'line',
+      type: 'multi_line',
       line_color: {
         field: 'scolors'
       },
       line_width: 2,
       line_alpha: 0.9
     };
-    return this.make_plot(div_id, [source, source2], {}, [vector, line], xdr, ydr, true, [600, 600]);
+    return this.make_plot(div_id, [source, source2], {}, [vector, line], xdr, ydr, {
+      dims: [600, 600],
+      plot_title: "",
+      legend: false
+    });
   };
 
   this.vector_demo = vector_demo;

@@ -63,7 +63,7 @@ candle_demo = (div_id) ->
       line_width: 1
     }
 
-    this.make_plot(div_id, source, {}, [upperlower, bars], xdr, ydr, true, [800, 400])
+    this.make_plot(div_id, source, {}, [upperlower, bars], xdr, ydr, {dims: [800, 400], plot_title: "", legend: false})
 
 this.candle_demo = candle_demo
 

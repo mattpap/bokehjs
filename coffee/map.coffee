@@ -52,7 +52,7 @@ map_demo = (div_id) ->
     area = {
       xs: 'xs'
       ys: 'ys'
-      type: 'area',
+      type: 'patches',
       line_color: 'white'
       fill:
         field: 'colors'
@@ -71,7 +71,7 @@ map_demo = (div_id) ->
       text_font_size: '8pt'
     }
 
-    this.make_plot(div_id, source, {}, [area, text], xdr, ydr, true, [1000, 500], false)
+    this.make_plot(div_id, source, {}, [area, text], xdr, ydr, {axes:false, dims: [1000, 500], plot_title: "", legend: false})
 
 this.map_demo = map_demo
 

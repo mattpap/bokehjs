@@ -85,7 +85,11 @@
       line_color: 'red',
       line_width: 1
     };
-    return this.make_plot(div_id, source, {}, [upperlower, bars], xdr, ydr, true, [800, 400]);
+    return this.make_plot(div_id, source, {}, [upperlower, bars], xdr, ydr, {
+      dims: [800, 400],
+      plot_title: "",
+      legend: false
+    });
   };
 
   this.candle_demo = candle_demo;

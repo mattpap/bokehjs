@@ -14,7 +14,7 @@ stack_demo = (div_id) ->
       f: [100,100,100,100,100,100,100,100,100]
   )
 
-  xdr = Collections('Range1d').create({start: 0, end: 10})
+  xdr = Collections('Range1d').create({start: 0, end: 11})
   ydr = Collections('Range1d').create({start: 0, end: 100})
 
   a = {
@@ -67,7 +67,7 @@ stack_demo = (div_id) ->
     line_color: null
   }
 
-  this.make_plot(div_id, source, {}, [a,b,c,d,e], xdr, ydr, false, [600, 600])
+  this.make_plot(div_id, source, {}, [a,b,c,d,e], xdr, ydr, {dims: [600, 600], plot_title: "", legend: true})
 
 this.stack_demo = stack_demo
 

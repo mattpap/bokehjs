@@ -86,7 +86,7 @@ map_overlay_demo = (div_id) ->
     area = {
       xs: 'xs'
       ys: 'ys'
-      type: 'area',
+      type: 'patches',
       line_color: 'white'
       fill: '#665555'
       fill_alpha: 0.6
@@ -107,7 +107,7 @@ map_overlay_demo = (div_id) ->
       end_angle: 'ends'
     }
 
-    this.make_plot(div_id, [source, source2], {}, [area, wedge], xdr, ydr, true, [1000, 500], false)
+    this.make_plot(div_id, [source, source2], {}, [area, wedge], xdr, ydr, {axes: false, dims: [1000, 500], plot_title: "", legend: false})
 
 this.map_overlay_demo = map_overlay_demo
 

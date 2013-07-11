@@ -29,14 +29,18 @@
     line = {
       xs: 'xs',
       ys: 'ys',
-      type: 'line',
+      type: 'multi_line',
       line_color: {
         field: 'colors'
       },
       line_width: 2,
       line_alpha: 0.9
     };
-    return this.make_plot(div_id, source, {}, [line], xdr, ydr, true, [600, 600]);
+    return this.make_plot(div_id, source, {}, [line], xdr, ydr, {
+      dims: [600, 600],
+      plot_title: "",
+      legend: false
+    });
   };
 
   this.lorenz10_demo = lorenz10_demo;

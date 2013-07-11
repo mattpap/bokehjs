@@ -32,7 +32,7 @@ wave_demo = (div_id) ->
     angle: 0.1
   }
 
-  this.make_plot(div_id, source, {}, [bars], xdr, ydr, true, [800, 400])
+  this.make_plot(div_id, source, {}, [bars], xdr, ydr, {dims: [600, 600], plot_title: "", legend: false})
 
 this.wave_demo = wave_demo
 

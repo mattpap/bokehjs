@@ -35,7 +35,7 @@
     area = {
       xs: 'xs',
       ys: 'ys',
-      type: 'area',
+      type: 'patches',
       line_color: 'white',
       fill: {
         field: 'colors'
@@ -54,7 +54,12 @@
       text_baseline: 'middle',
       text_font_size: '8pt'
     };
-    return this.make_plot(div_id, source, {}, [area, text], xdr, ydr, true, [1000, 500], false);
+    return this.make_plot(div_id, source, {}, [area, text], xdr, ydr, {
+      axes: false,
+      dims: [1000, 500],
+      plot_title: "",
+      legend: false
+    });
   };
 
   this.map_demo = map_demo;

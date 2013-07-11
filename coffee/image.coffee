@@ -58,7 +58,7 @@ image_demo = (div_id) ->
       default: 'Spectral-10'
   }
 
-  this.make_plot(div_id, source, {}, [image], xdr, ydr, true, [600, 600])
+  this.make_plot(div_id, source, {}, [image], xdr, ydr, {dims: [600, 600], plot_title: "", legend: false})
 
 this.image_demo = image_demo
 

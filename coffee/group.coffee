@@ -19,7 +19,7 @@ group_demo = (div_id) ->
       cb: [0,0,0]
   )
 
-  xdr = Collections('Range1d').create({start: 0, end: 12})
+  xdr = Collections('Range1d').create({start: 0, end: 8})
   ydr = Collections('Range1d').create({start: 0, end: 8})
 
   a = {
@@ -52,7 +52,7 @@ group_demo = (div_id) ->
     line_color: null
   }
 
-  this.make_plot(div_id, source, {}, [a,b,c], xdr, ydr, false, [600, 600])
+  this.make_plot(div_id, source, {}, [a,b,c], xdr, ydr, {dims: [600, 600], plot_title: "", legend: true})
 
 this.group_demo = group_demo
 

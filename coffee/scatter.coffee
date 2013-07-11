@@ -36,6 +36,6 @@ scatter_demo = (div_id) ->
     line_color: null
   }
 
-  this.make_plot(div_id, source, {}, [scatter], xdr, ydr, true, [600, 600])
+  this.make_plot(div_id, source, {}, [scatter], xdr, ydr, {dims: [600, 600], plot_title: "", legend: false})
 
 this.scatter_demo = scatter_demo
