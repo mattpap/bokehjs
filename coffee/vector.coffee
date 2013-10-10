@@ -37,9 +37,7 @@ vector_demo = (div_id) ->
       x1: 'x1'
       y1: 'y1'
       type: 'segment',
-      line_color:
-        field: 'color'
-        default: 'black'
+      line_color: 'color'
       line_width: 1.5
       line_cap: 'round'
       line_alpha: 1
@@ -49,8 +47,7 @@ vector_demo = (div_id) ->
       xs: 'xs'
       ys: 'ys'
       type: 'multi_line',
-      line_color:
-        field: 'scolors'
+      line_color: 'scolors'
       line_width: 2
       line_alpha: 0.9
     }

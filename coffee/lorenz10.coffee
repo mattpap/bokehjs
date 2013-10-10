@@ -21,8 +21,7 @@ lorenz10_demo = (div_id) ->
       xs: 'xs'
       ys: 'ys'
       type: 'multi_line',
-      line_color:
-        field: 'colors'
+      line_color: 'colors'
       line_width: 2
       line_alpha: 0.9
     }

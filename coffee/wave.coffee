@@ -27,7 +27,7 @@ wave_demo = (div_id) ->
     width: 0.01
     height: 0.4
     type: 'rect',
-    fill: 'fill'
+    fill_color: 'fill'
     line_color: null
     angle: 0.1
   }

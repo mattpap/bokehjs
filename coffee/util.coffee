@@ -64,59 +64,47 @@ make_plot = (div_id, data_source, defaults, glyphspecs, xrange, yrange, {dims, t
   plot_model.add_renderers(g.ref() for g in glyphs)
   if axes
     xaxis1 = Collections('GuideRenderer').create(
-      guidespec: {
-        type: 'linear_axis'
-        dimension: 0
-        location: 'min'
-        bounds: 'auto'
-      }
+      type: 'linear_axis'
+      dimension: 0
+      location: 'min'
+      bounds: 'auto'
       axis_label: 'x'
       plot: plot_model.ref()
     )
     yaxis1 = Collections('GuideRenderer').create(
-      guidespec: {
-        type: 'linear_axis'
-        dimension: 1
-        location: 'min'
-        bounds: 'auto'
-      }
+      type: 'linear_axis'
+      dimension: 1
+      location: 'min'
+      bounds: 'auto'
       axis_label: 'y'
       plot: plot_model.ref()
     )
     xaxis2 = Collections('GuideRenderer').create(
-      guidespec: {
-        type: 'linear_axis'
-        dimension: 0
-        location: 'max'
-        bounds: 'auto'
-      }
+      type: 'linear_axis'
+      dimension: 0
+      location: 'max'
+      bounds: 'auto'
       axis_label: 'x'
       plot: plot_model.ref()
     )
     yaxis2 = Collections('GuideRenderer').create(
-      guidespec: {
-        type: 'linear_axis'
-        dimension: 1
-        location: 'max'
-        bounds: 'auto'
-      }
+      type: 'linear_axis'
+      dimension: 1
+      location: 'max'
+      bounds: 'auto'
       axis_label: 'y'
       plot: plot_model.ref()
     )
     xrule = Collections('GuideRenderer').create(
-      guidespec: {
-        type: 'rule'
-        dimension: 0
-        bounds: 'auto'
-      }
+      type: 'grid'
+      dimension: 0
+      bounds: 'auto'
       plot: plot_model.ref()
     )
     yrule = Collections('GuideRenderer').create(
-      guidespec: {
-        type: 'rule'
-        dimension: 1
-        bounds: 'auto'
-      }
+      type: 'grid'
+      dimension: 1
+      bounds: 'auto'
       plot: plot_model.ref()
     )
     plot_model.add_renderers(

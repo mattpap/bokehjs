@@ -48,7 +48,8 @@ candle_demo = (div_id) ->
       width: 1
       height: 'height'
       type: 'rect',
-      fill: 'fill'
+      fill_color:
+        field: 'fill'
       line_color: 'black'
       line_width: 0.5
     }

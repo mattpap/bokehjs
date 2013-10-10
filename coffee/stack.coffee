@@ -23,7 +23,7 @@ stack_demo = (div_id) ->
     top: 'b'
     bottom: 'a'
     type: 'quad',
-    fill: '#A6CEE3'
+    fill_color: '#A6CEE3'
     line_color: null
   }
 
@@ -33,7 +33,7 @@ stack_demo = (div_id) ->
     top: 'c'
     bottom: 'b'
     type: 'quad',
-    fill: '#1F78B4'
+    fill_color: '#1F78B4'
     line_color: null
   }
 
@@ -43,7 +43,7 @@ stack_demo = (div_id) ->
     top: 'd'
     bottom: 'c'
     type: 'quad',
-    fill: '#FB9A99'
+    fill_color: '#FB9A99'
     line_color: null
   }
 
@@ -53,7 +53,7 @@ stack_demo = (div_id) ->
     top: 'e'
     bottom: 'd'
     type: 'quad',
-    fill: '#33A02C'
+    fill_color: '#33A02C'
     line_color: null
   }
 
@@ -63,7 +63,7 @@ stack_demo = (div_id) ->
     top: 'f'
     bottom: 'e'
     type: 'quad',
-    fill: '#B2DF8A'
+    fill_color: '#B2DF8A'
     line_color: null
   }
 

@@ -54,8 +54,7 @@ map_demo = (div_id) ->
       ys: 'ys'
       type: 'patches',
       line_color: 'white'
-      fill:
-        field: 'colors'
+      fill_color: 'colors'
       fill_alpha: 0.6
     }
 

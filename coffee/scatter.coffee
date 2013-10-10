@@ -30,7 +30,7 @@ scatter_demo = (div_id) ->
     y: 'y'
     radius: 'radius'
     radius_units: 'data'
-    fill: 'fill'
+    fill_color: 'fill'
     fill_alpha: 0.6
     type: 'circle',
     line_color: null

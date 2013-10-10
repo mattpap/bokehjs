@@ -88,7 +88,7 @@ map_overlay_demo = (div_id) ->
       ys: 'ys'
       type: 'patches',
       line_color: 'white'
-      fill: '#665555'
+      fill_color: '#665555'
       fill_alpha: 0.6
     }
 
@@ -97,8 +97,7 @@ map_overlay_demo = (div_id) ->
 
     wedge = {
       type: 'wedge'
-      fill:
-        field: 'wcolors'
+      fill_color: 'wcolors'
       x: 'wx'
       y: 'wy'
       radius: 'rs'
