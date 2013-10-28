@@ -1,5 +1,5 @@
 
-define "HasProperties", [
+define [
   "underscore",
   "backbone"
 ], (_, Backbone) ->
