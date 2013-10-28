@@ -75,7 +75,11 @@ module.exports = (grunt) ->
         options:
           spawn: false
     qunit:
-      all: ['build/tests/*.html']
+      #all: ['build/tests/*.html']
+      all:
+        options:
+          urls:[
+            'http://localhost:8000/tests/index.html',]
 
   grunt.loadNpmTasks("grunt-contrib-coffee")
   grunt.loadNpmTasks("grunt-contrib-watch")
