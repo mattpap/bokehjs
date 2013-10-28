@@ -13,7 +13,4 @@ asyncTest("an asynchonous test example", function() {
         equal(adder_mod.adder(5,5), 10);
         start();
     });
-
-
-
 });
