@@ -1,4 +1,4 @@
-require.config
+orequire.config
   paths:
     jquery: "vendor/jquery/jquery"
     jquery-ui: "vendor/jquery-ui-amd/jquery-ui-1.10.0/jqueryui"

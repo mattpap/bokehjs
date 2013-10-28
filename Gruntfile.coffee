@@ -49,7 +49,12 @@ module.exports = (grunt) ->
         src: '**/*.coffee'     # traverse *.coffee files relative to cwd
         dest: 'build/js'       # destination for compiled js files
         ext: '.js'             # file extension for compiled files
-
+      # test_compile:
+      #   expand: true           # enable dynamic expansion
+      #   cwd: 'tests'      # source dir for coffee files
+      #   src: '**/*.coffee'     # traverse *.coffee files relative to cwd
+      #   dest: 'build/tests'       # destination for compiled js files
+      #   ext: '.js'             # file extension for compiled files
     requirejs:
       compile:
         options:

@@ -2,8 +2,9 @@
 define [
   "underscore",
   "backbone"
-], (_, Backbone) ->
-
+  "safebind"
+], (_, Backbone, _safebind) ->
+  safebind = _safebind.safebind
   class HasProperties extends Backbone.Model
     # Our property system
     # we support python style computed properties, with getters
@@ -270,3 +271,4 @@ define [
           withCredentials: true
       )
       return resp
+  return {HasProperties:HasProperties, safebind:safebind}
