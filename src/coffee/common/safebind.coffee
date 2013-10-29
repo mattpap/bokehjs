@@ -48,4 +48,3 @@ define [
       debugger;
       console.log("error with binder", binder, event)
     return null
-  return {safebind:safebind}

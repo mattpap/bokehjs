@@ -1,11 +1,12 @@
 
 define [
   "underscore",
-  "backbone"
-  "common/safebind"
-], (_, Backbone, _safebind) ->
+  "backbone",
+  "common/base"
+  "common/safebind",
+], (_, Backbone, base, safebind) ->
 
-  safebind = _safebind.safebind
+  Collections = base.Collections
 
   class HasProperties extends Backbone.Model
     # Our property system
@@ -273,4 +274,3 @@ define [
           withCredentials: true
       )
       return resp
-  return {HasProperties:HasProperties, safebind:safebind}
