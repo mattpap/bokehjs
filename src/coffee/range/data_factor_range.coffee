@@ -6,9 +6,9 @@ define [
 ], (_, Backbone, FactorRange) ->
 
   class DataFactorRange extends FactorRange.Model
-    type : 'DataFactorRange'
+    type: 'DataFactorRange'
 
-    _get_values : () =>
+    _get_values: () =>
       columns = (@get_obj('data_source').getcolumn(x) for x in @get('columns'))
       columns = _.reduce(columns, ((x, y) -> return x.concat(y)), [])
       temp = {}
@@ -18,7 +18,7 @@ define [
       uniques = _.sortBy(uniques, ((x) -> return x))
       return uniques
 
-    dinitialize : (attrs, options) ->
+    dinitialize: (attrs, options) ->
       super(attrs, options)
       @register_property
       @register_property('values', @_get_values, true)
@@ -30,13 +30,13 @@ define [
   DataFactorRange::defaults = _.clone(DataFactorRange::defaults)
   _.extend(DataFactorRange::defaults
     ,
-      values : []
-      columns : []
-      data_source : null
+      values: []
+      columns: []
+      data_source: null
   )
 
   class DataFactorRanges extends Backbone.Collection
-    model : DataFactorRange
+    model: DataFactorRange
 
   return {
     "Model": DataFactorRange,

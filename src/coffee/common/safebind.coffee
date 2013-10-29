@@ -12,12 +12,12 @@ define [
     #
     # #### Parameters
     #
-    # * binder : backbone model or view - when this is destroyed or removed,
+    # * binder: backbone model or view - when this is destroyed or removed,
     #   the callback
     #   unbound
-    # * target : object triggering the event we want to bind to
-    # * event : string, name of the event
-    # * callback : callback for the event
+    # * target: object triggering the event we want to bind to
+    # * event: string, name of the event
+    # * callback: callback for the event
     #
     # #### Returns
     #

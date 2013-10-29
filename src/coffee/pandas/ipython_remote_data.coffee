@@ -8,7 +8,7 @@ define [
   class IPythonRemoteData extends HasProperties
     type: 'IPythonRemoteData'
     defaults:
-      computed_columns : []
+      computed_columns: []
 
   class IPythonRemoteDatas extends Backbone.Collection
     model: DataRange1d

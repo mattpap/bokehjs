@@ -6,7 +6,7 @@ define [
 ], (Backbone, ColumnDataSource) ->
 
   class PandasPlotSource extends ColumnDataSource.Model
-    type : 'PandasPlotSource'
+    type: 'PandasPlotSource'
 
   class PandasPlotSources extends Backbone.Collection
     model: PandasPlotSource

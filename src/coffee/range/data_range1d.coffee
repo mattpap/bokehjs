@@ -6,9 +6,9 @@ define [
 ], (_, Backbone, Range1d) ->
 
   class DataRange1d extends Range1d.Model
-    type : 'DataRange1d'
+    type: 'DataRange1d'
 
-    _get_minmax : () ->
+    _get_minmax: () ->
       columns = []
       for source in @get('sources')
         sourceobj = @resolve_ref(source['ref'])
@@ -35,25 +35,25 @@ define [
       [min, max] = [center - span/2.0, center + span/2.0]
       return [min, max]
 
-    _get_start : () ->
+    _get_start: () ->
       if not _.isNullOrUndefined(@get('_start'))
         return @get('_start')
       else
         return @get('minmax')[0]
 
-    _set_start : (start) ->
+    _set_start: (start) ->
       @set('_start', start)
 
-    _get_end : () ->
+    _get_end: () ->
       if not _.isNullOrUndefined(@get('_end'))
         return @get('_end')
       else
         return @get('minmax')[1]
 
-    _set_end : (end) ->
+    _set_end: (end) ->
       @set('_end', end)
 
-    dinitialize : (attrs, options) ->
+    dinitialize: (attrs, options) ->
       @register_property('minmax', @_get_minmax, true)
       @add_dependencies('minmax', this, ['sources'], ['rangepadding'])
       for source in @get('sources')
@@ -70,12 +70,12 @@ define [
   DataRange1d::defaults = _.clone(DataRange1d::defaults)
   _.extend(DataRange1d::defaults
     ,
-      sources : []
-      rangepadding : 0.1
+      sources: []
+      rangepadding: 0.1
   )
 
   class DataRange1ds extends Backbone.Collection
-    model : DataRange1d
+    model: DataRange1d
 
   return {
     "Model": DataRange1d,

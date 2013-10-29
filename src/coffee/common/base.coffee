@@ -4,13 +4,6 @@ define [
 ], (_) ->
 
   locations =
-    AnnotationRenderer: ['./renderers/annotation_renderer', 'annotationrenderers']
-    GlyphRenderer:      ['./renderers/glyph_renderer',      'glyphrenderers']
-    GuideRenderer:      ['./renderers/guide_renderer',      'guiderenderers']
-    LinearAxis:         ['./renderers/guide/linear_axis', 'linearaxes']
-    DatetimeAxis:       ['./renderers/guide/datetime_axis', 'datetimeaxes']
-    Grid:               ['./renderers/guide/grid', 'grids']
-    Legend:             ['./renderers/annotation_renderer', 'annotationrenderers']
 
     PanTool:         ['./tools/pan_tool',          'pantools']
     ZoomTool:        ['./tools/zoom_tool',         'zoomtools']
@@ -19,8 +12,6 @@ define [
     DataRangeBoxSelectionTool:   ['./tools/select_tool', 'datarangeboxselectiontools']
     PreviewSaveTool: ['./tools/preview_save_tool', 'previewsavetools']
     EmbedTool:       ['./tools/embed_tool', 'embedtools']
-
-    BoxSelectionOverlay: ['./overlays/boxselectionoverlay', 'boxselectionoverlays']
 
     Plot:                  'common/plot'
     GMapPlot:              'common/gmap_plot'
@@ -38,12 +29,18 @@ define [
     FactorRange:           'range/factor_range'
     DataFactorRange:       'range/data_factor_range'
 
+    Glyph:                 'renderer/glyph/glyph'
+    LinearAxis:            'renderers/guide/linear_axis'
+    DatetimeAxis:          'renderers/guide/datetime_axis'
+    Grid:                  'renderers/guide/grid'
+    Legend:                'renderers/annotation/legend'
+
+    BoxSelectionOverlay:   'renderer/overlay/box_selection'
+
     ObjectArrayDataSource: 'source/object_array_data_source'
     ColumnDataSource:      'source/column_data_source'
 
     DataSlider:            'widget/data_slider'
-
-
 
   mod_cache = {}
 
@@ -63,16 +60,16 @@ define [
   Collections.bulksave = (models) ->
     ##FIXME:hack
     doc = models[0].get('doc')
-    jsondata = ({type : m.type, attributes :_.clone(m.attributes)} for m in models)
+    jsondata = ({type: m.type, attributes:_.clone(m.attributes)} for m in models)
     jsondata = JSON.stringify(jsondata)
     url = Config.prefix + "/bokeh/bb/" + doc + "/bulkupsert"
     xhr = $.ajax(
-      type : 'POST'
-      url : url
+      type: 'POST'
+      url: url
       contentType: "application/json"
-      data : jsondata
-      header :
-        client : "javascript"
+      data: jsondata
+      header:
+        client: "javascript"
     )
     xhr.done((data) ->
       load_models(data.modelspecs)

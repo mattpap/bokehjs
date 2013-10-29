@@ -5,8 +5,8 @@ define [
 ], (_, HasProperties) ->
 
   class ObjectArrayDataSource extends HasProperties
-    type : 'ObjectArrayDataSource'
-    initialize : (attrs, options) ->
+    type: 'ObjectArrayDataSource'
+    initialize: (attrs, options) ->
       super(attrs, options)
       @cont_ranges = {}
       @discrete_ranges = {}
@@ -14,18 +14,18 @@ define [
     getcolumn: (colname) ->
       return (x[colname] for x in @get('data'))
 
-    compute_cont_range : (field) ->
+    compute_cont_range: (field) ->
       data = @getcolumn(field)
       return [_.max(data), _.min(data)]
 
-    compute_discrete_factor : (field) ->
+    compute_discrete_factor: (field) ->
       temp = {}
       for val in @getcolumn(field)
         temp[val] = true
       uniques = _.keys(temp)
       uniques = _.sortBy(uniques, ((x) -> return x))
 
-    get_cont_range : (field, padding) ->
+    get_cont_range: (field, padding) ->
       padding = 1.0 if _.isUndefined(padding)
       if not _.exists(@cont_ranges, field)
         [min, max] = @compute_cont_range(field)
@@ -34,8 +34,8 @@ define [
         [min, max] = [center - span/2.0, center + span/2.0]
 
         @cont_ranges[field] = Collections('Range1d').create(
-            start : min
-            end : max
+            start: min
+            end: max
         )
         @on('change:data'
           ,
@@ -46,11 +46,11 @@ define [
         )
       return @cont_ranges[field]
 
-    get_discrete_range : (field) ->
+    get_discrete_range: (field) ->
       if not _.exists(@discrete_ranges, field)
         factors = @compute_discrete_factor(field)
         @discrete_ranges[field] = Collections('FactorRange').create(
-            values : factors
+            values: factors
         )
         @on('change:data'
           ,
@@ -61,7 +61,7 @@ define [
         )
       return @discrete_ranges[field]
 
-    select : (fields, func) ->
+    select: (fields, func) ->
       selected = []
       for val, idx in @get('data')
         args = (val[x] for x in fields)
@@ -72,14 +72,14 @@ define [
   ObjectArrayDataSource::defaults = _.clone(ObjectArrayDataSource::defaults)
   _.extend(ObjectArrayDataSource::defaults
     ,
-      data : [{}]
-      name : 'data'
-      selected : []
-      selecting : false
+      data: [{}]
+      name: 'data'
+      selected: []
+      selecting: false
   )
 
   class ObjectArrayDataSources extends Backbone.Collection
-    model : ObjectArrayDataSource
+    model: ObjectArrayDataSource
 
   return {
     "Model": ObjectArrayDataSource,

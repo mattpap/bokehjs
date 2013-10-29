@@ -95,7 +95,7 @@ define [
   })
 
   class DataSliders extends Backbone.Collection
-    model : DataSlider
+    model: DataSlider
 
   return {
     "Model": DataSlider

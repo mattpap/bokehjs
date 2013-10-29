@@ -6,16 +6,16 @@ define [
 ], (Backbone, HasProperties) ->
 
   class FactorRange extends HasProperties
-    type : 'FactorRange'
+    type: 'FactorRange'
 
   FactorRange::defaults = _.clone(FactorRange::defaults)
   _.extend(FactorRange::defaults
     ,
-      values : []
+      values: []
   )
 
   class FactorRanges extends Backbone.Collection
-    model : FactorRange
+    model: FactorRange
 
   return {
     "Model": FactorRange,

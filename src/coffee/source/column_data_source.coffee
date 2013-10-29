@@ -8,8 +8,8 @@ define [
     # Datasource where the data is defined column-wise, i.e. each key in the
     # the data attribute is a column name, and its value is an array of scalars.
     # Each column should be the same length.
-    type : 'ColumnDataSource'
-    initialize : (attrs, options) ->
+    type: 'ColumnDataSource'
+    initialize: (attrs, options) ->
       super(attrs, options)
       @cont_ranges = {}
       @discrete_ranges = {}
@@ -30,7 +30,7 @@ define [
 
 
   class ColumnDataSources extends Backbone.Collection
-    model : ColumnDataSource
+    model: ColumnDataSource
 
   return {
     "Model": ColumnDataSource,
