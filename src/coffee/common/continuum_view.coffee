@@ -5,7 +5,6 @@ define [
   "backbone",
 ], (_, Backbone) ->
 
-
   class ContinuumView extends Backbone.View
     initialize: (options) ->
       #autogenerates id
@@ -44,3 +43,7 @@ define [
 
     render_end: () ->
       "pass"
+
+  return {
+    "View": ContinuumView
+  }

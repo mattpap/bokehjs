@@ -1,5 +1,4 @@
 
-
 define [
   "underscore",
 ], (_) ->
@@ -8,6 +7,10 @@ define [
     AnnotationRenderer: ['./renderers/annotation_renderer', 'annotationrenderers']
     GlyphRenderer:      ['./renderers/glyph_renderer',      'glyphrenderers']
     GuideRenderer:      ['./renderers/guide_renderer',      'guiderenderers']
+    LinearAxis:         ['./renderers/guide/linear_axis', 'linearaxes']
+    DatetimeAxis:       ['./renderers/guide/datetime_axis', 'datetimeaxes']
+    Grid:               ['./renderers/guide/grid', 'grids']
+    Legend:             ['./renderers/annotation_renderer', 'annotationrenderers']
 
     PanTool:         ['./tools/pan_tool',          'pantools']
     ZoomTool:        ['./tools/zoom_tool',         'zoomtools']
@@ -16,34 +19,30 @@ define [
     DataRangeBoxSelectionTool:   ['./tools/select_tool', 'datarangeboxselectiontools']
     PreviewSaveTool: ['./tools/preview_save_tool', 'previewsavetools']
     EmbedTool:       ['./tools/embed_tool', 'embedtools']
-    DataSlider:      ['./tools/slider', 'datasliders']
 
     BoxSelectionOverlay: ['./overlays/boxselectionoverlay', 'boxselectionoverlays']
 
-    ObjectArrayDataSource: ['./common/datasource', 'objectarraydatasources']
-    ColumnDataSource:      ['./common/datasource', 'columndatasources']
+    Plot:                  'common/plot'
+    GMapPlot:              'common/gmap_plot'
+    GridPlot:              'common/grid_plot'
+    CDXPlotContext:        'common/plot_context'
+    PlotContext:           'common/plot_context'
+    PlotList:              'common/plot_context'
 
-    Range1d:         ['./common/ranges', 'range1ds']
-    DataRange1d:     ['./common/ranges', 'datarange1ds']
-    DataFactorRange: ['./common/ranges', 'datafactorranges']
+    IPythonRemoteData:     'pandas/ipython_remote_data'
+    PandasPivotTable:      'pandas/pandas_pivot_table'
+    PandasPlotSource:      'pandas/pandas_plot_source'
 
-    Plot:              ['./common/plot',         'plots']
-    GMapPlot:          ['./common/gmap_plot',    'gmapplots']
-    GridPlot:          ['./common/grid_plot',    'gridplots']
-    CDXPlotContext:    ['./common/plot_context', 'plotcontexts']
-    PlotContext:       ['./common/plot_context', 'plotcontexts']
-    PlotList:          ['./common/plot_context', 'plotlists']
+    Range1d:               'range/range1d'
+    DataRange1d:           'range/data_range1d'
+    FactorRange:           'range/factor_range'
+    DataFactorRange:       'range/data_factor_range'
 
-    DataTable: ['./widgets/table', 'datatables']
+    ObjectArrayDataSource: 'source/object_array_data_source'
+    ColumnDataSource:      'source/column_data_source'
 
-    IPythonRemoteData: ['./pandas/pandas', 'ipythonremotedatas']
-    PandasPivotTable:  ['./pandas/pandas', 'pandaspivottables']
-    PandasPlotSource:  ['./pandas/pandas', 'pandasplotsources']
+    DataSlider:            'widget/data_slider'
 
-    LinearAxis:   ['./renderers/guide/linear_axis', 'linearaxes']
-    DatetimeAxis: ['./renderers/guide/datetime_axis', 'datetimeaxes']
-    Grid:         ['./renderers/guide/grid', 'grids']
-    Legend:       ['./renderers/annotation_renderer', 'annotationrenderers']
 
 
   mod_cache = {}
