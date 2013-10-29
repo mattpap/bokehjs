@@ -1,24 +1,22 @@
-define [
-  "/js/vendor/backbone-amd/backbone.js",
-  "/js/vendor/underscore-amd/underscore.js",
-  "/js/commonHasProperties"
-], (_, Backbone, _HasProperties) ->
-  HasProperties = _HasProperties.HasProperties
-  safebind = _HasProperties.safebind
-  #Collections = base.Collections
-  
-  class TestObject extends HasProperties
+'use strict'
+
+require [
+  "underscore",
+  "backbone",
+  "common/has_properties",
+  "common/safebind"
+], (_, Backbone, has_properties) ->
+
+  class TestObject extends has_properties.HasProperties
     type : 'TestObject'
-  
+
   class TestObjects extends Backbone.Collection
     model : TestObject
     url : "/"
-  
+
   # registering this test collection with Collections function
   testobjects = new TestObjects()
-  exports.testobjects = testobjects
-  base.locations['TestObject'] = ['./hasproperty_test', 'testobjects']
-  
+
   test('computed_properties', ->
     testobjects.reset()
     model = Collections('TestObject').create({'a' : 1, 'b': 1})
@@ -27,7 +25,7 @@ define [
     temp =  model.get('c')
     ok(temp == 2)
   )
-  
+
   test('cached_properties_react_changes', ->
     testobjects.reset()
     model = testobjects.create({'a' : 1, 'b': 1})
@@ -44,22 +42,22 @@ define [
     temp = model.get('c')
     ok(temp == 11)
   )
-  
-  
-  test('has_prop_manages_event_lifcycle', ->
-    testobjects.reset()
-    model = testobjects.create({'a' : 1, 'b': 1})
-    model2 = testobjects.create({'a' : 1, 'b': 1})
-    triggered = false
-    safebind(model, model2, 'change', () -> triggered = true)
-    model2.set({'a' : 2})
-    ok(triggered)
-    triggered = false
-    model.destroy()
-    model2.set({'a' : 3})
-    ok(not triggered)
-  )
-  
+
+
+  # test('has_prop_manages_event_lifcycle', ->
+  #   testobjects.reset()
+  #   model = testobjects.create({'a' : 1, 'b': 1})
+  #   model2 = testobjects.create({'a' : 1, 'b': 1})
+  #   triggered = false
+  #   safebind.safebind(model, model2, 'change', () -> triggered = true)
+  #   model2.set({'a' : 2})
+  #   ok(triggered)
+  #   triggered = false
+  #   model.destroy()
+  #   model2.set({'a' : 3})
+  #   ok(not triggered)
+  # )
+
   # test('has_prop_manages_event_for_views', ->
   #   testobjects.reset()
   #   model = testobjects.create({'a' : 1, 'b': 1})
@@ -68,7 +66,7 @@ define [
   #   # @model for a view is already handleed
   #   model2 = testobjects.create({'a' : 1, 'b': 1})
   #   view = new ContinuumView({'model' : model2})
-  
+
   #   triggered = false
   #   safebind(view, model, 'change', () -> triggered = true)
   #   model.set({'a' : 2})
@@ -78,8 +76,8 @@ define [
   #   model.set({'a' : 3})
   #   ok(not triggered)
   # )
-  
-  
+
+
   test('property_setters', ->
     testobjects.reset()
     model = testobjects.create({'a' : 1, 'b': 1})
@@ -97,7 +95,7 @@ define [
     ok(model.get('a') == 50)
     ok(model.get('b') == 50)
   )
-  
+
   test('test_vectorized_ref', () ->
     testobjects.reset()
     model1 = testobjects.create(
