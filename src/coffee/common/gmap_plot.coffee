@@ -15,53 +15,13 @@ define [
 
   build_views = base.build_views
 
-  text_properties = Properties.text_properties
-
   LEVELS = ['image', 'underlay', 'glyph', 'overlay', 'annotation', 'tool']
 
-  delay_animation = (f) ->
-    return f()
-
-  delay_animation = window.requestAnimationFrame ||
-          window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame ||
-          window.msRequestAnimationFrame || delay_animation
-
-  #Returns a function, that, when invoked, will only be triggered at
-  #most once during a given window of time.  If the browser supports
-  #requestAnimationFrame, in addition the throttled function will be run
-  #no more frequently than request animation frame allow
-  #
-  throttle_animation = (func, wait) ->
-    [context , args, timeout, result] = [null,null,null,null]
-    previous = 0
-    pending = false
-    later = ->
-      previous = new Date
-      timeout = null
-      pending = false
-      result = func.apply(context, args)
-
-    return ->
-      now = new Date
-      remaining = wait - (now - previous)
-      context = this
-      args = arguments
-      if (remaining <= 0 and !pending)
-        clearTimeout(timeout)
-        pending = true
-        delay_animation(later)
-      else if (!timeout)
-        timeout = setTimeout(
-         (->
-            delay_animation(later)),
-         remaining)
-      return result
-
-  class PlotView extends ContinuumView
-    className: "bokeh plotview"
+  class GMapPlotView extends ContinuumView
     events:
       "mousemove .bokeh_canvas_wrapper": "_mousemove"
       "mousedown .bokeh_canvas_wrapper": "_mousedown"
+    className: "bokeh"
 
     view_options: () ->
       _.extend({plot_model: @model, plot_view: @}, @options)
@@ -97,9 +57,10 @@ define [
     initialize: (options) ->
       super(_.defaults(options, @default_options))
 
-      #@throttled_render = _.throttle(@render, 15)
-      @throttled_render = throttle_animation(@render, 15)
-      @throttled_render_canvas = throttle_animation(@render_canvas, 15)
+      # TODO (bryanv) investigate (turn off?) throttling for gmap plots
+      @throttled_render = _.throttle(@render, 100)
+      @throttled_render_canvas = _.throttle(@render_canvas, 100)
+
       @title_props = new text_properties(@, {}, 'title_')
 
       @view_state = new ViewState({
@@ -118,12 +79,8 @@ define [
         requested_border_left: 0
         requested_border_right: 0
       })
-
-      @hidpi = options.hidpi ? @mget('hidpi')
-
       @x_range = options.x_range ? @mget_obj('x_range')
       @y_range = options.y_range ? @mget_obj('y_range')
-
       @xmapper = new LinearMapper({
         source_range: @x_range
         target_range: @view_state.get('inner_range_horizontal')
@@ -138,6 +95,10 @@ define [
         domain_mapper: @xmapper
         codomain_mapper: @ymapper
       })
+      for tool in @mget_obj('tools')
+        if tool.type == "PanTool" or tool.type == "ZoomTool"
+          tool.set_obj('dataranges', [@x_range, @y_range])
+          tool.set('dimensions', ['width', 'height'])
 
       @requested_padding = {
         top: 0
@@ -155,6 +116,7 @@ define [
 
       @renderers = {}
       @tools = {}
+      @zoom_count = null
 
       @eventSink = _.extend({}, Backbone.Events)
       @moveCallbacks = []
@@ -174,16 +136,8 @@ define [
 
     map_to_screen: (x, x_units, y, y_units, units) ->
       if x_units == 'screen'
-        if _.isArray(x)
-          sx = x[..]
-        else
-          sx = new Float32Array(x.length)
-          sx.set(x)
-        if _.isArray(y)
-          sy = y[..]
-        else
-          sy = new Float32Array(y.length)
-          sy.set(y)
+        sx = x[..]
+        sy = y[..]
       else
         [sx, sy] = @mapper.v_map_to_target(x, y)
 
@@ -193,18 +147,8 @@ define [
       return [sx, sy]
 
     map_from_screen: (sx, sy, units) ->
-      if _.isArray(sx)
-        dx = x[..]
-      else
-        dx = new Float32Array(sx.length)
-        sd.set(x)
-      if _.isArray(sy)
-        dy = y[..]
-      else
-        dy = new Float32Array(sy.length)
-        dy.set(y)
-      sx = @view_state.v_device_to_sx(dx)
-      sy = @view_state.v_device_to_sy(dy)
+      sx = @view_state.v_device_sx(sx[..])
+      sy = @view_state.v_device_sx(sy[..])
 
       if units == 'screen'
         x = sx
@@ -216,8 +160,28 @@ define [
 
     update_range: (range_info) ->
       @pause()
-      @x_range.set(range_info.xr)
-      @y_range.set(range_info.yr)
+      if range_info.sdx?
+        @map.panBy(range_info.sdx, range_info.sdy)
+      else
+        sw_lng = Math.min(range_info.xr.start, range_info.xr.end)
+        ne_lng = Math.max(range_info.xr.start, range_info.xr.end)
+        sw_lat = Math.min(range_info.yr.start, range_info.yr.end)
+        ne_lat = Math.max(range_info.yr.start, range_info.yr.end)
+
+        center = new google.maps.LatLng((ne_lat+sw_lat)/2, (ne_lng+sw_lng)/2)
+        if range_info.factor > 0
+          @zoom_count += 1
+          if @zoom_count == 10
+            @map.setZoom(@map.getZoom()+1)
+            @zoom_count = 0
+        else
+          @zoom_count -= 1
+          if @zoom_count == -10
+            @map.setCenter(center);
+            @map.setZoom(@map.getZoom()-1)
+            @map.setCenter(center);
+            @zoom_count = 0
+
       @unpause()
 
     build_tools: () ->
@@ -249,6 +213,7 @@ define [
         @request_render_canvas()
         @request_render()
       )
+
       safebind(this, @x_range, 'change', @request_render)
       safebind(this, @y_range, 'change', @request_render)
       safebind(this, @model, 'change:renderers', @build_levels)
@@ -259,9 +224,10 @@ define [
     render_init: () ->
       # TODO use template
       @$el.append($("""
-        <div class='button_bar btn-group pull-top'/>
+        <div class='button_bar btn-group'/>
         <div class='plotarea'>
         <div class='bokeh_canvas_wrapper'>
+          <div class="bokeh_gmap"></div>
           <canvas class='bokeh_canvas'></canvas>
         </div>
         </div>
@@ -269,39 +235,44 @@ define [
       @button_bar = @$el.find('.button_bar')
       @canvas_wrapper = @$el.find('.bokeh_canvas_wrapper')
       @canvas = @$el.find('canvas.bokeh_canvas')
+      @gmap_div = @$el.find('.bokeh_gmap')
 
     render_canvas: (full_render=true) ->
-      @ctx = @canvas[0].getContext('2d')
-
-      if @hidpi
-        devicePixelRatio = window.devicePixelRatio || 1
-        backingStoreRatio = @ctx.webkitBackingStorePixelRatio ||
-                            @ctx.mozBackingStorePixelRatio ||
-                            @ctx.msBackingStorePixelRatio ||
-                            @ctx.oBackingStorePixelRatio ||
-                            @ctx.backingStorePixelRatio || 1
-        ratio = devicePixelRatio / backingStoreRatio
-      else
-        ratio = 1
-
-      ow = @view_state.get('outer_width')
       oh = @view_state.get('outer_height')
+      ow = @view_state.get('outer_width')
+      iw = @view_state.get('inner_width')
+      ih = @view_state.get('inner_height')
+      top = @view_state.get('border_top')
+      left = @view_state.get('border_left')
 
-      @canvas.width = ow * ratio
-      @canvas.height = oh * ratio
-
-      @button_bar.attr('style', "width:#{ow}px;")
-      @canvas_wrapper.attr('style', "width:#{ow}px; height:#{oh}px")
-      @canvas.attr('style', "width:#{ow}px;")
-      @canvas.attr('style', "height:#{oh}px;")
-      @canvas.attr('width', ow*ratio).attr('height', oh*ratio)
+      @button_bar.width("#{ow}px")
+      @canvas_wrapper.width("#{ow}px").height("#{oh}px")
+      @canvas.attr('width', ow).attr('height', oh) # TODO: this is needed but why
       @$el.attr("width", ow).attr('height', oh)
+      @gmap_div.attr("style", "top: #{top}px; left: #{left}px; position: absolute")
+      @gmap_div.width("#{iw}px").height("#{ih}px")
+      build_map = () =>
+        mo = @mget('map_options')
+        map_options =
+          center: new google.maps.LatLng(mo.lat, mo.lng)
+          zoom:mo.zoom
+          disableDefaultUI: true
+          mapTypeId: google.maps.MapTypeId.SATELLITE
 
-      @ctx.scale(ratio, ratio)
-      @ctx.translate(0.5, 0.5)
-
+        # Create the map with above options in div
+        @map = new google.maps.Map(@gmap_div[0], map_options)
+        google.maps.event.addListener(@map, 'bounds_changed', @bounds_change)
+      _.defer(build_map)
+      @ctx = @canvas[0].getContext('2d')
       if full_render
         @render()
+
+    bounds_change: () =>
+      bds = @map.getBounds()
+      ne = bds.getNorthEast()
+      sw = bds.getSouthWest()
+      @x_range.set({start: sw.lng(), end: ne.lng(), silent:true})
+      @y_range.set({start: sw.lat(), end: ne.lat()})
 
     save_png: () ->
       @render()
@@ -310,11 +281,6 @@ define [
       base.Collections.bulksave([@model])
 
     render: (force) ->
-      super()
-      #newtime = new Date()
-      # if @last_render
-      #   console.log(newtime - @last_render)
-      # @last_render = newtime
       @requested_padding = {
         top: 0
         bottom: 0
@@ -350,17 +316,38 @@ define [
         @view_state.set("requested_border_#{k}", v)
       @is_paused = false
 
+      oh = @view_state.get('outer_height')
+      ow = @view_state.get('outer_width')
+      iw = @view_state.get('inner_width')
+      ih = @view_state.get('inner_height')
+      top = @view_state.get('border_top')
+      left = @view_state.get('border_left')
+
+      @gmap_div.attr("style", "top: #{top}px; left: #{left}px;")
+      @gmap_div.width("#{iw}px").height("#{ih}px")
+
+      @ctx.clearRect(0, 0, ow, oh)
+
+      @ctx.beginPath()
+      @ctx.moveTo(0,  0)
+      @ctx.lineTo(0,  oh)
+      @ctx.lineTo(ow, oh)
+      @ctx.lineTo(ow, 0)
+      @ctx.lineTo(0,  0)
+
+      @ctx.moveTo(left,    top)
+      @ctx.lineTo(left+iw, top)
+      @ctx.lineTo(left+iw, top+ih)
+      @ctx.lineTo(left,    top+ih)
+      @ctx.lineTo(left,    top)
+      @ctx.closePath()
+
       @ctx.fillStyle = @mget('border_fill')
-      @ctx.fillRect(0, 0,  @view_state.get('canvas_width'), @view_state.get('canvas_height')) # TODO
-      @ctx.fillStyle = @mget('background_fill')
-      @ctx.fillRect(
-        @view_state.get('border_left'), @view_state.get('border_top'),
-        @view_state.get('inner_width'), @view_state.get('inner_height'),
-      )
+      @ctx.fill()
 
       have_new_mapper_state = false
       xms = @xmapper.get('mapper_state')[0]
-      yms = @ymapper.get('mapper_state')[0]
+      yms = @xmapper.get('mapper_state')[0]
       if Math.abs(@old_mapper_state.x-xms) > 1e-8 or Math.abs(@old_mapper_state.y - yms) > 1e-8
         @old_mapper_state.x = xms
         @old_mapper_state.y = yms
@@ -394,9 +381,9 @@ define [
         @title_props.set(@ctx, {})
         @ctx.fillText(title, sx, sy)
 
-  class Plot extends HasParent
-    type: 'Plot'
-    default_view: PlotView
+  class GMapPlot extends HasParent
+    type: 'GMapPlot'
+    default_view: GMapPlotView
 
     add_renderers: (new_renderers) ->
       renderers = @get('renderers')
@@ -404,7 +391,6 @@ define [
       @set('renderers', renderers)
 
     parent_properties: [
-      'background_fill',
       'border_fill',
       'canvas_width',
       'canvas_height',
@@ -417,21 +403,19 @@ define [
       'min_border_right'
     ]
 
-  Plot::defaults = _.clone(Plot::defaults)
-  _.extend(Plot::defaults , {
+  GMapPlot::defaults = _.clone(GMapPlot::defaults)
+  _.extend(GMapPlot::defaults , {
     'data_sources': {},
     'renderers': [],
     'tools': [],
-    'title': 'Plot',
+    'title': 'GMapPlot',
   })
 
-  Plot::display_defaults = _.clone(Plot::display_defaults)
-  _.extend(Plot::display_defaults
+  GMapPlot::display_defaults = _.clone(GMapPlot::display_defaults)
+  _.extend(GMapPlot::display_defaults
     ,
-      hidpi: true,
-      background_fill: "#fff",
       border_fill: "#eee",
-      border_symmetry: "h",
+      border_symmetry: 'h',
       min_border: 40,
       x_offset: 0,
       y_offset: 0,
@@ -450,12 +434,12 @@ define [
       title_text_baseline: "alphabetic"
   )
 
-  class Plots extends Backbone.Collection
-     model: Plot
+  class GMapPlots extends Backbone.Collection
+     model: GMapPlot
 
   return {
-    "Model": Plot,
-    "Collection": new Plots(),
-    "View": PlotView,
+    "Model": GMapPlot,
+    "Collection": new GMapPlots(),
+    "View": GMapPlotView,
   }
 
