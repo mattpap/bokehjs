@@ -122,6 +122,6 @@ define [
 
   return {
     "Model": ResizeTool
-    "Collection": new ResizeTools),
+    "Collection": new ResizeTools(),
     "View": ResizeToolView
   }

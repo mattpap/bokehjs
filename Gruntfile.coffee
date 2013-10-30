@@ -13,9 +13,9 @@ module.exports = (grunt) ->
       tests:
         files: [
           expand: true
-          cwd: 'tests'
+          cwd: 'test'
           src: ['**/*.html', '**/*.js']  # copy index.html from src to dist
-          dest: 'build/tests'
+          dest: 'build/test'
           filter: 'isFile'
         ]
       requirejs:
@@ -51,9 +51,9 @@ module.exports = (grunt) ->
         ext: '.js'             # file extension for compiled files
       test_compile:
         expand: true           # enable dynamic expansion
-        cwd: 'tests'           # source dir for coffee files
+        cwd: 'test'            # source dir for coffee files
         src: '**/*.coffee'     # traverse *.coffee files relative to cwd
-        dest: 'build/tests'    # destination for compiled js files
+        dest: 'build/test'     # destination for compiled js files
         ext: '.js'             # file extension for compiled files
     requirejs:
       compile:
@@ -80,11 +80,11 @@ module.exports = (grunt) ->
         options:
           spawn: false
     qunit:
-      #all: ['build/tests/*.html']
+      #all: ['build/test/*.html']
       all:
         options:
           urls:[
-            'http://localhost:8000/tests/index.html',]
+            'http://localhost:8000/test/index.html',]
 
   grunt.loadNpmTasks("grunt-contrib-coffee")
   grunt.loadNpmTasks("grunt-contrib-watch")

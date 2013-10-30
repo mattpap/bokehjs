@@ -1,5 +1,5 @@
 
-define [] () ->
+define [], () ->
 
   svg_colors = {
     indianred: "#CD5C5C"
