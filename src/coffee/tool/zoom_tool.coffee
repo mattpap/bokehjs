@@ -10,19 +10,19 @@ define [
 
   class ZoomToolView extends Tool.View
 
-    initialize : (options) ->
+    initialize: (options) ->
       super(options)
 
-    eventGeneratorClass : OnePointWheelEventGenerator
-    evgen_options : {buttonText:"Zoom"}
-    tool_events : {
+    eventGeneratorClass: OnePointWheelEventGenerator
+    evgen_options: {buttonText:"Zoom"}
+    tool_events: {
       zoom: "_zoom"}
 
-    mouse_coords : (e, x, y) ->
+    mouse_coords: (e, x, y) ->
       [x_, y_] = [@plot_view.view_state.device_to_sx(x), @plot_view.view_state.device_to_sy(y)]
       return [x_, y_]
 
-    _zoom : (e) ->
+    _zoom: (e) ->
       delta   = e.delta
       screenX = e.bokehX
       screenY = e.bokehY
@@ -53,19 +53,19 @@ define [
       return null
 
   class ZoomTool extends Tool.Model
-    type : "ZoomTool"
-    default_view : ZoomToolView
+    type: "ZoomTool"
+    default_view: ZoomToolView
 
   ZoomTool::defaults = _.clone(ZoomTool::defaults)
   _.extend(ZoomTool::defaults
     ,
-      dimensions : []
-      dataranges : []
-      speed : 1/600
+      dimensions: []
+      dataranges: []
+      speed: 1/600
   )
 
   class ZoomTools extends Backbone.Collection
-    model : ZoomTool
+    model: ZoomTool
 
   return {
     "Model": ZoomTool,

@@ -4,10 +4,10 @@ define [] () ->
   class ActiveToolManager
     """ This makes sure that only one tool is active at a time """
 
-    constructor : (@event_sink) ->
+    constructor: (@event_sink) ->
       @event_sink.active = null
 
-    bind_bokeh_events : () ->
+    bind_bokeh_events: () ->
       @event_sink.on("clear_active_tool", () =>
         @event_sink.trigger("#{@event_sink.active}:deactivated")
         @event_sink.active = null

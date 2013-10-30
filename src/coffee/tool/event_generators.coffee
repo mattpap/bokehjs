@@ -114,7 +114,7 @@ define [] () ->
         @button_activated = true)
       return eventSink
 
-    hide_button : ->
+    hide_button: ->
       @$tool_button.hide()
 
     _start_drag: ->
@@ -219,7 +219,7 @@ define [] () ->
         @$tool_button.addClass('active'))
 
       return eventSink
-    hide_button : ->
+    hide_button: ->
       @$tool_button.hide()
 
 
@@ -290,7 +290,7 @@ define [] () ->
         @$tool_button.addClass('active'))
 
       return eventSink
-    hide_button : ->
+    hide_button: ->
       @$tool_button.hide()
 
   return {

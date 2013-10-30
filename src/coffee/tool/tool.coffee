@@ -8,10 +8,10 @@ define [
 ] (_, PlotWidget, HasParent) ->
 
   class ToolView extends PlotWidget
-    initialize : (options) ->
+    initialize: (options) ->
       super(options)
 
-    bind_bokeh_events : () ->
+    bind_bokeh_events: () ->
       eventSink = @plot_view.eventSink
       evgen_options = { eventBasename:@cid }
       evgen_options2 = _.extend(evgen_options, @evgen_options)
@@ -25,7 +25,6 @@ define [
         eventSink.on(full_event_name, wrap))
       @evgen = evgen
       render: () ->
-
 
   class Tool extends HasParent
 

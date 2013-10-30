@@ -22,7 +22,7 @@ define [
     evgen_options:
       keyName:"shiftKey"
       buttonText:"Pan"
-      restrict_to_innercanvas : true
+      restrict_to_innercanvas: true
     tool_events: {
       UpdatingMouseMove: "_drag",
       SetBasepoint: "_set_base_point"}

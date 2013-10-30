@@ -29,7 +29,7 @@ define [
   DataRangeBoxSelectTool::defaults = _.clone(DataRangeBoxSelectTool::defaults)
 
   class DataRangeBoxSelectTools extends Backbone.Collection
-    model : DataRangeBoxSelectTool
+    model: DataRangeBoxSelectTool
 
   return {
     "Model": DataRangeBoxSelectTool,

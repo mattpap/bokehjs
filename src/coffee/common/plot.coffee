@@ -26,7 +26,7 @@ delayAnimation = (f) ->
 
 delayAnimation = window.requestAnimationFrame ||
         window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame ||
-        window.msRequestAnimationFrame || delayAnimation;
+        window.msRequestAnimationFrame || delayAnimation
 
 #Returns a function, that, when invoked, will only be triggered at
 #most once during a given window of time.  If the browser supports
@@ -38,30 +38,30 @@ throttleAnimation = (func, wait) ->
   previous = 0
   pending = false
   later = ->
-    previous = new Date;
+    previous = new Date
     timeout = null
     pending = false
-    result = func.apply(context, args);
+    result = func.apply(context, args)
 
   return ->
-    now = new Date;
-    remaining = wait - (now - previous);
-    context = this;
-    args = arguments;
+    now = new Date
+    remaining = wait - (now - previous)
+    context = this
+    args = arguments
     if (remaining <= 0 and !pending)
-      clearTimeout(timeout);
-      pending = true;
+      clearTimeout(timeout)
+      pending = true
       delayAnimation(later)
     else if (!timeout)
       timeout = setTimeout(
        (->
           delayAnimation(later)),
        remaining)
-    return result;
+    return result
 
 
 class PlotView extends ContinuumView
-  className : "bokeh plotview"
+  className: "bokeh plotview"
   events:
     "mousemove .bokeh_canvas_wrapper": "_mousemove"
     "mousedown .bokeh_canvas_wrapper": "_mousedown"
@@ -77,22 +77,22 @@ class PlotView extends ContinuumView
     for f in @moveCallbacks
       f(e, e.layerX, e.layerY)
 
-  pause : () ->
+  pause: () ->
     @is_paused = true
 
-  unpause : (render_canvas=false) ->
+  unpause: (render_canvas=false) ->
     @is_paused = false
     if render_canvas
       @request_render_canvas(true)
     else
       @request_render()
 
-  request_render : () ->
+  request_render: () ->
     if not @is_paused
       @throttled_render()
     return
 
-  request_render_canvas : (full_render) ->
+  request_render_canvas: (full_render) ->
     if not @is_paused
       @throttled_render_canvas(full_render)
     return
@@ -175,7 +175,7 @@ class PlotView extends ContinuumView
     @bind_bokeh_events()
     return this
 
-  map_to_screen : (x, x_units, y, y_units, units) ->
+  map_to_screen: (x, x_units, y, y_units, units) ->
     if x_units == 'screen'
       if _.isArray(x)
         sx = x[..]
@@ -195,7 +195,7 @@ class PlotView extends ContinuumView
 
     return [sx, sy]
 
-  map_from_screen : (sx, sy, units) ->
+  map_from_screen: (sx, sy, units) ->
     if _.isArray(sx)
       dx = x[..]
     else
@@ -217,7 +217,7 @@ class PlotView extends ContinuumView
 
     return [x, y]
 
-  update_range : (range_info) ->
+  update_range: (range_info) ->
     @pause()
     @x_range.set(range_info.xr)
     @y_range.set(range_info.yr)
@@ -291,8 +291,8 @@ class PlotView extends ContinuumView
     ow = @view_state.get('outer_width')
     oh = @view_state.get('outer_height')
 
-    @canvas.width = ow * ratio;
-    @canvas.height = oh * ratio;
+    @canvas.width = ow * ratio
+    @canvas.height = oh * ratio
 
     @button_bar.attr('style', "width:#{ow}px;")
     @canvas_wrapper.attr('style', "width:#{ow}px; height:#{oh}px")
@@ -301,8 +301,8 @@ class PlotView extends ContinuumView
     @canvas.attr('width', ow*ratio).attr('height', oh*ratio)
     @$el.attr("width", ow).attr('height', oh)
 
-    @ctx.scale(ratio, ratio);
-    @ctx.translate(0.5, 0.5);
+    @ctx.scale(ratio, ratio)
+    @ctx.translate(0.5, 0.5)
 
     if full_render
       @render()

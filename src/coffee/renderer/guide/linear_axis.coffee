@@ -84,7 +84,7 @@ define [
 
   class LinearAxisView extends PlotWidget
     initialize: (attrs, options) ->
-      #hugo : i don't think views take 2 params for initialize
+      #hugo: i don't think views take 2 params for initialize
       super(attrs, options)
 
       @rule_props = new line_properties(@, null, 'axis_')

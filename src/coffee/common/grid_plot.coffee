@@ -45,9 +45,10 @@ class GridPlotView extends ContinuumView
   #bokeh events
   b_events: {
     "change:children model": "build_children",
-    "change model":           "render",
-    "change viewstate"     : "render",
-    "destroy model"        : "remove"}
+    "change model":          "render",
+    "change viewstate":      "render",
+    "destroy model":         "remove",
+  }
 
   build_children: () ->
     childmodels = []
@@ -57,7 +58,7 @@ class GridPlotView extends ContinuumView
     build_views(@childviews, childmodels, {})
     @set_child_view_states()
 
-  makeButton : (eventSink, constructor, toolbar_div, button_name) ->
+  makeButton: (eventSink, constructor, toolbar_div, button_name) ->
 
     all_tools = _.flatten(_.map(_.pluck(this.childviews, 'tools'), _.values))
     specific_tools = _.where(all_tools, {constructor:constructor})
@@ -85,7 +86,7 @@ class GridPlotView extends ContinuumView
         t_name = t.evgen.toolName
         t.evgen.eventSink.trigger("#{t_name}:activated")))
 
-  addGridToolbar : ->
+  addGridToolbar: ->
 
     @button_bar = $("<div class='grid_button_bar'/>")
     @button_bar.attr('style',     "position:absolute; left:10px; top:5px; ")
@@ -106,7 +107,7 @@ class GridPlotView extends ContinuumView
     _.map(all_tools, (t) ->
       t.evgen.hide_button())
 
-    
+
   render: () ->
     super()
     for view in _.values(@childviews)
@@ -115,7 +116,7 @@ class GridPlotView extends ContinuumView
     @addGridToolbar()
     row_heights =  @viewstate.get('layout_heights')
     col_widths =  @viewstate.get('layout_widths')
-    
+
     y_coords = [0]
     _.reduceRight(row_heights[1..]
       ,
@@ -160,7 +161,7 @@ class GridPlotView extends ContinuumView
 
 
     @render_end()
-  
+
 class GridPlot extends HasParent
   type: 'GridPlot'
   default_view: GridPlotView

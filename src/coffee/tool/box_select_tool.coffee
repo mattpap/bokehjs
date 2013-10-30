@@ -9,12 +9,12 @@ define [
   TwoPointWheelEventGenerator = EventGenerators.TwoPointWheelEventGenerator
 
   class BoxSelectToolView extends Tool.View
-    initialize : (options) ->
+    initialize: (options) ->
       super(options)
       @select_callback = _.debounce((() => @_select_data()), 50)
       @listenTo(@model, 'change', @select_callback)
 
-    bind_bokeh_events : () ->
+    bind_bokeh_events: () ->
       super()
       for renderer in @mget_obj('renderers')
         rendererview = @plot_view.renderers[renderer.id]
@@ -27,38 +27,38 @@ define [
         #   @select_callback)
         @listenTo(renderer, 'change', @select_callback)
 
-    eventGeneratorClass : TwoPointEventGenerator
-    evgen_options :
+    eventGeneratorClass: TwoPointEventGenerator
+    evgen_options:
       keyName:"ctrlKey",
       buttonText:"Select",
-      restrict_to_innercanvas : true
-    tool_events : {
-      SetBasepoint : "_start_selecting",
+      restrict_to_innercanvas: true
+    tool_events: {
+      SetBasepoint: "_start_selecting",
       #UpdatingMouseMove: "box_selecting",
       UpdatingMouseMove: "_selecting",
 
       #DragEnd: "_selecting",
-      deactivated : "_stop_selecting"}
+      deactivated: "_stop_selecting"}
 
     pause:()->
       ""
 
-    mouse_coords : (e, x, y) ->
+    mouse_coords: (e, x, y) ->
       [x, y] = [@plot_view.view_state.device_to_sx(x),
         @plot_view.view_state.device_to_sy(y)]
       return [x, y]
 
-    _stop_selecting : () ->
+    _stop_selecting: () ->
       @trigger('stopselect')
       @basepoint_set = false
 
-    _start_selecting : (e) ->
+    _start_selecting: (e) ->
       @trigger('startselect')
       [x, y] = @mouse_coords(e, e.bokehX, e.bokehY)
-      @mset({'start_x' : x, 'start_y' : y, 'current_x' : null, 'current_y' : null})
+      @mset({'start_x': x, 'start_y': y, 'current_x': null, 'current_y': null})
       @basepoint_set = true
 
-    _get_selection_range : ->
+    _get_selection_range: ->
       xrange = [@mget('start_x'), @mget('current_x')]
       yrange = [@mget('start_y'), @mget('current_y')]
       if @mget('select_x')
@@ -71,7 +71,7 @@ define [
         yrange = null
       return [xrange, yrange]
 
-    _get_selection_range_fast : (current_x, current_y)->
+    _get_selection_range_fast: (current_x, current_y)->
       xrange = [@mget('start_x'), current_x]
       yrange = [@mget('start_y'), current_y]
       if @mget('select_x')
@@ -84,20 +84,20 @@ define [
         yrange = null
       return [xrange, yrange]
 
-    _selecting : (e, x_, y_) ->
+    _selecting: (e, x_, y_) ->
       [x, y] = @mouse_coords(e, e.bokehX, e.bokehY)
-      @mset({'current_x' : x, 'current_y' : y})
+      @mset({'current_x': x, 'current_y': y})
       [@xrange, @yrange] = @_get_selection_range(x, y)
       @trigger('boxselect', @xrange, @yrange)
       return null
 
-    box_selecting : (e, x_, y_) ->
+    box_selecting: (e, x_, y_) ->
       [x, y] = @mouse_coords(e, e.bokehX, e.bokehY)
       [@xrange, @yrange] = @_get_selection_range_fast(x, y)
       @trigger('boxselect', @xrange, @yrange)
       return null
 
-    _select_data : () ->
+    _select_data: () ->
       if not @basepoint_set
         return
       datasources = {}
@@ -126,27 +126,27 @@ define [
         selected = _.intersection.apply(_, v)
         ds = datasources[k]
         ds.save(
-          selected :selected
+          selected:selected
         ,
-          {patch : true}
+          {patch: true}
         )
       return null
 
   class BoxSelectTool extends Tool.Model
-    type : "BoxSelectTool"
-    default_view : BoxSelectToolView
+    type: "BoxSelectTool"
+    default_view: BoxSelectToolView
 
   BoxSelectTool::defaults = _.clone(BoxSelectTool::defaults)
   _.extend(BoxSelectTool::defaults
     ,
-      renderers : []
-      select_x : true
-      select_y : true
-      data_source_options : {} #backbone options for save on datasource
+      renderers: []
+      select_x: true
+      select_y: true
+      data_source_options: {} #backbone options for save on datasource
   )
 
   class BoxSelectTools extends Backbone.Collection
-    model : BoxSelectTool
+    model: BoxSelectTool
 
   return {
     "Model": BoxSelectTool,
