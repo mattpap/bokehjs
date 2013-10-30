@@ -5,14 +5,6 @@ define [
 
   locations =
 
-    PanTool:         ['./tools/pan_tool',          'pantools']
-    ZoomTool:        ['./tools/zoom_tool',         'zoomtools']
-    ResizeTool:      ['./tools/resize_tool',       'resizetools']
-    SelectionTool:   ['./tools/select_tool',       'selectiontools']
-    DataRangeBoxSelectionTool:   ['./tools/select_tool', 'datarangeboxselectiontools']
-    PreviewSaveTool: ['./tools/preview_save_tool', 'previewsavetools']
-    EmbedTool:       ['./tools/embed_tool', 'embedtools']
-
     Plot:                  'common/plot'
     GMapPlot:              'common/gmap_plot'
     GridPlot:              'common/grid_plot'
@@ -30,15 +22,22 @@ define [
     DataFactorRange:       'range/data_factor_range'
 
     Glyph:                 'renderer/glyph/glyph'
-    LinearAxis:            'renderers/guide/linear_axis'
-    DatetimeAxis:          'renderers/guide/datetime_axis'
-    Grid:                  'renderers/guide/grid'
-    Legend:                'renderers/annotation/legend'
-
-    BoxSelectionOverlay:   'renderer/overlay/box_selection'
+    LinearAxis:            'renderer/guide/linear_axis'
+    DatetimeAxis:          'renderer/guide/datetime_axis'
+    Grid:                  'renderer/guide/grid'
+    Legend:                'renderer/annotation/legend'
+    BoxSelection:          'renderer/overlay/box_selection'
 
     ObjectArrayDataSource: 'source/object_array_data_source'
     ColumnDataSource:      'source/column_data_source'
+
+    PanTool:               'tools/pan_tool'
+    ZoomTool:              'tools/zoom_tool'
+    ResizeTool:            'tools/resize_tool'
+    BoxSelectTool:         'tools/box_select_tool'
+    DataRangeBoxSelectTool:'tools/data_range_box_select_tool'
+    PreviewSaveTool:       'tools/preview_save_tool'
+    EmbedTool:             'tools/embed_tool'
 
     DataSlider:            'widget/data_slider'
 
