@@ -1,8 +1,9 @@
 
 define [
   "underscore",
+  "backbone",
   "common/has_properties"
-], (_, HasProperties) ->
+], (_, Backbone, HasProperties) ->
 
   class ObjectArrayDataSource extends HasProperties
     type: 'ObjectArrayDataSource'

@@ -3,7 +3,7 @@ define [
   "underscore",
   "renderer/properties",
   "./glyph",
-] (_, Properties, Glyph) ->
+], (_, Properties, Glyph) ->
 
   glyph_properties = Properties.glyph_properties
   text_properties  = Properties.text_properties

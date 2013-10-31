@@ -1,9 +1,10 @@
 
-define [
-  "underscore",
-  "common/has_parent",
-  "common/plot_widget",
-] (_, HasParent, PlotWidget) ->
+define (_, HasParent, PlotWidget) ->
+
+  _ = require("underscore")
+  HasParent = require("common/has_parent")
+  PlotWidget = require("common/plot_widget")
+  a
 
   class GlyphView extends PlotWidget
 
@@ -106,6 +107,76 @@ define [
 
   class Glyphs extends Backbone.Collection
     model: (attrs, options) ->
+
+      annular_wedge     = require("./annular_wedge")
+      annulus           = require("./annulus")
+      arc               = require("./arc")
+      asterisk          = require("./asterisk")
+      bezier            = require("./bezier")
+      circle            = require("./circle")
+      circle_x          = require("./circle_x")
+      circle_cross      = require("./circle_cross")
+      diamond           = require("./diamond")
+      diamond_cross     = require("./diamond_cross")
+      image             = require("./image")
+      image_rgba        = require("./image_rgba")
+      image_uri         = require("./image_uri")
+      inverted_triangle = require("./inverted_triangle")
+      line              = require("./line")
+      multi_line        = require("./multi_line")
+      oval              = require("./oval")
+      patch             = require("./patch")
+      patches           = require("./patches")
+      cross             = require("./cross")
+      quad              = require("./quad")
+      quadratic         = require("./quadratic")
+      ray               = require("./ray")
+      rect              = require("./rect")
+      square            = require("./square")
+      square_x          = require("./square_x")
+      square_cross      = require("./square_cross")
+      segment           = require("./segment")
+      text              = require("./text")
+      triangle          = require("./triangle")
+      wedge             = require("./wedge")
+      x                 = require("./x")
+
+      glyphs = {
+        "annular_wedge"     : annular_wedge.AnnularWedge,
+        "annulus"           : annulus.Annulus,
+        "arc"               : arc.Arc,
+        "asterisk"          : asterisk.Asterisk,
+        "bezier"            : bezier.Bezier,
+        "circle"            : circle.Circle,
+        "circle_x"          : circle_x.CircleX,
+        "circle_cross"      : circle_cross.CircleCross,
+        "diamond"           : diamond.Diamond,
+        "diamond_cross"     : diamond_cross.DiamondCross,
+        "image"             : image.Image,
+        "image_rgba"        : image_rgba.ImageRGBA,
+        "image_uri"         : image_uri.ImageURI,
+        "inverted_triangle" : inverted_triangle.InvertedTriangle,
+        "line"              : line.Line,
+        "multi_line"        : multi_line.MultiLine,
+        "oval"              : oval.Oval,
+        "patch"             : patch.Patch,
+        "patches"           : patches.Patches,
+        "cross"             : cross.Cross,
+        "quad"              : quad.Quad,
+        "quadratic"         : quadratic.Quadratic,
+        "ray"               : ray.Ray,
+        "square"            : square.Square,
+        "square_x"          : square_x.SquareX,
+        "square_cross"      : square_cross.SquareCross,
+        "rect"              : rect.Rect,
+        "segment"           : segment.Segment,
+        "text"              : text.Text,
+        "triangle"          : triangle.Triangle,
+        "wedge"             : wedge.Wedge,
+        "x"                 : x.X,
+      }
+
+
       if not attrs.glyphspec?.type?
         console.log "missing glyph type"
         return

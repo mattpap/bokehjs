@@ -1,11 +1,9 @@
-PlotWidget = require('../common/plot_widget').PlotWidget
-HasParent = require('../base').HasParent
 
 define [
   "underscore",
-  "common/PlotWidget",
-  "common/HasParent",
-] (_, PlotWidget, HasParent) ->
+  "common/plot_widget",
+  "common/has_parent",
+], (_, PlotWidget, HasParent) ->
 
   class ToolView extends PlotWidget
     initialize: (options) ->

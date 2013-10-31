@@ -1,7 +1,7 @@
 
 define [
   "common/has_properties"
-] (HasProperties) ->
+], (HasProperties) ->
 
   class GridMapper extends HasProperties
 

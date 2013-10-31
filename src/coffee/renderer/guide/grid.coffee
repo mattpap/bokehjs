@@ -2,10 +2,11 @@
 define [
   "underscore",
   "common/safebind",
+  "common/has_parent",
   "common/ticking",
   "renderer/properties",
   "common/plot_widget",
-] (_, safebind, ticking, Properties, PlotWidget) ->
+], (_, safebind, HasParent, ticking, Properties, PlotWidget) ->
 
   line_properties = Properties.line_properties
 

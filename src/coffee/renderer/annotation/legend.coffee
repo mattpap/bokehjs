@@ -1,9 +1,10 @@
 
 define [
   "underscore",
-  "renderer/properties",
+  "common/has_parent",
   "common/plot_widget",
-] (_, Properties, PlotWidget) ->
+  "renderer/properties",
+], (_, HasParent, PlotWidget, Properties) ->
 
   glyph_properties = Properties.glyph_properties
   line_properties  = Properties.line_properties

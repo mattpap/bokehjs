@@ -1,29 +1,27 @@
 
 define [
+  "backbone",
   "./linear_axis",
-  "./common/ticking"
-] (LinearAxis, ticking) ->
+  "common/ticking"
+], (Backbone, LinearAxis, ticking) ->
 
-linear_axis = require('./linear_axis')
-ticking = require('../../common/ticking')
+  class DatetimeAxisView extends LinearAxis.View
 
-class DatetimeAxisView extends LinearAxis.View
+    initialize: (attrs, options) ->
+      super(attrs, options)
+      @formatter = new ticking.DatetimeFormatter()
 
-  initialize: (attrs, options) ->
-    super(attrs, options)
-    @formatter = new ticking.DatetimeFormatter()
+  class DatetimeAxis extends LinearAxis.Model
+    default_view: DatetimeAxisView
 
-class DatetimeAxis extends LinearAxis.Model
-  default_view: DatetimeAxisView
+    initialize: (attrs, options)->
+      super(attrs, options)
 
-  initialize: (attrs, options)->
-    super(attrs, options)
+  class DatetimeAxes extends Backbone.Collection
+    model: DatetimeAxis
 
-class DatetimeAxes extends Backbone.Collection
-  model: DatetimeAxis
-
-return {
-    "Model": DatetimeAxis,
-    "Collection": new DatetimeAxes(),
-    "View": DatetimeAxisView
-  }
+  return {
+      "Model": DatetimeAxis,
+      "Collection": new DatetimeAxes(),
+      "View": DatetimeAxisView
+    }

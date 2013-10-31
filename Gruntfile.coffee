@@ -10,12 +10,20 @@ module.exports = (grunt) ->
           dest: 'build'
           filter: 'isFile'
         ]
-      tests:
+      test:
         files: [
           expand: true
           cwd: 'test'
           src: ['**/*.html', '**/*.js']  # copy index.html from src to dist
           dest: 'build/test'
+          filter: 'isFile'
+        ]
+      demo:
+        files: [
+          expand: true
+          cwd: 'demo'
+          src: ['**/*.html', '**/*.js']  # copy index.html from src to dist
+          dest: 'build/demo'
           filter: 'isFile'
         ]
       requirejs:
@@ -55,6 +63,13 @@ module.exports = (grunt) ->
         src: '**/*.coffee'     # traverse *.coffee files relative to cwd
         dest: 'build/test'     # destination for compiled js files
         ext: '.js'             # file extension for compiled files
+      demo_compile:
+        expand: true           # enable dynamic expansion
+        cwd: 'demo'            # source dir for coffee files
+        src: '**/scatter.coffee'     # traverse *.coffee files relative to cwd
+        dest: 'build/demo'     # destination for compiled js files
+        ext: '.js'             # file extension for compiled files
+
     requirejs:
       compile:
         options:
@@ -79,12 +94,15 @@ module.exports = (grunt) ->
         tasks: ['less']
         options:
           spawn: false
+
     qunit:
       #all: ['build/test/*.html']
       all:
         options:
           urls:[
-            'http://localhost:8000/test/index.html',]
+            'http://localhost:8000/test/index.html',
+            'http://localhost:8000/demo/index.html',
+          ]
 
   grunt.loadNpmTasks("grunt-contrib-coffee")
   grunt.loadNpmTasks("grunt-contrib-watch")
@@ -94,6 +112,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks("grunt-contrib-clean")
   grunt.loadNpmTasks("grunt-contrib-qunit")
 
-  grunt.registerTask("default", ["coffee", "less", "copy", "qunit"])
-  grunt.registerTask("build", ["coffee", "less", "copy"])
-  grunt.registerTask("deploy", ["build", "requirejs", "clean"])
+  grunt.registerTask("default", ["coffee", "less",      "copy", "qunit"])
+  grunt.registerTask("build",   ["coffee", "less",      "copy"         ])
+  grunt.registerTask("deploy",  ["build",  "requirejs", "clean"        ])

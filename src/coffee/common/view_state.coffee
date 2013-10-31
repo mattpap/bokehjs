@@ -2,7 +2,7 @@
 define [
   "./has_properties",
   "range/range1d",
-] (HasProperties, Range1D) ->
+], (HasProperties, Range1D) ->
 
 
   # ViewState objects encapsulate all the information needed to translate to and from

@@ -1,8 +1,8 @@
 
 
 define [
-  "common/continuum_view",
-  "common/safebind"
+  "./continuum_view",
+  "./safebind"
 ], (ContinuumView, safebind) ->
 
   class PlotWidget extends ContinuumView.View
@@ -55,11 +55,18 @@ define [
       if ctx.measureText and not ctx.html5MeasureText?
         ctx.html5MeasureText = ctx.measureText
 
-        ctx.measureText = memoize((text) ->
+        # TODO (bev) restore memoization
+        # ctx.measureText = memoize((text) ->
+        #   textMetrics = ctx.html5MeasureText(text)
+        #   # fake it 'til you make it
+        #   textMetrics.ascent = ctx.html5MeasureText("m").width * 1.6
+        #   return textMetrics)
+
+        ctx.measureText = (text) ->
           textMetrics = ctx.html5MeasureText(text)
           # fake it 'til you make it
           textMetrics.ascent = ctx.html5MeasureText("m").width * 1.6
-          return textMetrics)
+          return textMetrics
 
     bind_bokeh_events: () ->
       #safebind(this, @plot_view.viewstate, 'change', ()-> @request_render())

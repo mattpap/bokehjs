@@ -1,7 +1,7 @@
 
 define [
   "./continuum_view",
-] (ContinuumView) ->
+], (ContinuumView) ->
 
   class PNGView extends ContinuumView
 

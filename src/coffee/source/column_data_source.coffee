@@ -1,10 +1,11 @@
 
 define [
   "underscore",
-  "source/object_array_data_source"
-], (_, ObjectArrayDataSource) ->
+  "backbone",
+  "./object_array_data_source"
+], (_, Backbone, ObjectArrayDataSource) ->
 
-  class ColumnDataSource extends ObjectArrayDataSource
+  class ColumnDataSource extends ObjectArrayDataSource.Model
     # Datasource where the data is defined column-wise, i.e. each key in the
     # the data attribute is a column name, and its value is an array of scalars.
     # Each column should be the same length.
@@ -27,7 +28,6 @@ define [
           point[field] = data[field][i]
         points.push(point)
       return points
-
 
   class ColumnDataSources extends Backbone.Collection
     model: ColumnDataSource

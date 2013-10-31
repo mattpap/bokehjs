@@ -1,13 +1,10 @@
-tool= require("./tool")
-ButtonEventGenerator = require("./eventgenerators").ButtonEventGenerator
-base = require("../base")
 
 define [
   "underscore",
   "backbone",
   "./tool",
-  "./event_generators"
-] (_, Backbone, Tool, EventGenerators) ->
+  "./event_generators",
+], (_, Backbone, Tool, EventGenerators) ->
 
   ButtonEventGenerator = EventGenerators.ButtonEventGenerator
 

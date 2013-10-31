@@ -3,7 +3,7 @@ define [
   "underscore",
   "renderer/properties",
   "./rect",
-] (_, Properties, Rect) ->
+], (_, Properties, Rect) ->
 
   glyph_properties = Properties.glyph_properties
   line_properties  = Properties.line_properties

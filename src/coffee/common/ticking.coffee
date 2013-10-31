@@ -1,7 +1,7 @@
 
 define [
   "underscore",
-] (_) ->
+], (_) ->
 
   sprintf = window.sprintf
   tz = window.tz
@@ -330,7 +330,9 @@ define [
       #    result = finfo(float).eps
       return result
 
-  auto_interval = memoize(auto_interval_temp)
+  # TODO (bev) restore memoization
+  #auto_interval = memoize(auto_interval_temp)
+  auto_interval = auto_interval_temp
 
 
   class BasicTickFormatter

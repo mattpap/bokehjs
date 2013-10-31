@@ -3,8 +3,8 @@ define [
   "underscore",
   "backbone",
   "./tool",
-  "./event_generators"
-] (_, Backbone, Tool, EventGenerators) ->
+  "./event_generators",
+], (_, Backbone, Tool, EventGenerators) ->
 
   OnePointWheelEventGenerator = EventGenerators.OnePointWheelEventGenerator
 

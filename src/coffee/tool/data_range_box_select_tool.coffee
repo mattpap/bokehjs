@@ -2,8 +2,8 @@
 define [
   "underscore",
   "backbone",
-  "./box_selecttool",
-] (_, Backbone, BoxSelectTool) ->
+  "./box_select_tool",
+], (_, Backbone, BoxSelectTool) ->
 
   # data range box selection tool differs from our other select tool
   # in that it just stores the selected ranges on itself

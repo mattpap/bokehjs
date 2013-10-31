@@ -2,11 +2,10 @@
 define [
   "underscore",
   "backbone",
-  "common/base"
-  "common/safebind",
-], (_, Backbone, base, safebind) ->
-
-  Collections = base.Collections
+  "require",
+  "./base"
+  "./safebind",
+], (_, Backbone, require, base, safebind) ->
 
   class HasProperties extends Backbone.Model
     # Our property system
@@ -225,7 +224,8 @@ define [
       if ref['type'] == this.type and ref['id'] == this.id
         return this
       else
-        return Collections(ref['type']).get(ref['id'])
+        base = require('./base')
+        return base.Collections(ref['type']).get(ref['id'])
 
     get_obj: (ref_name) =>
       # ### method: HasProperties::get_obj

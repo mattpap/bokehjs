@@ -1,5 +1,5 @@
 
-define [] () ->
+define [], () ->
 
   class Random
 

@@ -1,5 +1,5 @@
 
-define [] () ->
+define [], () ->
 
   class ActiveToolManager
     """ This makes sure that only one tool is active at a time """

@@ -1,7 +1,7 @@
 
 define [
   "underscore",
-  "Backbone",
+  "backbone",
   "./base",
   "./safebind",
   "./continuum_view",
@@ -11,8 +11,9 @@ define [
   "mapper/2d/grid_mapper",
   "renderer/properties",
   "tool/active_tool_manager",
-] (_, Backbone, base, safebind, ContinuumView, HasParent, ViewState, LinearMapper, GridMapper, Properties, ActiveToolManager) ->
+], (_, Backbone, base, safebind, ContinuumView, HasParent, ViewState, LinearMapper, GridMapper, Properties, ActiveToolManager) ->
 
+  base = require('./base')
   build_views = base.build_views
 
   LEVELS = ['image', 'underlay', 'glyph', 'overlay', 'annotation', 'tool']

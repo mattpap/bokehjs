@@ -1,7 +1,7 @@
 
 define [
   "underscore",
-  "Backbone",
+  "backbone",
   "./base",
   "./safebind",
   "./continuum_view",
@@ -11,9 +11,7 @@ define [
   "mapper/2d/grid_mapper",
   "renderer/properties",
   "tool/active_tool_manager",
-] (_, Backbone, base, safebind, ContinuumView, HasParent, ViewState, LinearMapper, GridMapper, Properties, ActiveToolManager) ->
-
-  build_views = base.build_views
+], (_, Backbone, base, safebind, ContinuumView, HasParent, ViewState, LinearMapper, GridMapper, Properties, ActiveToolManager) ->
 
   text_properties = Properties.text_properties
 
@@ -221,10 +219,12 @@ define [
       @unpause()
 
     build_tools: () ->
-      return build_views(@tools, @mget_obj('tools'), @view_options())
+      base = require('./base')
+      return base.build_views(@tools, @mget_obj('tools'), @view_options())
 
     build_views: ()->
-      return build_views(@renderers, @mget_obj('renderers'), @view_options())
+      base = require('./base')
+      return base.build_views(@renderers, @mget_obj('renderers'), @view_options())
 
     build_levels: () ->
       # need to separate renderer/tool creation from event binding

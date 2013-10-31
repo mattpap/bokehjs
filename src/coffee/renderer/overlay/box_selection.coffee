@@ -3,7 +3,7 @@ define [
   "underscore",
   "common/has_parent",
   "common/plot_widget",
-] (_, HasParent, PlotWidget) ->
+], (_, HasParent, PlotWidget) ->
 
   class BoxSelectionView extends PlotWidget
 

@@ -1,11 +1,13 @@
 
 define [
   "underscore",
+  "backbone",
   "common/safebind",
+  "common/has_parent",
   "common/ticking",
-  "renderer/properties",
   "common/plot_widget",
-] (_, safebind, ticking, Properties, PlotWidget) ->
+  "renderer/properties",
+], (_, Backbone, safebind, HasParent, ticking, PlotWidget, Properties) ->
 
   glyph_properties = Properties.glyph_properties
   line_properties  = Properties.line_properties
