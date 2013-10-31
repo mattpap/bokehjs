@@ -240,7 +240,7 @@ define [
 
   class AnnularWedge extends Glyph.Model
     default_view: AnnularWedgeView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   AnnularWedge::display_defaults = _.clone(AnnularWedge::display_defaults)
   _.extend(AnnularWedge::display_defaults, {

@@ -6,9 +6,9 @@ require [
   "common/random",
   "common/plot",
   "range/range1d",
-  "renderer/glyph/glyph",
+  "renderer/glyph/glyph_factory",
   "source/column_data_source"
-], (_, Random, Plot, Range1d, Glyph, ColumnDataSource) ->
+], (_, Random, Plot, Range1d, GlyphFactory, ColumnDataSource) ->
 
   #base = require('common/base')
   #Collections = base.Collections
@@ -30,7 +30,7 @@ require [
       glyphspecs = [glyphspecs]
     if not _.isArray(data_source)
       for glyphspec in glyphspecs
-        glyph = Glyph.Collection.create({
+        glyph = GlyphFactory.Collection.create({
           data_source: data_source.ref()
           glyphspec: glyphspec
           nonselection_glyphspec :
@@ -43,7 +43,7 @@ require [
     else
       for val in zip(glyphspecs, data_source)
         [glyphspec, ds] = val
-        glyph = Glyph.Collection.create({
+        glyph = GlyphFactory.Collection.create({
           xdata_range : xrange.ref()
           ydata_range : yrange.ref()
           data_source: ds.ref()

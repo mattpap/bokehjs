@@ -111,7 +111,7 @@ define [
 
   class Ray extends Glyph.Model
     default_view: RayView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   Ray::display_defaults = _.clone(Ray::display_defaults)
   _.extend(Ray::display_defaults, {

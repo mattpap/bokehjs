@@ -222,7 +222,7 @@ define [
 
   class InvertedTriangle extends Glyph.Model
     default_view: InvertedTriangleView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   InvertedTriangle::display_defaults = _.clone(InvertedTriangle::display_defaults)
   _.extend(InvertedTriangle::display_defaults, {

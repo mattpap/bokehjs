@@ -75,7 +75,7 @@ define [
 
   class Patch extends Glyph.Model
     default_view: PatchView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   Patch::display_defaults = _.clone(Patch::display_defaults)
   _.extend(Patch::display_defaults, {

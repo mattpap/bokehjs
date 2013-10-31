@@ -181,7 +181,7 @@ define [
 
   class Cross extends Glyph.Model
     default_view: CrossView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
 
   Cross::display_defaults = _.clone(Cross::display_defaults)

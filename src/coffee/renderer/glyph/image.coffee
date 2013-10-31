@@ -11,7 +11,7 @@ define [
   line_properties  = Properties.line_properties
   fill_properties  = Properties.fill_properties
 
-  all_palettes = Palletes.all_palettes
+  all_palettes = Palettes.all_palettes
 
   class ImageView extends Glyph.View
 
@@ -86,7 +86,7 @@ define [
   # name Image conflicts with js Image
   class ImageGlyph extends Glyph.Model
     default_view: ImageView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   ImageGlyph::display_defaults = _.clone(ImageGlyph::display_defaults)
   _.extend(ImageGlyph::display_defaults, {

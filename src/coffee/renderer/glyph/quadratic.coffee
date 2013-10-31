@@ -76,7 +76,7 @@ define [
 
   class Quadratic extends Glyph.Model
     default_view: QuadraticView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   Quadratic::display_defaults = _.clone(Quadratic::display_defaults)
   _.extend(Quadratic::display_defaults, {

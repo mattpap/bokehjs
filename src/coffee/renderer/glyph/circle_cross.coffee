@@ -206,7 +206,7 @@ define [
 
   class CircleCross extends Glyph.Model
     default_view: CircleCrossView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   CircleCross::display_defaults = _.clone(CircleCross::display_defaults)
   _.extend(CircleCross::display_defaults, {

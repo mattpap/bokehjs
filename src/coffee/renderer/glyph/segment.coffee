@@ -89,7 +89,7 @@ define [
 
   class Segment extends Glyph.Model
     default_view: SegmentView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   Segment::display_defaults = _.clone(Segment::display_defaults)
   _.extend(Segment::display_defaults, {

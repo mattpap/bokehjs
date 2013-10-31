@@ -196,7 +196,7 @@ define [
 
   class Asterisk extends Glyph.Model
     default_view: AsteriskView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   Asterisk::display_defaults = _.clone(Asterisk::display_defaults)
   _.extend(Asterisk::display_defaults, {

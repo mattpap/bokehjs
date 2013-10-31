@@ -206,7 +206,7 @@ define [
 
   class CircleX extends Glyph.Model
     default_view: CircleXView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   CircleX::display_defaults = _.clone(CircleX::display_defaults)
   _.extend(CircleX::display_defaults, {

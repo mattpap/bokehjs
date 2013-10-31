@@ -140,7 +140,7 @@ define [
 
   class Wedge extends Glyph.Model
     default_view: WedgeView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   Wedge::display_defaults = _.clone(Wedge::display_defaults)
   _.extend(Wedge::display_defaults, {

@@ -108,7 +108,7 @@ define [
 
   class Arc extends Glyph.Model
     default_view: ArcView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   Arc::display_defaults = _.clone(Arc::display_defaults)
   _.extend(Arc::display_defaults, {

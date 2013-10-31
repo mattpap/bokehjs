@@ -3,7 +3,7 @@ define [
   "./continuum_view",
 ], (ContinuumView) ->
 
-  class PNGView extends ContinuumView
+  class PNGView extends ContinuumView.View
 
     initialize: (options) ->
       super(options)

@@ -131,7 +131,7 @@ define [
 
   class Line extends Glyph.Model
     default_view: LineView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   Line::display_defaults = _.clone(Line::display_defaults)
   _.extend(Line::display_defaults, {

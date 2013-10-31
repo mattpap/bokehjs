@@ -78,7 +78,7 @@ define [
 
   class Bezier extends Glyph.Model
     default_view: BezierView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   Bezier::display_defaults = _.clone(Bezier::display_defaults)
   _.extend(Bezier::display_defaults, {

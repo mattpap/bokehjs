@@ -80,7 +80,7 @@ define [
   # name Image conflicts with js Image
   class ImageRGBAGlyph extends Glyph.Model
     default_view: ImageRGBAView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   ImageRGBAGlyph::display_defaults = _.clone(ImageRGBAGlyph::display_defaults)
   _.extend(ImageRGBAGlyph::display_defaults, {

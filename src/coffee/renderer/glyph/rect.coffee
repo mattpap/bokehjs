@@ -212,7 +212,7 @@ define [
 
   class Rect extends Glyph.Model
     default_view: RectView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   Rect::display_defaults = _.clone(Rect::display_defaults)
   _.extend(Rect::display_defaults, {

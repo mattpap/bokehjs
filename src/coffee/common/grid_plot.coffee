@@ -16,7 +16,7 @@ define [
   base = require('./base')
   build_views = base.build_views
 
-  class GridPlotView extends ContinuumView
+  class GridPlotView extends ContinuumView.View
     tagName: 'div'
     className: "bokeh grid_plot"
     default_options: {scale:1.0}

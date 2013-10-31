@@ -181,7 +181,7 @@ define [
 
   class X extends Glyph.Model
     default_view: XView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   X::display_defaults = _.clone(X::display_defaults)
   _.extend(X::display_defaults, {

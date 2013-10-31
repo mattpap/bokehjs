@@ -2,6 +2,7 @@
 define [
   "underscore",
   "backbone",
+  "require",
   "./base",
   "./safebind",
   "./continuum_view",
@@ -11,7 +12,7 @@ define [
   "mapper/2d/grid_mapper",
   "renderer/properties",
   "tool/active_tool_manager",
-], (_, Backbone, base, safebind, ContinuumView, HasParent, ViewState, LinearMapper, GridMapper, Properties, ActiveToolManager) ->
+], (_, Backbone, require, base, safebind, ContinuumView, HasParent, ViewState, LinearMapper, GridMapper, Properties, ActiveToolManager) ->
 
   text_properties = Properties.text_properties
 
@@ -55,7 +56,7 @@ define [
          remaining)
       return result
 
-  class PlotView extends ContinuumView
+  class PlotView extends ContinuumView.View
     className: "bokeh plotview"
     events:
       "mousemove .bokeh_canvas_wrapper": "_mousemove"
@@ -222,7 +223,7 @@ define [
       base = require('./base')
       return base.build_views(@tools, @mget_obj('tools'), @view_options())
 
-    build_views: ()->
+    build_views: () ->
       base = require('./base')
       return base.build_views(@renderers, @mget_obj('renderers'), @view_options())
 

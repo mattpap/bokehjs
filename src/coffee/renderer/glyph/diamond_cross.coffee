@@ -225,7 +225,7 @@ define [
 
   class DiamondCross extends Glyph.Model
     default_view: DiamondCrossView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   DiamondCross::display_defaults = _.clone(DiamondCross::display_defaults)
   _.extend(DiamondCross::display_defaults, {

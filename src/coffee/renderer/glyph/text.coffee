@@ -91,7 +91,7 @@ define [
 
   class Text extends Glyph.Model
     default_view: TextView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   Text::display_defaults = _.clone(Text::display_defaults)
   _.extend(Text::display_defaults, {

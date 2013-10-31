@@ -213,7 +213,7 @@ define [
 
   class Diamond extends Glyph.Model
     default_view: DiamondView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   Diamond::display_defaults = _.clone(Diamond::display_defaults)
   _.extend(Diamond::display_defaults, {

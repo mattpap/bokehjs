@@ -192,7 +192,7 @@ define [
 
   class Circle extends Glyph.Model
     default_view: CircleView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   Circle::display_defaults = _.clone(Circle::display_defaults)
   _.extend(Circle::display_defaults, {

@@ -175,7 +175,7 @@ define [
 
   class SquareCross extends Glyph.Model
     default_view: SquareCrossView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   SquareCross::display_defaults = _.clone(SquareCross::display_defaults)
   _.extend(SquareCross::display_defaults, {

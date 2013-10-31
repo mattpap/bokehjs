@@ -81,7 +81,7 @@ define [
   # name Image conflicts with js Image
   class ImageURIGlyph extends Glyph.Model
     default_view: ImageURIView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   ImageURIGlyph::display_defaults = _.clone(ImageURIGlyph::display_defaults)
   _.extend(ImageURIGlyph::display_defaults, {

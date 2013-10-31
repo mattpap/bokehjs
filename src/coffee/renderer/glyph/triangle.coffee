@@ -222,7 +222,7 @@ define [
 
   class Triangle extends Glyph.Model
     default_view: TriangleView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   Triangle::display_defaults = _.clone(Triangle::display_defaults)
   _.extend(Triangle::display_defaults, {

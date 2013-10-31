@@ -91,7 +91,7 @@ define [
     FactorRange:            'range/factor_range'
     DataFactorRange:        'range/data_factor_range'
 
-    Glyph:                  'renderer/glyph/glyph'
+    Glyph:                  'renderer/glyph/glyph_factory'
     LinearAxis:             'renderer/guide/linear_axis'
     DatetimeAxis:           'renderer/guide/datetime_axis'
     Grid:                   'renderer/guide/grid'

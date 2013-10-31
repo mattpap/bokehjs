@@ -174,7 +174,7 @@ define [
 
   class SquareX extends Glyph.Model
     default_view: SquareXView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   SquareX::display_defaults = _.clone(SquareX::display_defaults)
   _.extend(SquareX::display_defaults, {

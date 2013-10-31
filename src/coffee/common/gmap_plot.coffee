@@ -18,7 +18,7 @@ define [
 
   LEVELS = ['image', 'underlay', 'glyph', 'overlay', 'annotation', 'tool']
 
-  class GMapPlotView extends ContinuumView
+  class GMapPlotView extends ContinuumView.View
     events:
       "mousemove .bokeh_canvas_wrapper": "_mousemove"
       "mousedown .bokeh_canvas_wrapper": "_mousedown"

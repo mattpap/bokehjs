@@ -182,7 +182,7 @@ define [
 
   class Annulus extends Glyph.Model
     default_view: AnnulusView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   Annulus::display_defaults = _.clone(Annulus::display_defaults)
   _.extend(Annulus::display_defaults, {

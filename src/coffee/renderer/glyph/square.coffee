@@ -82,7 +82,7 @@ define [
 
   class Square extends Rect.Model
     default_view: SquareView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   Square::display_defaults = _.clone(Square::display_defaults)
   _.extend(Square::display_defaults, {

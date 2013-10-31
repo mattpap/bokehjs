@@ -99,7 +99,7 @@ define [
 
   class MultiLine extends Glyph.Model
     default_view: MultiLineView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   MultiLine::display_defaults = _.clone(MultiLine::display_defaults)
   _.extend(MultiLine::display_defaults, {

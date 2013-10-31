@@ -144,7 +144,7 @@ define [
 
   class Quad extends Glyph.Model
     default_view: QuadView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   Quad::display_defaults = _.clone(Quad::display_defaults)
   _.extend(Quad::display_defaults, {

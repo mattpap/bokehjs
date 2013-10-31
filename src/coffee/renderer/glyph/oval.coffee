@@ -206,7 +206,7 @@ define [
 
   class Oval extends Glyph.Model
     default_view: OvalView
-    type: 'GlyphRenderer'
+    type: 'Glyph'
 
   Oval::display_defaults = _.clone(Oval::display_defaults)
   _.extend(Oval::display_defaults, {
