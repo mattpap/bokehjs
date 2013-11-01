@@ -6,7 +6,7 @@ define [
   "./event_generators",
 ], (_, Backbone, Tool, EventGenerators) ->
 
-  TwoPointWheelEventGenerator = EventGenerators.TwoPointWheelEventGenerator
+  TwoPointEventGenerator = EventGenerators.TwoPointEventGenerator
 
   class ResizeToolView extends Tool.View
     initialize: (options) ->
@@ -108,8 +108,8 @@ define [
       return null
 
   class ResizeTool extends Tool.Model
-    type: "ResizeTool"
     default_view: ResizeToolView
+    type: "ResizeTool"
 
   ResizeTool::defaults = _.clone(ResizeTool::defaults)
   _.extend(ResizeTool::defaults)

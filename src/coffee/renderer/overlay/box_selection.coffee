@@ -64,7 +64,8 @@ define [
       @$el.attr('style', style_string)
 
   class BoxSelection extends HasParent
-    default_view: BoxSelectionOverlayView
+    default_view: BoxSelectionView
+    type: "BoxSelection"
 
   BoxSelection::defaults = _.clone(BoxSelection::defaults)
   _.extend(BoxSelection::defaults,

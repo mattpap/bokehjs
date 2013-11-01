@@ -2,9 +2,10 @@
 define [
   "underscore",
   "backbone",
+  "common/base",
   "./tool",
   "./event_generators",
-], (_, Backbone, Tool, EventGenerators) ->
+], (_, Backbone, base, Tool, EventGenerators) ->
 
   ButtonEventGenerator = EventGenerators.ButtonEventGenerator
 
@@ -21,6 +22,7 @@ define [
     _activated: (e) ->
       data_uri = @plot_view.canvas[0].toDataURL()
       @plot_model.set('png', @plot_view.canvas[0].toDataURL())
+      base = require("common/base")
       base.Collections.bulksave([@plot_model])
       #@model.sync()
       modal = """
@@ -46,8 +48,8 @@ define [
       $('#previewModal > .modal').modal({show:true});
 
   class PreviewSaveTool extends Tool.Model
-    type: "PreviewSaveTool"
     default_view: PreviewSaveToolView
+    type: "PreviewSaveTool"
 
   PreviewSaveTool::defaults = _.clone(PreviewSaveTool::defaults)
   _.extend(PreviewSaveTool::defaults)

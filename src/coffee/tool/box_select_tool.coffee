@@ -6,7 +6,7 @@ define [
   "./event_generators",
 ], (_, Backbone, Tool, EventGenerators) ->
 
-  TwoPointWheelEventGenerator = EventGenerators.TwoPointWheelEventGenerator
+  TwoPointEventGenerator = EventGenerators.TwoPointEventGenerator
 
   class BoxSelectToolView extends Tool.View
     initialize: (options) ->
@@ -133,8 +133,8 @@ define [
       return null
 
   class BoxSelectTool extends Tool.Model
-    type: "BoxSelectTool"
     default_view: BoxSelectToolView
+    type: "BoxSelectTool"
 
   BoxSelectTool::defaults = _.clone(BoxSelectTool::defaults)
   _.extend(BoxSelectTool::defaults

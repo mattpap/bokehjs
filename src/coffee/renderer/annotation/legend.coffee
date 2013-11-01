@@ -124,6 +124,7 @@ define [
 
   class Legend extends HasParent
     default_view: LegendView
+    type: 'Legend'
 
   Legend::defaults = _.clone(Legend::defaults)
   Legend::display_defaults = _.clone(Legend::display_defaults)

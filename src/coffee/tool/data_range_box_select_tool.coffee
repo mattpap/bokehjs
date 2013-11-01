@@ -23,13 +23,13 @@ define [
       @model.save()
 
   class DataRangeBoxSelectTool extends BoxSelectTool.Model
-    type: "DataRangeBoxSelectTool"
     default_view: DataRangeBoxSelectToolView
+    type: "DataRangeBoxSelectTool"
 
   DataRangeBoxSelectTool::defaults = _.clone(DataRangeBoxSelectTool::defaults)
 
   class DataRangeBoxSelectTools extends Backbone.Collection
-    model: DataRangeBoxSelectTool
+    model: DataRangeBoxSelectToolView
 
   return {
     "Model": DataRangeBoxSelectTool,

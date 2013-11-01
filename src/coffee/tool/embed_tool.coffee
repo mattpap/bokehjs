@@ -58,8 +58,8 @@ define [
       $('#embedModal > .modal').modal({show:true});
 
   class EmbedTool extends Tool.Model
-     type: "EmbedTool"
      default_view: EmbedToolView
+     type: "EmbedTool"
 
   EmbedTool::defaults = _.clone(EmbedTool::defaults)
   _.extend(EmbedTool::defaults)

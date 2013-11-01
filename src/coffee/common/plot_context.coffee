@@ -2,14 +2,11 @@
 define [
   "underscore",
   "backbone",
-  "./base",
+  "./build_views",
   "./safebind",
   "./has_parent"
   "./continuum_view",
-], (_, base, Backbone, safebind, HasParent, ContinuumView) ->
-
-  base = require('./base')
-  build_views = base.build_views
+], (_, Backbone, build_views, safebind, HasParent, ContinuumView) ->
 
   class PlotContextView extends ContinuumView.View
     initialize: (options) ->
@@ -25,9 +22,7 @@ define [
       super()
 
     build_children: () ->
-      created_views = build_views(
-        @views, @mget_obj('children'), {})
-
+      created_views = build_views(@views, @mget_obj('children'), {})
       window.pc_created_views = created_views
       window.pc_views = @views
       return null

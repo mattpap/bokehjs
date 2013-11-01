@@ -23,13 +23,15 @@ define [
       return [x_, y_]
 
     _zoom: (e) ->
-      delta   = e.delta
+      # TODO (bev) fix up the correct way?
+      #delta   = e.delta
+      delta = e.originalEvent.wheelDelta
       screenX = e.bokehX
       screenY = e.bokehY
 
       [x, y]  = @mouse_coords(e, screenX, screenY)
       speed   = @mget('speed')
-      factor  = speed * (delta * 50)
+      factor  = speed * (delta) # * 50)  # TODO
 
       xr = @plot_view.view_state.get('inner_range_horizontal')
       sx_low  = xr.get('start')
@@ -49,12 +51,13 @@ define [
         yr: {start: ystart, end: yend}
         factor: factor
       }
+      console.log "ZOOM", zoom_info
       @plot_view.update_range(zoom_info)
       return null
 
   class ZoomTool extends Tool.Model
-    type: "ZoomTool"
     default_view: ZoomToolView
+    type: "ZoomTool"
 
   ZoomTool::defaults = _.clone(ZoomTool::defaults)
   _.extend(ZoomTool::defaults

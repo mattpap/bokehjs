@@ -6,7 +6,7 @@ define [
   "./event_generators",
 ], (_, Backbone, Tool, EventGenerators) ->
 
-  TwoPointWheelEventGenerator = EventGenerators.TwoPointWheelEventGenerator
+  TwoPointEventGenerator = EventGenerators.TwoPointEventGenerator
 
   window.render_count = 0
 
@@ -65,8 +65,8 @@ define [
       return null
 
   class PanTool extends Tool.Model
-    type: "PanTool"
     default_view: PanToolView
+    type: "PanTool"
 
   PanTool::defaults = _.clone(PanTool::defaults)
   _.extend(PanTool::defaults

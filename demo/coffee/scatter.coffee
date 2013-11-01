@@ -7,8 +7,16 @@ require [
   "common/plot",
   "range/range1d",
   "renderer/glyph/glyph_factory",
+  "renderer/guide/linear_axis",
+  "renderer/guide/grid",
+  "renderer/overlay/box_selection"
+  "tool/pan_tool",
+  "tool/zoom_tool",
+  "tool/box_select_tool",
+  "tool/preview_save_tool",
+  "tool/resize_tool",
   "source/column_data_source"
-], (_, Random, Plot, Range1d, GlyphFactory, ColumnDataSource) ->
+], (_, Random, Plot, Range1d, GlyphFactory, LinearAxis, Grid, BoxSelection, PanTool, ZoomTool, BoxSelectTool, PreviewSaveTool, ResizeTool, ColumnDataSource) ->
 
   #base = require('common/base')
   #Collections = base.Collections
@@ -63,64 +71,58 @@ require [
 
     plot_model.set(defaults)
     plot_model.add_renderers(g.ref() for g in glyphs)
-    # if axes
-    #   xaxis1 = Collections('GuideRenderer').create(
-    #     type: 'linear_axis'
-    #     dimension: 0
-    #     axis_label: 'x'
-    #     plot: plot_model.ref()
-    #   )
-    #   yaxis1 = Collections('GuideRenderer').create(
-    #     type: 'linear_axis'
-    #     dimension: 1
-    #     axis_label: 'y'
-    #     plot: plot_model.ref()
-    #   )
-    #   xaxis2 = Collections('GuideRenderer').create(
-    #     type: 'linear_axis'
-    #     dimension: 0
-    #     location: 'max'
-    #     plot: plot_model.ref()
-    #   )
-    #   yaxis2 = Collections('GuideRenderer').create(
-    #     type: 'linear_axis'
-    #     dimension: 1
-    #     location: 'max'
-    #     plot: plot_model.ref()
-    #   )
-    #   xgrid = Collections('GuideRenderer').create(
-    #     type: 'grid'
-    #     dimension: 0
-    #     plot: plot_model.ref()
-    #   )
-    #   ygrid = Collections('GuideRenderer').create(
-    #     type: 'grid'
-    #     dimension: 1
-    #     plot: plot_model.ref()
-    #   )
-    #   plot_model.add_renderers(
-    #     [xgrid.ref(), ygrid.ref(), xaxis1.ref(), yaxis1.ref(), xaxis2.ref(), yaxis2.ref()]
-    #   )
-    # if tools
-    #   pantool = Collections('PanTool').create(
-    #     dataranges: [xrange.ref(), yrange.ref()]
-    #     dimensions: ['width', 'height']
-    #   )
-    #   zoomtool = Collections('ZoomTool').create(
-    #     dataranges: [xrange.ref(), yrange.ref()]
-    #     dimensions: ['width', 'height']
-    #   )
-    #   selecttool = Collections('SelectionTool').create(
-    #     renderers : (x.ref() for x in glyphs)
-    #   )
-    #   boxselectionoverlay = Collections('BoxSelectionOverlay').create(
-    #     tool : selecttool.ref()
-    #   )
-    #   resizetool = Collections('ResizeTool').create()
-    #   pstool = Collections('PreviewSaveTool').create()
-    #   plot_tools = [pantool, zoomtool, pstool, resizetool, selecttool]
-    #   plot_model.set_obj('tools', plot_tools)
-    #   plot_model.add_renderers([boxselectionoverlay.ref()])
+    if axes
+      xaxis1 = LinearAxis.Collection.create(
+        dimension: 0
+        axis_label: 'x'
+        plot: plot_model.ref()
+      )
+      yaxis1 = LinearAxis.Collection.create(
+        dimension: 1
+        axis_label: 'y'
+        plot: plot_model.ref()
+      )
+      xaxis2 = LinearAxis.Collection.create(
+        dimension: 0
+        location: 'max'
+        plot: plot_model.ref()
+      )
+      yaxis2 = LinearAxis.Collection.create(
+        dimension: 1
+        location: 'max'
+        plot: plot_model.ref()
+      )
+      xgrid = Grid.Collection.create(
+        dimension: 0
+        plot: plot_model.ref()
+      )
+      ygrid = Grid.Collection.create(
+        dimension: 1
+        plot: plot_model.ref()
+      )
+      plot_model.add_renderers(
+        [xgrid.ref(), ygrid.ref(), xaxis1.ref(), yaxis1.ref(), xaxis2.ref(), yaxis2.ref()]
+      )
+    if tools
+      pantool = PanTool.Collection.create(
+        dataranges: [xrange.ref(), yrange.ref()]
+        dimensions: ['width', 'height']
+      )
+      zoomtool = ZoomTool.Collection.create(
+        dataranges: [xrange.ref(), yrange.ref()]
+        dimensions: ['width', 'height']
+      )
+      selecttool = BoxSelectTool.Collection.create(
+        renderers : (x.ref() for x in glyphs)
+      )
+      boxselectionoverlay = BoxSelection.Collection.create(
+        tool : selecttool.ref()
+      )
+      resizetool = ResizeTool.Collection.create()
+      pstool = PreviewSaveTool.Collection.create()
+      plot_tools = [pantool, zoomtool, pstool, resizetool, selecttool]
+      plot_model.set_obj('tools', plot_tools)
+      plot_model.add_renderers([boxselectionoverlay.ref()])
     # if legend
     #   legends = {}
     #   legend_renderer = Collections("AnnotationRenderer").create(
@@ -186,7 +188,7 @@ require [
     y: 'y'
     radius: 'radius'
     radius_units: 'data'
-    fill: 'fill'
+    fill_color: 'fill'
     fill_alpha: 0.6
     type: 'circle',
     line_color: null

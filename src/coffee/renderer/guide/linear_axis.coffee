@@ -247,6 +247,7 @@ define [
     _tick_label_extent: () ->
       extent = 0
       dim = @mget('dimension')
+
       coords = @mget('major_coords')
       side = @mget('side')
       orient = @mget('major_label_orientation')
@@ -332,6 +333,7 @@ define [
 
   class LinearAxis extends HasParent
     default_view: LinearAxisView
+    type: 'LinearAxis'
 
     initialize: (attrs, options)->
       super(attrs, options)

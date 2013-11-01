@@ -19,6 +19,7 @@ define [
 
   class DatetimeAxes extends Backbone.Collection
     model: DatetimeAxis
+    type: 'DatetimeAxis'
 
   return {
       "Model": DatetimeAxis,

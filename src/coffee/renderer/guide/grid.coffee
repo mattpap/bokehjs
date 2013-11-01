@@ -42,7 +42,7 @@ define [
 
   class Grid extends HasParent
     default_view: GridView
-    type: 'GuideRenderer'
+    type: 'Grid'
 
     initialize: (attrs, options)->
       super(attrs, options)

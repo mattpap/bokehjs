@@ -2,7 +2,7 @@
 define [
   "underscore",
   "backbone",
-  "./base",
+  "./build_views",
   "./safebind",
   "./continuum_view",
   "./has_parent",
@@ -11,10 +11,7 @@ define [
   "mapper/2d/grid_mapper",
   "renderer/properties",
   "tool/active_tool_manager",
-], (_, Backbone, base, safebind, ContinuumView, HasParent, GridViewState, LinearMapper, GridMapper, Properties, ActiveToolManager) ->
-
-  base = require('./base')
-  build_views = base.build_views
+], (_, Backbone, build_views, safebind, ContinuumView, HasParent, GridViewState, LinearMapper, GridMapper, Properties, ActiveToolManager) ->
 
   class GridPlotView extends ContinuumView.View
     tagName: 'div'
