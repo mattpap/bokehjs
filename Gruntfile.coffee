@@ -34,6 +34,14 @@ module.exports = (grunt) ->
           dest: 'build/js'
           filter: 'isFile'
         ]
+      vendor:
+        files: [
+          expand: true
+          cwd: 'src/js/vendor'
+          src: ['**/*.js']  # copy vendor js from src to dist
+          dest: 'build/js/vendor'
+          filter: 'isFile'
+        ]
 
     clean: ['release/js/vendor', 'release/js/views', 'release/build.txt']
 
