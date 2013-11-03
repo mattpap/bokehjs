@@ -89,4 +89,3 @@ define [
   return {
     "resolve_ref": resolve_ref
   }
-  #exports.resolve_ref = resolve_ref

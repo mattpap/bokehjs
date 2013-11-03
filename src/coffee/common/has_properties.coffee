@@ -1,18 +1,11 @@
 
-# define [
-#   "underscore",
-#   "backbone",
-#   "require",
-#   "./safebind",
-#   "./base"
-# ], (_, Backbone, require, safebind) ->
-
-define ['require', 'exports', 'module', "underscore", "backbone", "./safebind", "./base"], (require, exports, module, _, Backbone, safebind, base) ->
-
-  # _ = require("underscore")
-  # Backbone = require("backbone")
-  # safebind = require("./safebind")
-  # base = require("./base")
+define [
+  "underscore",
+  "backbone",
+  "require",
+  "./safebind",
+  "./base"
+], (_, Backbone, require, safebind) ->
 
   class HasProperties extends Backbone.Model
     # Our property system
@@ -269,5 +262,3 @@ define ['require', 'exports', 'module', "underscore", "backbone", "./safebind", 
           withCredentials: true
       )
       return resp
-
-  exports.HasProperties = HasProperties

@@ -1,15 +1,9 @@
 
-# define [
-#   "underscore",
-#   "backbone",
-#   "common/has_properties"
-# ], (_, Backbone, HasProperties) ->
-
-define ['require', 'exports', 'module', "underscore", "backbone", "common/has_properties"], (require, exports, module, _, Backbone, HasProperties) ->
-
-  # _ = require("underscore")
-  # Backbone = require("backbone")
-  # HasProperties = require("common/has_properties")
+define [
+  "underscore",
+  "backbone",
+  "common/has_properties"
+], (_, Backbone, HasProperties) ->
 
   class ObjectArrayDataSource extends HasProperties
     type: 'ObjectArrayDataSource'
@@ -86,13 +80,9 @@ define ['require', 'exports', 'module', "underscore", "backbone", "common/has_pr
       }
 
   class ObjectArrayDataSources extends Backbone.Collection
-    model: ObjectArrayDataSource
 
-  exports.Model = ObjectArrayDataSource
-  exports.Collection = new ObjectArrayDataSources()
-
-  # return {
-  #   "Model": ObjectArrayDataSource,
-  #   "Collection": new ObjectArrayDataSources()
-  # }
+  return {
+    "Model": ObjectArrayDataSource,
+    "Collection": new ObjectArrayDataSources()
+  }
 

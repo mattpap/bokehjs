@@ -1,10 +1,8 @@
 
-# define [
-#   "underscore",
-#   "./has_properties",
-#], (_, HasProperties) ->
-
-define  ['require', 'exports', 'module', "underscore", "common/has_properties"], (require, exports, module, _, HasProperties) ->
+define [
+  "underscore",
+  "./has_properties",
+], (_, HasProperties) ->
 
   # _ = require("underscore")
   # HasProperties = require("./has_properties")
