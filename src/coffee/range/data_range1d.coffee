@@ -67,12 +67,11 @@ define [
       @add_dependencies('end', this, ['minmax', '_end'])
       super(attrs, options)
 
-  DataRange1d::defaults = _.clone(DataRange1d::defaults)
-  _.extend(DataRange1d::defaults
-    ,
-      sources: []
-      rangepadding: 0.1
-  )
+    defaults: () ->
+      return {
+        sources: []
+        rangepadding: 0.1
+      }
 
   class DataRange1ds extends Backbone.Collection
     model: DataRange1d

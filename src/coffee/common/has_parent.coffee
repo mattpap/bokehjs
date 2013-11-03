@@ -1,8 +1,13 @@
 
-define [
-  "underscore",
-  "./has_properties",
-], (_, HasProperties) ->
+# define [
+#   "underscore",
+#   "./has_properties",
+#], (_, HasProperties) ->
+
+define  ['require', 'exports', 'module', "underscore", "common/has_properties"], (require, exports, module, _, HasProperties) ->
+
+  # _ = require("underscore")
+  # HasProperties = require("./has_properties")
 
   # hasparent
   # display_options can be passed down to children
@@ -52,4 +57,7 @@ define [
       else if not (attr == 'parent')
         return @get_fallback(attr)
 
-    display_defaults: {}
+    display_defaults: () ->
+      return {}
+
+  exports.HasParent = HasParent

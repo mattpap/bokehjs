@@ -9,6 +9,7 @@
     "backbone-amd": null,
     "bootstrap": null,
     "requirejs": null,
-    "qunit":"1.10.0"
+    "almond": null,
+    "qunit": "1.10.0"
   }
 }

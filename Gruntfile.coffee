@@ -73,15 +73,18 @@ module.exports = (grunt) ->
     requirejs:
       compile:
         options:
-          appDir: 'build'
+          almond: true
+          wrap: true
+          #appDir: 'build'
           name: 'main'
           paths:
             requireLib: 'vendor/requirejs/require'
           include: ["requireLib"]
-          baseUrl: 'js'
-          dir: 'release'
+          baseUrl: 'build/js'
+          #dir: 'release'
           mainConfigFile: 'build/js/main.js'
-          fileExclusionRegExp: /^test$/
+          fileExclusionRegExp: /^test/
+          out: 'bokeh.js'
 
     watch:
       scripts:

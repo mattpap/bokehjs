@@ -111,11 +111,8 @@ define [
     default_view: ResizeToolView
     type: "ResizeTool"
 
-  ResizeTool::defaults = _.clone(ResizeTool::defaults)
-  _.extend(ResizeTool::defaults)
-
-  ResizeTool::display_defaults = _.clone(ResizeTool::display_defaults)
-  _.extend(ResizeTool::display_defaults)
+    defaults: () ->
+      return {}
 
   class ResizeTools extends Backbone.Collection
     model: ResizeTool

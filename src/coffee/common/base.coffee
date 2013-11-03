@@ -2,34 +2,34 @@
 define [
   "underscore",
   "require",
-  # "common/plot",
-  # "common/gmap_plot",
-  # "common/grid_plot",
-  # "common/plot_context",
+  "common/plot",
+  "common/gmap_plot",
+  "common/grid_plot",
+  "common/plot_context",
   # "pandas/ipython_remote_data",
   # "pandas/pandas_pivot_table",
   # "pandas/pandas_plot_source",
-  # "range/range1d",
-  # "range/data_range1d",
-  # "range/factor_range",
-  # "range/data_factor_range",
-  # "renderer/glyph/glyph",
-  # "renderer/guide/linear_axis",
-  # "renderer/guide/datetime_axis",
-  # "renderer/guide/grid",
-  # "renderer/annotation/legend",
-  # "renderer/overlay/box_selection",
-  # "source/object_array_data_source",
-  # "source/column_data_source",
-  # "tool/pan_tool",
-  # "tool/zoom_tool",
-  # "tool/resize_tool",
-  # "tool/box_select_tool",
-  # "tool/data_range_box_select_tool",
-  # "tool/preview_save_tool",
-  # "tool/embed_tool",
-  # "widget/data_slider",
-], (_, require) ->
+  "range/range1d",
+  "range/data_range1d",
+  "range/factor_range",
+  "range/data_factor_range",
+  "renderer/glyph/glyph",
+  "renderer/guide/linear_axis",
+  "renderer/guide/datetime_axis",
+  "renderer/guide/grid",
+  "renderer/annotation/legend",
+  "renderer/overlay/box_selection",
+  "source/object_array_data_source",
+  "source/column_data_source",
+  "tool/pan_tool",
+  "tool/zoom_tool",
+  "tool/resize_tool",
+  "tool/box_select_tool",
+  "tool/data_range_box_select_tool",
+  "tool/preview_save_tool",
+  "tool/embed_tool",
+  "widget/data_slider",
+], (underscore, require) ->
 
   locations =
 
@@ -69,45 +69,24 @@ define [
 
     DataSlider:             'widget/data_slider'
 
-  mod_cache = {}
-
-  # for mod in _.values(locations)
-  #   console.log "FOO", mod
-  #   require(mod)
-
-  Collections = (typename) ->
-
-    if not locations[typename]
-      throw "./base: Unknown Collection #{typename}"
-
-    modulename = locations[typename]
-
-    if not mod_cache[modulename]?
-      console.log("calling require", modulename)
-      mod_cache[modulename] = require(modulename)
-
-    return mod_cache[modulename].Collection
-
-  Collections.bulksave = (models) ->
-    ##FIXME:hack
-    doc = models[0].get('doc')
-    jsondata = ({type: m.type, attributes:_.clone(m.attributes)} for m in models)
-    jsondata = JSON.stringify(jsondata)
-    url = Config.prefix + "/bokeh/bb/" + doc + "/bulkupsert"
-    xhr = $.ajax(
-      type: 'POST'
-      url: url
-      contentType: "application/json"
-      data: jsondata
-      header:
-        client: "javascript"
-    )
-    xhr.done((data) ->
-      load_models(data.modelspecs)
-    )
-    return xhr
+  resolve_ref = (obj, ref) ->
+      # ### method: HasProperties::resolve_ref
+      #converts a reference into an object
+      #also works vectorized now
+      if _.isArray(ref)
+        return _.map(ref, (ref) -> resolve_ref(obj, ref))
+      if not ref
+        console.log('ERROR, null reference')
+      #this way we can reference ourselves
+      # even though we are not in any collection yet
+      if ref['type'] == obj.type and ref['id'] == obj.id
+        return obj
+      else
+        module_name = locations[ref['type']]
+        module = require(module_name)
+        return module.Collection.get(ref['id'])
 
   return {
-    "locations": locations,
-    "Collections": Collections
+    "resolve_ref": resolve_ref
   }
+  #exports.resolve_ref = resolve_ref

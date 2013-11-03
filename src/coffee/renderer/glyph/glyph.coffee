@@ -87,22 +87,20 @@ define [
 
   class Glyph extends HasParent
 
-  Glyph::defaults = _.clone(Glyph::defaults)
-  _.extend(Glyph::defaults,
-    data_source: null
-  )
+    defaults: () ->
+      return {
+        data_source: null
+      }
 
-  Glyph::display_defaults = _.clone(Glyph::display_defaults)
-  _.extend(Glyph::display_defaults, {
-
-    level: 'glyph'
-    radius_units: 'screen'
-    length_units: 'screen'
-    angle_units: 'deg'
-    start_angle_units: 'deg'
-    end_angle_units: 'deg'
-
-  })
+    display_defaults: () ->
+      return {
+        level: 'glyph'
+        radius_units: 'screen'
+        length_units: 'screen'
+        angle_units: 'deg'
+        start_angle_units: 'deg'
+        end_angle_units: 'deg'
+      }
 
   return {
     "Model": Glyph,

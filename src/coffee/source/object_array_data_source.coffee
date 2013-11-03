@@ -1,9 +1,15 @@
 
-define [
-  "underscore",
-  "backbone",
-  "common/has_properties"
-], (_, Backbone, HasProperties) ->
+# define [
+#   "underscore",
+#   "backbone",
+#   "common/has_properties"
+# ], (_, Backbone, HasProperties) ->
+
+define ['require', 'exports', 'module', "underscore", "backbone", "common/has_properties"], (require, exports, module, _, Backbone, HasProperties) ->
+
+  # _ = require("underscore")
+  # Backbone = require("backbone")
+  # HasProperties = require("common/has_properties")
 
   class ObjectArrayDataSource extends HasProperties
     type: 'ObjectArrayDataSource'
@@ -70,20 +76,23 @@ define [
           selected.push(idx)
       selected.sort()
       return selected
-  ObjectArrayDataSource::defaults = _.clone(ObjectArrayDataSource::defaults)
-  _.extend(ObjectArrayDataSource::defaults
-    ,
-      data: [{}]
-      name: 'data'
-      selected: []
-      selecting: false
-  )
+
+    defaults: () ->
+      return {
+        data: [{}]
+        name: 'data'
+        selected: []
+        selecting: false
+      }
 
   class ObjectArrayDataSources extends Backbone.Collection
     model: ObjectArrayDataSource
 
-  return {
-    "Model": ObjectArrayDataSource,
-    "Collection": new ObjectArrayDataSources()
-  }
+  exports.Model = ObjectArrayDataSource
+  exports.Collection = new ObjectArrayDataSources()
+
+  # return {
+  #   "Model": ObjectArrayDataSource,
+  #   "Collection": new ObjectArrayDataSources()
+  # }
 

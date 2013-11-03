@@ -21,6 +21,12 @@ define [
     model: DatetimeAxis
     type: 'DatetimeAxis'
 
+    defaults: () ->
+      return {}
+
+    display_defaults: () ->
+      return {}
+
   return {
       "Model": DatetimeAxis,
       "Collection": new DatetimeAxes(),

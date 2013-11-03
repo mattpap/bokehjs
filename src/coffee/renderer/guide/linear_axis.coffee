@@ -497,52 +497,51 @@ define [
         side = 'right'
       return side
 
-  LinearAxis::defaults = _.clone(LinearAxis::defaults)
+    defaults: () ->
+      return {}
 
-  LinearAxis::display_defaults = _.clone(LinearAxis::display_defaults)
-  _.extend(LinearAxis::display_defaults, {
+    display_defaults: () ->
+      return {
+        level: 'overlay'
 
-    level: 'overlay'
+        axis_line_color: 'black'
+        axis_line_width: 1
+        axis_line_alpha: 1.0
+        axis_line_join: 'miter'
+        axis_line_cap: 'butt'
+        axis_line_dash: []
+        axis_line_dash_offset: 0
 
-    axis_line_color: 'black'
-    axis_line_width: 1
-    axis_line_alpha: 1.0
-    axis_line_join: 'miter'
-    axis_line_cap: 'butt'
-    axis_line_dash: []
-    axis_line_dash_offset: 0
+        major_tick_in: 2
+        major_tick_out: 6
+        major_tick_line_color: 'black'
+        major_tick_line_width: 1
+        major_tick_line_alpha: 1.0
+        major_tick_line_join: 'miter'
+        major_tick_line_cap: 'butt'
+        major_tick_line_dash: []
+        major_tick_line_dash_offset: 0
 
-    major_tick_in: 2
-    major_tick_out: 6
-    major_tick_line_color: 'black'
-    major_tick_line_width: 1
-    major_tick_line_alpha: 1.0
-    major_tick_line_join: 'miter'
-    major_tick_line_cap: 'butt'
-    major_tick_line_dash: []
-    major_tick_line_dash_offset: 0
+        major_label_standoff: 5
+        major_label_orientation: "horizontal"
+        major_label_text_font: "helvetica"
+        major_label_text_font_size: "10pt"
+        major_label_text_font_style: "normal"
+        major_label_text_color: "#444444"
+        major_label_text_alpha: 1.0
+        major_label_text_align: "center"
+        major_label_text_baseline: "alphabetic"
 
-    major_label_standoff: 5
-    major_label_orientation: "horizontal"
-    major_label_text_font: "helvetica"
-    major_label_text_font_size: "10pt"
-    major_label_text_font_style: "normal"
-    major_label_text_color: "#444444"
-    major_label_text_alpha: 1.0
-    major_label_text_align: "center"
-    major_label_text_baseline: "alphabetic"
-
-    axis_label: ""
-    axis_label_standoff: 5
-    axis_label_text_font: "helvetica"
-    axis_label_text_font_size: "16pt"
-    axis_label_text_font_style: "normal"
-    axis_label_text_color: "#444444"
-    axis_label_text_alpha: 1.0
-    axis_label_text_align: "center"
-    axis_label_text_baseline: "alphabetic"
-
-  })
+        axis_label: ""
+        axis_label_standoff: 5
+        axis_label_text_font: "helvetica"
+        axis_label_text_font_size: "16pt"
+        axis_label_text_font_style: "normal"
+        axis_label_text_color: "#444444"
+        axis_label_text_alpha: 1.0
+        axis_label_text_align: "center"
+        axis_label_text_baseline: "alphabetic"
+      }
 
   class LinearAxes extends Backbone.Collection
      model: LinearAxis

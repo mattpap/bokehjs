@@ -26,10 +26,10 @@ define [
 
   class Tool extends HasParent
 
-  Tool::display_defaults = _.clone(Tool::display_defaults)
-  _.extend(Tool::display_defaults, {
-    level: 'tool'
-  })
+    display_defaults: () ->
+      return {
+        level: 'tool'
+      }
 
   return {
     "Model": Tool,

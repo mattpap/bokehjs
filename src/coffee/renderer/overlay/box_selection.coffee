@@ -67,11 +67,11 @@ define [
     default_view: BoxSelectionView
     type: "BoxSelection"
 
-  BoxSelection::defaults = _.clone(BoxSelection::defaults)
-  _.extend(BoxSelection::defaults,
-    tool: null
-    level: 'overlay'
-  )
+    defaults: () ->
+      return {
+        tool: null
+        level: 'overlay'
+      }
 
   class BoxSelections extends Backbone.Collection
     model: BoxSelection

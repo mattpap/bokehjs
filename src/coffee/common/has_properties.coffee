@@ -1,11 +1,18 @@
 
-define [
-  "underscore",
-  "backbone",
-  "require",
-  "./base"
-  "./safebind",
-], (_, Backbone, require, base, safebind) ->
+# define [
+#   "underscore",
+#   "backbone",
+#   "require",
+#   "./safebind",
+#   "./base"
+# ], (_, Backbone, require, safebind) ->
+
+define ['require', 'exports', 'module', "underscore", "backbone", "./safebind", "./base"], (require, exports, module, _, Backbone, safebind, base) ->
+
+  # _ = require("underscore")
+  # Backbone = require("backbone")
+  # safebind = require("./safebind")
+  # base = require("./base")
 
   class HasProperties extends Backbone.Model
     # Our property system
@@ -14,7 +21,7 @@ define [
     # and notifications of property. We also support weak references
     # to other models using the reference system described above.
 
-    destroy: (options)->
+    destroy: (options) ->
       #calls super, also unbinds any events bound by safebind
       super(options)
       if _.has(this, 'eventers')
@@ -212,20 +219,8 @@ define [
       'id': this.id
 
     resolve_ref: (ref) =>
-      # ### method: HasProperties::resolve_ref
-      #converts a reference into an object
-      #also works vectorized now
-      if _.isArray(ref)
-        return _.map(ref, @resolve_ref)
-      if not ref
-        console.log('ERROR, null reference')
-      #this way we can reference ourselves
-      # even though we are not in any collection yet
-      if ref['type'] == this.type and ref['id'] == this.id
-        return this
-      else
-        base = require('./base')
-        return base.Collections(ref['type']).get(ref['id'])
+      base = require("./base")
+      return base.resolve_ref(@, ref)
 
     get_obj: (ref_name) =>
       # ### method: HasProperties::get_obj
@@ -234,7 +229,7 @@ define [
 
       ref = @get(ref_name)
       if ref
-        return @resolve_ref(ref)
+        return @resolve_ref(@, ref)
 
     url: () ->
       # ### method HasProperties::url
@@ -274,3 +269,5 @@ define [
           withCredentials: true
       )
       return resp
+
+  exports.HasProperties = HasProperties

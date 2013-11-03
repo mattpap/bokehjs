@@ -15,18 +15,15 @@ define [
       @add_dependencies('min', this, ['start', 'end'])
       @register_property('max',
           () ->
-            console.log @cid, @get('start'), @get('end')
             Math.max(@get('start'), @get('end'))
         , true)
       @add_dependencies('max', this, ['start', 'end'])
 
-
-  Range1d::defaults = _.clone(Range1d::defaults)
-  _.extend(Range1d::defaults
-    ,
-      start: 0
-      end: 1
-  )
+    defaults: () ->
+      return {
+        start: 0
+        end: 1
+      }
 
   class Range1ds extends Backbone.Collection
     model: Range1d

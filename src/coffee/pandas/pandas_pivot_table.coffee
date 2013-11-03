@@ -3,14 +3,15 @@ define [
   "underscore",
   "backbone",
   "common/has_parent",
-  "common/continuum_view"
-], (_, Backbone, HasParent, ContinuumView) ->
+  "common/continuum_view",
+  "vendor/text/text!./pandas_pivot.eco"
+], (_, Backbone, HasParent, ContinuumView, pandas_pivot) ->
 
   ENTER = 13
 
   class PandasPivotView extends ContinuumView.View
 
-    template: require("./pandaspivot")
+    template: pandas_pivot
 
     initialize: (options) ->
       super(options)
@@ -279,20 +280,19 @@ define [
 
     default_view: PandasPivotView
 
-  PandasPivotTable::defaults = _.clone(PandasPivotTable::defaults)
-
-  _.extend(PandasPivotTable::defaults, {
-    sort: []
-    group: []
-    agg: 'sum'
-    offset: 0
-    length: 100
-    maxlength: 1000
-    tabledata: null
-    columns_names: []
-    width: null
-    tablecontrolstate: 'groupby'
-  })
+    defaults: () ->
+      return {
+        sort: []
+        group: []
+        agg: 'sum'
+        offset: 0
+        length: 100
+        maxlength: 1000
+        tabledata: null
+        columns_names: []
+        width: null
+        tablecontrolstate: 'groupby'
+      }
 
   class PandasPivotTables extends Backbone.Collection
     model: PandasPivotTable

@@ -4,6 +4,7 @@ define [
   "backbone",
   "require",
   "./build_views",
+  "./bulk_save",
   "./safebind",
   "./continuum_view",
   "./has_parent",
@@ -12,7 +13,7 @@ define [
   "mapper/2d/grid_mapper",
   "renderer/properties",
   "tool/active_tool_manager",
-], (_, Backbone, require, build_views, safebind, ContinuumView, HasParent, ViewState, LinearMapper, GridMapper, Properties, ActiveToolManager) ->
+], (_, Backbone, require, build_views, bulk_save, safebind, ContinuumView, HasParent, ViewState, LinearMapper, GridMapper, Properties, ActiveToolManager) ->
 
   text_properties = Properties.text_properties
 
@@ -306,7 +307,7 @@ define [
       @render()
       data_uri = @canvas[0].toDataURL()
       @model.set('png', @canvas[0].toDataURL())
-      base.Collections.bulksave([@model])
+      bulk_save([@model])
 
     render: (force) ->
       super()
@@ -416,38 +417,37 @@ define [
       'min_border_right'
     ]
 
-  Plot::defaults = _.clone(Plot::defaults)
-  _.extend(Plot::defaults , {
-    'data_sources': {},
-    'renderers': [],
-    'tools': [],
-    'title': 'Plot',
-  })
+    defaults: () ->
+      return {
+        data_sources: {},
+        renderers: [],
+        tools: [],
+        title: 'Plot',
+      }
 
-  Plot::display_defaults = _.clone(Plot::display_defaults)
-  _.extend(Plot::display_defaults
-    ,
-      hidpi: true,
-      background_fill: "#fff",
-      border_fill: "#eee",
-      border_symmetry: "h",
-      min_border: 40,
-      x_offset: 0,
-      y_offset: 0,
-      canvas_width: 300,
-      canvas_height: 300,
-      outer_width: 300,
-      outer_height: 300,
+    display_defaults: () ->
+      return {
+        hidpi: true,
+        background_fill: "#fff",
+        border_fill: "#eee",
+        border_symmetry: "h",
+        min_border: 40,
+        x_offset: 0,
+        y_offset: 0,
+        canvas_width: 300,
+        canvas_height: 300,
+        outer_width: 300,
+        outer_height: 300,
 
-      title_standoff: 8,
-      title_text_font: "helvetica",
-      title_text_font_size: "20pt",
-      title_text_font_style: "normal",
-      title_text_color: "#444444",
-      title_text_alpha: 1.0,
-      title_text_align: "center",
-      title_text_baseline: "alphabetic"
-  )
+        title_standoff: 8,
+        title_text_font: "helvetica",
+        title_text_font_size: "20pt",
+        title_text_font_style: "normal",
+        title_text_color: "#444444",
+        title_text_alpha: 1.0,
+        title_text_align: "center",
+        title_text_baseline: "alphabetic"
+      }
 
   class Plots extends Backbone.Collection
      model: Plot

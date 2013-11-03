@@ -29,6 +29,9 @@ define [
         points.push(point)
       return points
 
+      defaults: () ->
+        return {}
+
   class ColumnDataSources extends Backbone.Collection
     model: ColumnDataSource
 

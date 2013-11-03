@@ -61,8 +61,8 @@ define [
      default_view: EmbedToolView
      type: "EmbedTool"
 
-  EmbedTool::defaults = _.clone(EmbedTool::defaults)
-  _.extend(EmbedTool::defaults)
+     defaults: () ->
+      return {}
 
   class EmbedTools extends Backbone.Collection
     model: EmbedTool

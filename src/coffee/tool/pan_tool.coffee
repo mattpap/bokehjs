@@ -68,12 +68,11 @@ define [
     default_view: PanToolView
     type: "PanTool"
 
-  PanTool::defaults = _.clone(PanTool::defaults)
-  _.extend(PanTool::defaults
-    ,
-      dimensions: [] #height/width
-      dataranges: [] #references of datarange objects
-  )
+    defaults: () ->
+      return {
+        dimensions: [] #height/width
+        dataranges: [] #references of datarange objects
+      }
 
   class PanTools extends Backbone.Collection
     model: PanTool

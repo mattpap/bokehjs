@@ -2,12 +2,15 @@
 
 require.config
   paths:
-    jquery: "js/vendor/jquery/jquery"
-    jquery_ui: "js/vendor/jquery-ui-amd/jquery-ui-1.10.0/jqueryui"
-    jquery_mousewheel: "js/vendor/jquery-mousewheel/jquery.mousewheel"
-    underscore: "js/vendor/underscore-amd/underscore"
-    backbone: "js/vendor/backbone-amd/backbone"
-    bootstrap: "js/vendor/bootstrap/dist/js/bootstrap"
+    jquery: "vendor/jquery/jquery"
+    jquery_ui: "vendor/jquery-ui-amd/jquery-ui-1.10.0/jqueryui"
+    jquery_mousewheel: "vendor/jquery-mousewheel/jquery.mousewheel"
+    underscore: "vendor/underscore-amd/underscore"
+    backbone: "vendor/backbone-amd/backbone"
+    bootstrap: "vendor/bootstrap/dist/js/bootstrap"
+
+define (require, exports, module) ->
+  require('common/has_properties')
 
 
 

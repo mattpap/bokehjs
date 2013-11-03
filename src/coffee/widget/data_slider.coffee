@@ -82,17 +82,16 @@ define [
     type: "DataSlider"
     default_view: DataSliderView
 
-  DataSlider::defaults = _.clone(DataSlider::defaults)
+    defaults: () ->
+      return {
+        data_source: null
+        field: null
+      }
 
-  _.extend(DataSlider::defaults, {
-    data_source: null
-    field: null
-  })
-
-  DataSlider::display_defaults = _.clone(DataSlider::display_defaults)
-  _.extend(DataSlider::display_defaults, {
-    level: 'tool'
-  })
+    display_defaults: () ->
+      return {
+        level: 'tool'
+      }
 
   class DataSliders extends Backbone.Collection
     model: DataSlider

@@ -11,7 +11,7 @@ define [
       computed_columns: []
 
   class IPythonRemoteDatas extends Backbone.Collection
-    model: DataRange1d
+    model: IPythonRemoteData
 
   return {
     "Model": IPythonRemoteData,

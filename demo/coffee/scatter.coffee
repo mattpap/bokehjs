@@ -2,7 +2,6 @@
 
 require [
   "underscore",
-  #"common/base",
   "common/random",
   "common/plot",
   "range/range1d",
