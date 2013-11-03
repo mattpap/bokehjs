@@ -97,6 +97,16 @@ module.exports = (grunt) ->
         tasks: ['coffee']
         options:
           spawn: false
+      demos:
+        files: ['demo/coffee/**/*.coffee']
+        tasks: ['coffee']
+        options:
+          spawn: false
+      tests:
+        files: ['test/coffee/**/*.coffee']
+        tasks: ['coffee']
+        options:
+          spawn: false
       styles:
         files: ['src/less/**/*.less']
         tasks: ['less']

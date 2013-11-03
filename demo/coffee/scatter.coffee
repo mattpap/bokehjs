@@ -2,7 +2,7 @@
 
 require [
   "underscore",
-  #"common/base",
+  "common/base",
   "common/random",
   "common/plot",
   "range/range1d",
@@ -16,10 +16,9 @@ require [
   "tool/preview_save_tool",
   "tool/resize_tool",
   "source/column_data_source"
-], (_, Random, Plot, Range1d, GlyphFactory, LinearAxis, Grid, BoxSelection, PanTool, ZoomTool, BoxSelectTool, PreviewSaveTool, ResizeTool, ColumnDataSource) ->
+], (_, base, Random, Plot, Range1d, GlyphFactory, LinearAxis, Grid, BoxSelection, PanTool, ZoomTool, BoxSelectTool, PreviewSaveTool, ResizeTool, ColumnDataSource) ->
 
-  #base = require('common/base')
-  #Collections = base.Collections
+  Collections = base.Collections
 
   make_glyph_plot = (
     data_source, defaults, glyphspecs, xrange, yrange,
@@ -38,7 +37,8 @@ require [
       glyphspecs = [glyphspecs]
     if not _.isArray(data_source)
       for glyphspec in glyphspecs
-        glyph = GlyphFactory.Collection.create({
+        glyph = Collections('Glyph').create({
+        #glyph = GlyphFactory.Collection.create({
           data_source: data_source.ref()
           glyphspec: glyphspec
           nonselection_glyphspec :
@@ -51,7 +51,7 @@ require [
     else
       for val in zip(glyphspecs, data_source)
         [glyphspec, ds] = val
-        glyph = GlyphFactory.Collection.create({
+        glyph = Collections('Glyph').create({
           xdata_range : xrange.ref()
           ydata_range : yrange.ref()
           data_source: ds.ref()
@@ -60,7 +60,7 @@ require [
         glyph.set(defaults)
         glyphs.push(glyph)
 
-    plot_model = Plot.Collection.create(
+    plot_model = Collections('Plot').create(
       x_range: xrange.ref()
       y_range: yrange.ref()
       canvas_width: dims[0]
@@ -72,31 +72,31 @@ require [
     plot_model.set(defaults)
     plot_model.add_renderers(g.ref() for g in glyphs)
     if axes
-      xaxis1 = LinearAxis.Collection.create(
+      xaxis1 = Collections('LinearAxis').create(
         dimension: 0
         axis_label: 'x'
         plot: plot_model.ref()
       )
-      yaxis1 = LinearAxis.Collection.create(
+      yaxis1 = Collections('LinearAxis').create(
         dimension: 1
         axis_label: 'y'
         plot: plot_model.ref()
       )
-      xaxis2 = LinearAxis.Collection.create(
+      xaxis2 = Collections('LinearAxis').create(
         dimension: 0
         location: 'max'
         plot: plot_model.ref()
       )
-      yaxis2 = LinearAxis.Collection.create(
+      yaxis2 = Collections('LinearAxis').create(
         dimension: 1
         location: 'max'
         plot: plot_model.ref()
       )
-      xgrid = Grid.Collection.create(
+      xgrid = Collections('Grid').create(
         dimension: 0
         plot: plot_model.ref()
       )
-      ygrid = Grid.Collection.create(
+      ygrid = Collections('Grid').create(
         dimension: 1
         plot: plot_model.ref()
       )
@@ -199,4 +199,3 @@ require [
     'scatter',
     make_glyph_test(title, source, {}, [scatter], xdr, ydr, {dims: [600, 600], plot_title:title, legend: false})
   )
-
