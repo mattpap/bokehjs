@@ -65,19 +65,24 @@ module.exports = (grunt) ->
         src: '**/*.coffee'     # traverse *.coffee files relative to cwd
         dest: 'build/js'       # destination for compiled js files
         ext: '.js'             # file extension for compiled files
+        options:
+          sourceMap : true
       test_compile:
         expand: true           # enable dynamic expansion
         cwd: 'test'            # source dir for coffee files
         src: '**/*.coffee'     # traverse *.coffee files relative to cwd
         dest: 'build/test'     # destination for compiled js files
         ext: '.js'             # file extension for compiled files
+        options:
+          sourceMap : true
       demo_compile:
         expand: true           # enable dynamic expansion
         cwd: 'demo'            # source dir for coffee files
         src: '**/scatter.coffee'     # traverse *.coffee files relative to cwd
         dest: 'build/demo'     # destination for compiled js files
         ext: '.js'             # file extension for compiled files
-
+        options:
+          sourceMap : true
     requirejs:
       compile:
         options:
