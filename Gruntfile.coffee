@@ -29,7 +29,7 @@ module.exports = (grunt) ->
       requirejs:
         files: [
           expand: true
-          cwd: 'build/js/vendor/requirejs'
+          cwd: 'node_modules/requirejs'
           src: ['require.js']
           dest: 'build/js'
           filter: 'isFile'
@@ -38,7 +38,7 @@ module.exports = (grunt) ->
         files: [
           expand: true
           cwd: 'src/js/vendor'
-          src: ['**/*.js']  # copy vendor js from src to dist
+          src: ['**/*']  # copy vendor js from src to dist
           dest: 'build/js/vendor'
           filter: 'isFile'
         ]
