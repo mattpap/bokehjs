@@ -2,7 +2,7 @@
 define [
   "underscore",
   "./view_state",
-], (_, Viewstate) ->
+], (_, ViewState) ->
 
   class GridViewState extends ViewState
     setup_layout_properties: () =>
