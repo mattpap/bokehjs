@@ -21,6 +21,20 @@ define (require, exports, module) ->
   Bokeh.HasProperties     = require("common/has_properties")
   Bokeh.Plot              = require("common/plot")
 
+  Bokeh.Affine = require("common/affine")
+  Bokeh.build_views = require("common/build_views")
+  Bokeh.bulk_save = require("common/bulk_save")
+  Bokeh.ContinuumView = require("common/continuum_view")
+  Bokeh.GridViewState = require("common/grid_view_state")
+  Bokeh.PlotContext = require("common/plot_context")
+  Bokeh.PlotWidget = require("common/plot_widget")
+  Bokeh.PNGView = require("common/png_view")
+  Bokeh.Random = require("common/random")
+  Bokeh.safebind = require("common/safebind")
+  Bokeh.SVGColors = require("common/svg_colors")
+  Bokeh.ticking = require("common/ticking")
+  Bokeh.ViewState = require("common/view_state")
+
   # mappers
   Bokeh.LinearMapper      = require("mapper/1d/linear_mapper")
   Bokeh.GridMapper        = require("mapper/2d/grid_mapper")
@@ -76,6 +90,8 @@ define (require, exports, module) ->
   # overlays
   Bokeh.BoxSelection = require("renderer/overlay/box_selection")
 
+  Bokeh.Properties = require("renderer/properties")
+
   # data sources
   Bokeh.ColumnDataSource      = require("source/column_data_source")
   Bokeh.ObjectArrayDataSource = require("source/object_array_data_source")
@@ -93,3 +109,5 @@ define (require, exports, module) ->
   Bokeh.DataSlider = require("widget/data_slider")
 
   exports.Bokeh = Bokeh
+
+  return Bokeh
