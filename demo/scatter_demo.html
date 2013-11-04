@@ -4,46 +4,13 @@
       <meta charset='UTF-8' />
       <meta http-equiv='content-type' content='text/html; charset=utf-8' />
 
-      <title>jQuery.simpleFAQ QUnit Test Runner</title>
+      <title>Scatter Demo</title>
 
-      <link rel='stylesheet' href='../js/vendor/qunit/qunit/qunit.css'>
-
-      <script src="../js/require.js"></script>
-      <script src="../js/vendor/qunit/qunit/qunit.js"></script>
-
-      <!-- your tests, any and all to run with the given fixtures below -->
-      <script>
-        QUnit.config.autostart = false;
-
-        require.config({
-          baseUrl: "../js",
-          paths: {
-            "jquery": "vendor/jquery/jquery",
-            "jquery_ui": "vendor/jquery-ui-amd/jquery-ui-1.10.0/jqueryui",
-            "jquery_mousewheel": "vendor/jquery-mousewheel/jquery.mousewheel",
-            "underscore": "vendor/underscore-amd/underscore",
-            "backbone": "vendor/backbone-amd/backbone",
-            "bootstrap": "vendor/bootstrap/dist/js/bootstrap"
-          }
-        });
-
-        requirejs([
-          '../demo/coffee/scatter.js'
-        ])
-
-        QUnit.start()
-
-      </script>
-
+      <script src='../bokeh.js'></script>
 
   </head>
   <body>
-    <div id="qunit"></div> <!-- QUnit fills this with results, etc -->
-    <div id='qunit-fixture'>
-
-      <!-- any HTML you want to be present in each test (will be reset for each test) -->
-
-    </div>
+      <script src='../build/demo/js/scatter.js'></script>
   </body>
 </html>
 

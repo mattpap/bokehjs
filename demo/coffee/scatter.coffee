@@ -1,24 +1,5 @@
 
-
-require [
-  "underscore",
-  "common/base",
-  "common/random",
-  "common/plot",
-  "range/range1d",
-  "renderer/glyph/glyph_factory",
-  "renderer/guide/linear_axis",
-  "renderer/guide/grid",
-  "renderer/overlay/box_selection"
-  "tool/pan_tool",
-  "tool/zoom_tool",
-  "tool/box_select_tool",
-  "tool/preview_save_tool",
-  "tool/resize_tool",
-  "source/column_data_source"
-], (_, base, Random, Plot, Range1d, GlyphFactory, LinearAxis, Grid, BoxSelection, PanTool, ZoomTool, BoxSelectTool, PreviewSaveTool, ResizeTool, ColumnDataSource) ->
-
-  Collections = base.Collections
+  Collections = Bokeh.Collections
 
   make_glyph_plot = (
     data_source, defaults, glyphspecs, xrange, yrange,
@@ -104,22 +85,22 @@ require [
         [xgrid.ref(), ygrid.ref(), xaxis1.ref(), yaxis1.ref(), xaxis2.ref(), yaxis2.ref()]
       )
     if tools
-      pantool = PanTool.Collection.create(
+      pantool = Collections('PanTool').create(
         dataranges: [xrange.ref(), yrange.ref()]
         dimensions: ['width', 'height']
       )
-      zoomtool = ZoomTool.Collection.create(
+      zoomtool = Collections('ZoomTool').create(
         dataranges: [xrange.ref(), yrange.ref()]
         dimensions: ['width', 'height']
       )
-      selecttool = BoxSelectTool.Collection.create(
+      selecttool = Collections('BoxSelectTool').create(
         renderers : (x.ref() for x in glyphs)
       )
-      boxselectionoverlay = BoxSelection.Collection.create(
+      boxselectionoverlay = Collections('BoxSelection').create(
         tool : selecttool.ref()
       )
-      resizetool = ResizeTool.Collection.create()
-      pstool = PreviewSaveTool.Collection.create()
+      resizetool = Collections('ResizeTool').create()
+      pstool = Collections('PreviewSaveTool').create()
       plot_tools = [pantool, zoomtool, pstool, resizetool, selecttool]
       plot_model.set_obj('tools', plot_tools)
       plot_model.add_renderers([boxselectionoverlay.ref()])
@@ -139,25 +120,6 @@ require [
     return plot_model
 
 
-  make_glyph_test = (test_name, data_source, defaults, glyphspecs, xrange, yrange, {dims, tools, axes, legend, legend_name, plot_title, reference_point}) ->
-    dims ?= [400, 400]
-    tools ?= true
-    axes ?= true
-    legend ?= true
-    legend_name ?= "glyph"
-    plot_title ?= ""
-
-    return () ->
-      expect(0)
-      opts = {dims: dims, tools: tools, axes:axes, legend: legend, legend_name: legend_name, plot_title: plot_title, reference_point: reference_point}
-      plot_model = make_glyph_plot(data_source, defaults, glyphspecs, xrange, yrange, opts)
-      div = $('<div class="plotdiv"></div>')
-      $('body').append(div)
-      myrender  =  ->
-        view = new plot_model.default_view(model: plot_model)
-        div.append(view.$el)
-        console.log('Test ' + test_name)
-      _.defer(myrender)
 
 
   zip = () ->
@@ -166,13 +128,13 @@ require [
     for i in [0...length]
       arr[i] for arr in arguments
 
-  r = new Random(123456789)
+  r = new Bokeh.Random(123456789)
 
   x = (r.randf()*100 for i in _.range(4000))
   y = (r.randf()*100 for i in _.range(4000))
   radii = (r.randf()+0.3 for i in _.range(4000))
   colors = ("rgb(#{ Math.floor(50+2*val[0]) }, #{ Math.floor(30+2*val[1]) }, 150)" for val in zip(x, y))
-  source = ColumnDataSource.Collection.create(
+  source = Collections('ColumnDataSource').create(
     data:
       x: x
       y: y
@@ -180,8 +142,8 @@ require [
       fill: colors
   )
 
-  xdr = Range1d.Collection.create({start: 0, end: 100})
-  ydr = Range1d.Collection.create({start: 0, end: 100})
+  xdr = Collections('Range1d').create({start: 0, end: 100})
+  ydr = Collections('Range1d').create({start: 0, end: 100})
 
   scatter = {
     x: 'x'
@@ -194,8 +156,12 @@ require [
     line_color: null
   }
 
-  title = "Scatter Example"
-  test(
-    'scatter',
-    make_glyph_test(title, source, {}, [scatter], xdr, ydr, {dims: [600, 600], plot_title:title, legend: false})
-  )
+  opts = {dims: [600, 600], tools: true, axes: true, legend: false, plot_title: "Scatter Demo"}
+  plot_model = make_glyph_plot(source, {}, [scatter], xdr, ydr, opts)
+  div = $('<div class="plotdiv"></div>')
+  $('body').append(div)
+  myrender  =  ->
+    view = new plot_model.default_view(model: plot_model)
+    div.append(view.$el)
+    console.log('Scatter Demo')
+  _.defer(myrender)
