@@ -51,7 +51,6 @@ define [
         yr: {start: ystart, end: yend}
         factor: factor
       }
-      console.log "ZOOM", zoom_info
       @plot_view.update_range(zoom_info)
       return null
 
