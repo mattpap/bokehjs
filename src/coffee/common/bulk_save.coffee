@@ -1,7 +1,7 @@
 
 define [
   "underscore",
-  "jQuery",
+  "jquery",
 ], (_, $) ->
 
   bulk_save = (models) ->
