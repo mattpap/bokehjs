@@ -101,7 +101,7 @@ module.exports = (grunt) ->
     requirejs:
       compile:
         options:
-          optimize: "none"
+          #optimize: "none"
           baseUrl: 'build/js'
           name: 'vendor/almond/almond'
           paths:
@@ -121,17 +121,17 @@ module.exports = (grunt) ->
 
 
     watch:
-      scripts:
+      src:
         files: ['src/coffee/**/*.coffee']
         tasks: ['coffee:compile']
         options:
           spawn: false
-      demos:
+      demo:
         files: ['demo/coffee/**/*.coffee']
         tasks: ['coffee']
         options:
           spawn: false
-      tests:
+      test:
         files: ['test/coffee/**/*.coffee']
         tasks: ['coffee']
         options:
@@ -143,7 +143,6 @@ module.exports = (grunt) ->
           spawn: false
 
     qunit:
-      #all: ['build/test/*.html']
       all:
         options:
           urls:[
