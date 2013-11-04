@@ -6,7 +6,7 @@ module.exports = (grunt) ->
         files: [
           expand: true
           cwd: 'src'
-          src: ['**/*.html']  # copy index.html from src to dist
+          src: ['**/*.html']
           dest: 'build'
           filter: 'isFile'
         ]
@@ -14,7 +14,7 @@ module.exports = (grunt) ->
         files: [
           expand: true
           cwd: 'test'
-          src: ['**/*.html', '**/*.js']  # copy index.html from src to dist
+          src: ['**/*.html', '**/*.js']
           dest: 'build/test'
           filter: 'isFile'
         ]
@@ -22,7 +22,7 @@ module.exports = (grunt) ->
         files: [
           expand: true
           cwd: 'demo'
-          src: ['**/*.html', '**/*.js']  # copy index.html from src to dist
+          src: ['**/*.html', '**/*.js']
           dest: 'build/demo'
           filter: 'isFile'
         ]
@@ -59,7 +59,7 @@ module.exports = (grunt) ->
         }]
 
     coffee:
-      compile:
+      src:
         expand: true           # enable dynamic expansion
         cwd: 'src/coffee'      # source dir for coffee files
         src: '**/*.coffee'     # traverse *.coffee files relative to cwd
@@ -67,7 +67,7 @@ module.exports = (grunt) ->
         ext: '.js'             # file extension for compiled files
         options:
           sourceMap : true
-      test_compile:
+      test:
         expand: true           # enable dynamic expansion
         cwd: 'test'            # source dir for coffee files
         src: '**/*.coffee'     # traverse *.coffee files relative to cwd
@@ -75,33 +75,55 @@ module.exports = (grunt) ->
         ext: '.js'             # file extension for compiled files
         options:
           sourceMap : true
-      demo_compile:
+      demo:
         expand: true           # enable dynamic expansion
-        cwd: 'demo'            # source dir for coffee files
-        src: '**/scatter.coffee'     # traverse *.coffee files relative to cwd
-        dest: 'build/demo'     # destination for compiled js files
+        cwd: 'demo/coffee'     # source dir for coffee files
+        src: '**/*.coffee'     # traverse *.coffee files relative to cwd
+        dest: 'build/demo/js'  # destination for compiled js files
         ext: '.js'             # file extension for compiled files
         options:
           sourceMap : true
 
+    # requirejs:
+    #   compile:
+    #     options:
+    #       almond: true
+    #       wrap: true
+    #       name: 'main'
+    #       paths:
+    #         requireLib: 'vendor/requirejs/require'
+    #       include: ["requireLib"]
+    #       baseUrl: 'build/js'
+    #       mainConfigFile: 'build/js/main.js'
+    #       fileExclusionRegExp: /^test/
+    #       out: 'bokeh.js'
+
     requirejs:
       compile:
         options:
-          almond: true
-          wrap: true
-          name: 'main'
-          paths:
-            requireLib: 'vendor/requirejs/require'
-          include: ["requireLib"]
+          optimize: "none"
           baseUrl: 'build/js'
-          mainConfigFile: 'build/js/main.js'
+          name: 'vendor/almond/almond'
+          paths:
+            jquery: "vendor/jquery/jquery"
+            jquery_ui: "vendor/jquery-ui-amd/jquery-ui-1.10.0/jqueryui"
+            jquery_mousewheel: "vendor/jquery-mousewheel/jquery.mousewheel"
+            underscore: "vendor/underscore-amd/underscore"
+            backbone: "vendor/backbone-amd/backbone"
+            bootstrap: "vendor/bootstrap/dist/js/bootstrap"
+          include: ['main', 'underscore']
           fileExclusionRegExp: /^test/
           out: 'bokeh.js'
+          wrap: {
+            startFile: 'src/start.frag',
+            endFile: 'src/end.frag'
+          }
+
 
     watch:
       scripts:
         files: ['src/coffee/**/*.coffee']
-        tasks: ['coffee']
+        tasks: ['coffee:compile']
         options:
           spawn: false
       demos:
@@ -140,3 +162,8 @@ module.exports = (grunt) ->
   grunt.registerTask("default", ["coffee", "less",      "copy", "qunit"])
   grunt.registerTask("build",   ["coffee", "less",      "copy"         ])
   grunt.registerTask("deploy",  ["build",  "requirejs", "clean"        ])
+
+  grunt.event.on('watch', (action, filepath) ->
+    grunt.config('coffee.compile.cwd', '.')
+    grunt.config('coffee.compile.src', filepath)
+  )
