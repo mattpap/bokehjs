@@ -1,4 +1,3 @@
-'use strict'
 
 require [
   "underscore",
@@ -7,11 +6,12 @@ require [
   "common/continuum_view",
   "common/has_properties",
   "common/safebind",
-  "../tests/common/test_object"
+  "../test/common/test_object",
 ], (_, Backbone, base, ContinuumView, HasProperties, safebind, test_object) ->
 
-  testobjects = test_object.testobjects
-  base.locations['TestObject'] = ['../tests/common/test_object', 'testobjects']
+  testobjects = test_object.Collection
+  base.locations['TestObject'] = "../test/common/test_object"
+  base.mod_cache["../test/common/test_object"] = test_object
 
   test('computed_properties', ->
     testobjects.reset()
@@ -61,7 +61,7 @@ require [
     # we mostly want to test how we react to other models, which is why
     # @model for a view is already handleed
     model2 = testobjects.create({'a': 1, 'b': 1})
-    view = new ContinuumView({'model': model2})
+    view = new ContinuumView.View({'model': model2})
 
     triggered = false
     safebind(view, model, 'change', () -> triggered = true)

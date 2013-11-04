@@ -11,9 +11,7 @@ define [
     model: TestObject
     url: "/"
 
-  testobjects = new TestObjects()
-
   return {
-    "TestObject": TestObject,
-    "testobjects": testobjects,
+    "Model": TestObject,
+    "Collection": new TestObjects(),
   }
