@@ -140,3 +140,15 @@ module.exports = (grunt) ->
   grunt.registerTask("default", ["coffee", "less",      "copy", "qunit"])
   grunt.registerTask("build",   ["coffee", "less",      "copy"         ])
   grunt.registerTask("deploy",  ["build",  "requirejs", "clean"        ])
+
+  grunt.event.on "watch", (action, filepath, target) ->
+    filepath = filepath.replace('src/coffee/', '')
+    grunt.config.set('coffee',
+      changed:
+        expand: true
+        cwd: 'src/coffee'
+        src: filepath
+        dest: 'build/js'
+        ext: '.js'
+    )
+    grunt.task.run('coffee:changed')
