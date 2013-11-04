@@ -16,9 +16,9 @@ define [
         @,
         glyphspec,
         ['x', 'y', 'radius', 'start_angle', 'end_angle', 'direction:string'],
-        [
-          new line_properties(@, glyphspec)
-        ]
+        {
+          line_properties: new line_properties(@, glyphspec)
+        }
       )
 
       @do_stroke = @glyph_props.line_properties.do_stroke

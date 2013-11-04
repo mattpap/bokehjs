@@ -17,10 +17,10 @@ define [
         @,
         glyphspec,
         ['xs:array', 'ys:array']
-        [
-          new fill_properties(@, glyphspec),
-          new line_properties(@, glyphspec)
-        ]
+        {
+          fill_properties: new fill_properties(@, glyphspec),
+          line_properties: new line_properties(@, glyphspec)
+        }
       )
 
       @do_fill = @glyph_props.fill_properties.do_fill
