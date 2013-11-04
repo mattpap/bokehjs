@@ -2,6 +2,7 @@
   "name": "bokehjs",
   "version": "0.2.0",
   "dependencies": {
+    "almond": null,
     "jquery": null,
     "jquery-mousewheel": null,
     "jquery-ui-amd": null,
