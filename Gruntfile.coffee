@@ -94,7 +94,7 @@ module.exports = (grunt) ->
           baseUrl: 'js'
           dir: 'release'
           mainConfigFile: 'build/js/main.js'
-          fileExclusionRegExp: /^test$/
+          fileExclusionRegExp: /^test/
 
     watch:
       scripts:
