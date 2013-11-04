@@ -2,10 +2,10 @@
 define [
   "underscore",
   "backbone",
-  "common/base",
+  "common/bulk_save",
   "./tool",
   "./event_generators",
-], (_, Backbone, base, Tool, EventGenerators) ->
+], (_, Backbone, bulk_save, Tool, EventGenerators) ->
 
   ButtonEventGenerator = EventGenerators.ButtonEventGenerator
 
@@ -22,8 +22,7 @@ define [
     _activated: (e) ->
       data_uri = @plot_view.canvas[0].toDataURL()
       @plot_model.set('png', @plot_view.canvas[0].toDataURL())
-      base = require("common/base")
-      base.Collections.bulksave([@plot_model])
+      bulk_save([@plot_model])
       #@model.sync()
       modal = """
       <div id='previewModal' class='bokeh'>

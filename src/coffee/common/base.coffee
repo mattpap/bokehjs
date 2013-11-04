@@ -71,10 +71,6 @@ define [
 
   mod_cache = {}
 
-  # for mod in _.values(locations)
-  #   console.log "FOO", mod
-  #   require(mod)
-
   Collections = (typename) ->
 
     if not locations[typename]
@@ -87,25 +83,6 @@ define [
       mod_cache[modulename] = require(modulename)
 
     return mod_cache[modulename].Collection
-
-  Collections.bulksave = (models) ->
-    ##FIXME:hack
-    doc = models[0].get('doc')
-    jsondata = ({type: m.type, attributes:_.clone(m.attributes)} for m in models)
-    jsondata = JSON.stringify(jsondata)
-    url = Config.prefix + "/bokeh/bb/" + doc + "/bulkupsert"
-    xhr = $.ajax(
-      type: 'POST'
-      url: url
-      contentType: "application/json"
-      data: jsondata
-      header:
-        client: "javascript"
-    )
-    xhr.done((data) ->
-      load_models(data.modelspecs)
-    )
-    return xhr
 
   return {
     "locations": locations,

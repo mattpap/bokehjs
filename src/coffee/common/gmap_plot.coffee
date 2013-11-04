@@ -4,6 +4,7 @@ define [
   "backbone",
   "./build_views",
   "./safebind",
+  "./bulk_save",
   "./continuum_view",
   "./has_parent",
   "./view_state",
@@ -11,7 +12,7 @@ define [
   "mapper/2d/grid_mapper",
   "renderer/properties",
   "tool/active_tool_manager",
-], (_, Backbone, build_views, safebind, ContinuumView, HasParent, ViewState, LinearMapper, GridMapper, Properties, ActiveToolManager) ->
+], (_, Backbone, build_views, safebind, bulk_save, ContinuumView, HasParent, ViewState, LinearMapper, GridMapper, Properties, ActiveToolManager) ->
 
   LEVELS = ['image', 'underlay', 'glyph', 'overlay', 'annotation', 'tool']
 
@@ -276,7 +277,7 @@ define [
       @render()
       data_uri = @canvas[0].toDataURL()
       @model.set('png', @canvas[0].toDataURL())
-      base.Collections.bulksave([@model])
+      bulk_save([@model])
 
     render: (force) ->
       @requested_padding = {

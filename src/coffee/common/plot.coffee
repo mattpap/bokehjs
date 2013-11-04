@@ -5,6 +5,7 @@ define [
   "require",
   "./build_views",
   "./safebind",
+  "./bulk_save",
   "./continuum_view",
   "./has_parent",
   "./view_state",
@@ -12,7 +13,7 @@ define [
   "mapper/2d/grid_mapper",
   "renderer/properties",
   "tool/active_tool_manager",
-], (_, Backbone, require, build_views, safebind, ContinuumView, HasParent, ViewState, LinearMapper, GridMapper, Properties, ActiveToolManager) ->
+], (_, Backbone, require, build_views, safebind, bulk_save, ContinuumView, HasParent, ViewState, LinearMapper, GridMapper, Properties, ActiveToolManager) ->
 
   text_properties = Properties.text_properties
 
@@ -25,11 +26,10 @@ define [
           window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame ||
           window.msRequestAnimationFrame || delay_animation
 
-  #Returns a function, that, when invoked, will only be triggered at
-  #most once during a given window of time.  If the browser supports
-  #requestAnimationFrame, in addition the throttled function will be run
-  #no more frequently than request animation frame allow
-  #
+  # Returns a function, that, when invoked, will only be triggered at
+  # most once during a given window of time.  If the browser supports
+  # requestAnimationFrame, in addition the throttled function will be run
+  # no more frequently than request animation frame allow
   throttle_animation = (func, wait) ->
     [context , args, timeout, result] = [null,null,null,null]
     previous = 0
@@ -306,7 +306,7 @@ define [
       @render()
       data_uri = @canvas[0].toDataURL()
       @model.set('png', @canvas[0].toDataURL())
-      base.Collections.bulksave([@model])
+      bulk_save([@model])
 
     render: (force) ->
       super()
