@@ -15,7 +15,6 @@ define [
       @add_dependencies('min', this, ['start', 'end'])
       @register_property('max',
           () ->
-            console.log @cid, @get('start'), @get('end')
             Math.max(@get('start'), @get('end'))
         , true)
       @add_dependencies('max', this, ['start', 'end'])
