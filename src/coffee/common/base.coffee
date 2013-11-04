@@ -85,6 +85,7 @@ define [
     return mod_cache[modulename].Collection
 
   return {
+    "mod_cache": mod_cache, # for testing only
     "locations": locations,
     "Collections": Collections
   }
