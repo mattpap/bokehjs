@@ -315,8 +315,8 @@ define [
           [attrname, attrtype] = attrname.split(":")
         @setattr(styleprovider, glyphspec, attrname, attrtype)
 
-      for prop in properties
-        @[prop.constructor.name] = prop
+      for key of properties
+        @[key] = properties[key]
 
       # TODO auto detect fast path cases
       @fast_path = false

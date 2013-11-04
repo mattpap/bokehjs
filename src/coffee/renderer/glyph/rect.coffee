@@ -32,7 +32,10 @@ define [
         @,
         glyphspec,
         ['x', 'y', 'width', 'height', 'angle'],
-        [line_props, fill_props]
+        {
+          fill_properties: new fill_properties(@, glyphspec),
+          line_properties: new line_properties(@, glyphspec)
+        }
       )
       return glyph_props
 

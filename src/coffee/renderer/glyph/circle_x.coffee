@@ -28,10 +28,10 @@ define [
         @,
         glyphspec,
         ['x', 'y', 'size']
-        [
-          new fill_properties(@, glyphspec),
-          new line_properties(@, glyphspec)
-        ]
+        {
+          fill_properties: new fill_properties(@, glyphspec),
+          line_properties: new line_properties(@, glyphspec)
+        }
       )
       return glyph_props
 

@@ -16,9 +16,9 @@ define [
         @,
         glyphspec,
         ['x', 'y', 'angle', 'text:string'],
-        [
-          new text_properties(@, glyphspec)
-        ]
+        {
+          text_properties: new text_properties(@, glyphspec)
+        }
       )
 
       super(options)

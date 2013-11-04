@@ -26,13 +26,14 @@ define [
       @do_stroke = @glyph_props.line_properties.do_stroke
 
     init_glyph: (glyphspec) ->
-      fill_props = new fill_properties(@, glyphspec)
-      line_props = new line_properties(@, glyphspec)
       glyph_props = new glyph_properties(
         @,
         glyphspec,
         ['x', 'y', 'size'],
-        [line_props, fill_props]
+        {
+          fill_properties: new fill_properties(@, glyphspec),
+          line_properties: new line_properties(@, glyphspec)
+        }
       )
       return glyph_props
 

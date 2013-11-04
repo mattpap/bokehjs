@@ -28,9 +28,9 @@ define [
         @,
         glyphspec,
         ['x:number', 'y:number'],
-        [
-          new line_properties(@, glyphspec)
-        ]
+        {
+          line_properties: new line_properties(@, glyphspec)
+        }
       )
       return glyph_props
 

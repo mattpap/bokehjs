@@ -30,10 +30,10 @@ define [
         @,
         glyphspec,
         ['x', 'y', 'inner_radius', 'outer_radius', 'start_angle', 'end_angle', 'direction:string'],
-        [
-          new fill_properties(@, glyphspec),
-          new line_properties(@, glyphspec)
-        ]
+        {
+          fill_properties: new fill_properties(@, glyphspec),
+          line_properties: new line_properties(@, glyphspec),
+        }
       )
       return glyph_props
 
