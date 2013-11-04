@@ -83,18 +83,20 @@ module.exports = (grunt) ->
         ext: '.js'             # file extension for compiled files
         options:
           sourceMap : true
+
     requirejs:
       compile:
         options:
-          appDir: 'build'
+          almond: true
+          wrap: true
           name: 'main'
           paths:
             requireLib: 'vendor/requirejs/require'
           include: ["requireLib"]
-          baseUrl: 'js'
-          dir: 'release'
+          baseUrl: 'build/js'
           mainConfigFile: 'build/js/main.js'
           fileExclusionRegExp: /^test/
+          out: 'bokeh.js'
 
     watch:
       scripts:
