@@ -8,7 +8,7 @@
 
       <link rel='stylesheet' href='../js/vendor/qunit/qunit/qunit.css'>
 
-      <script src="../js/require.js"></script>
+      <script src="../js/vendor/requirejs/require.js"></script>
       <script src="../js/vendor/qunit/qunit/qunit.js"></script>
 
       <!-- your tests, any and all to run with the given fixtures below -->
@@ -31,6 +31,7 @@
         requirejs([
           '../test/common/has_parent_test.js',
           '../test/common/has_property_test.js',
+          '../test/common/ticking_test.js',
         ])
 
         QUnit.start()

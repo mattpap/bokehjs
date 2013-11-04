@@ -2,13 +2,11 @@
 define [
   "underscore",
   "require",
+  "common/custom"
   "common/plot",
   "common/gmap_plot",
-  #"common/grid_plot",
+  "common/grid_plot",
   "common/plot_context",
-  # "pandas/ipython_remote_data",
-  # "pandas/pandas_pivot_table",
-  # "pandas/pandas_plot_source",
   "range/range1d",
   "range/data_range1d",
   "range/factor_range",
@@ -29,7 +27,13 @@ define [
   "tool/preview_save_tool",
   "tool/embed_tool",
   "widget/data_slider",
+  "widget/pandas/ipython_remote_data",
+  "widget/pandas/pandas_pivot_table",
+  "widget/pandas/pandas_plot_source",
 ], (_, require) ->
+
+  # add some useful functions to underscore
+  require("common/custom").monkey_patch()
 
   locations =
 
@@ -39,10 +43,6 @@ define [
     CDXPlotContext:         'common/plot_context'
     PlotContext:            'common/plot_context'
     PlotList:               'common/plot_context'
-
-    IPythonRemoteData:      'pandas/ipython_remote_data'
-    PandasPivotTable:       'pandas/pandas_pivot_table'
-    PandasPlotSource:       'pandas/pandas_plot_source'
 
     Range1d:                'range/range1d'
     DataRange1d:            'range/data_range1d'
@@ -68,6 +68,9 @@ define [
     EmbedTool:              'tool/embed_tool'
 
     DataSlider:             'widget/data_slider'
+    IPythonRemoteData:      'widget/pandas/ipython_remote_data'
+    PandasPivotTable:       'widget/pandas/pandas_pivot_table'
+    PandasPlotSource:       'widget/pandas/pandas_plot_source'
 
   mod_cache = {}
 

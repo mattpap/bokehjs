@@ -2,12 +2,12 @@ module.exports = (grunt) ->
   grunt.initConfig
 
     copy:
-      html:
+      template:
         files: [
           expand: true
-          cwd: 'src'
-          src: ['**/*.html']
-          dest: 'build'
+          cwd: 'src/template'
+          src: ['**/*.html', '**/*.eco']
+          dest: 'build/template'
           filter: 'isFile'
         ]
       test:
@@ -24,22 +24,6 @@ module.exports = (grunt) ->
           cwd: 'demo'
           src: ['**/*.html', '**/*.js']
           dest: 'build/demo'
-          filter: 'isFile'
-        ]
-      requirejs:
-        files: [
-          expand: true
-          cwd: 'node_modules/requirejs'
-          src: ['require.js']
-          dest: 'build/js'
-          filter: 'isFile'
-        ]
-      vendor:
-        files: [
-          expand: true
-          cwd: 'src/js/vendor'
-          src: ['**/*']  # copy vendor js from src to dist
-          dest: 'build/js/vendor'
           filter: 'isFile'
         ]
 

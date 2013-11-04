@@ -2,7 +2,7 @@
 
 define [
   "backbone",
-  "common/has_properties"
+  "common/has_properties",
 ], (Backbone, HasProperties) ->
 
   class IPythonRemoteData extends HasProperties
@@ -11,7 +11,7 @@ define [
       computed_columns: []
 
   class IPythonRemoteDatas extends Backbone.Collection
-    model: DataRange1d
+    model: IPythonRemoteData
 
   return {
     "Model": IPythonRemoteData,

@@ -4,13 +4,14 @@ define [
   "backbone",
   "common/has_parent",
   "common/continuum_view"
-], (_, Backbone, HasParent, ContinuumView) ->
+  "vendor/text/text!../../../template/pandaspivot.eco"
+], (_, Backbone, HasParent, ContinuumView, pandaspivot) ->
 
   ENTER = 13
 
   class PandasPivotView extends ContinuumView.View
 
-    template: require("./pandaspivot")
+    template: pandaspivot
 
     initialize: (options) ->
       super(options)
@@ -296,4 +297,10 @@ define [
 
   class PandasPivotTables extends Backbone.Collection
     model: PandasPivotTable
+
+  return {
+    "Model" : PandasPivotTable,
+    "Collection": new PandasPivotTables(),
+    "View": PandasPivotView
+  }
 

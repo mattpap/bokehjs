@@ -11,3 +11,7 @@ define [
   class PandasPlotSources extends Backbone.Collection
     model: PandasPlotSource
 
+  return {
+    "Model": PandasPlotSource,
+    "Collection": new PandasPlotSources()
+  }

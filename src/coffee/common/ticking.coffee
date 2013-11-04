@@ -592,6 +592,7 @@ define [
       return labels
 
   return {
+    "argsort": argsort,
     "nice_2_5_10": nice_2_5_10,
     "nice_10": nice_10,
     "heckbert_interval": heckbert_interval,
