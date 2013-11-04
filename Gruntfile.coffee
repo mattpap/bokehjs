@@ -68,24 +68,9 @@ module.exports = (grunt) ->
         options:
           sourceMap : true
 
-    # requirejs:
-    #   compile:
-    #     options:
-    #       almond: true
-    #       wrap: true
-    #       name: 'main'
-    #       paths:
-    #         requireLib: 'vendor/requirejs/require'
-    #       include: ["requireLib"]
-    #       baseUrl: 'build/js'
-    #       mainConfigFile: 'build/js/main.js'
-    #       fileExclusionRegExp: /^test/
-    #       out: 'bokeh.js'
-
     requirejs:
       compile:
         options:
-          #optimize: "none"
           baseUrl: 'build/js'
           name: 'vendor/almond/almond'
           paths:
