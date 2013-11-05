@@ -1,8 +1,9 @@
 
 define [
   "underscore",
+  "./safebind",
   "./view_state",
-], (_, ViewState) ->
+], (_, safebind, ViewState) ->
 
   class GridViewState extends ViewState
     setup_layout_properties: () =>
@@ -54,3 +55,5 @@ define [
       childviewstates: [[]]
       border_space: 0
   )
+
+  return GridViewState

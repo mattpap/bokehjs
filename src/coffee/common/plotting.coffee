@@ -23,7 +23,10 @@ define [
       data = [data]
     sources = []
     for d in data
-      sources.push(ColumnDataSource.Collection.create({data: d}))
+      if d instanceof ColumnDataSource.Model
+        sources.push(d)
+      else
+        sources.push(ColumnDataSource.Collection.create({data: d}))
     return sources
 
   create_range = (range, sources, columns) ->
@@ -31,6 +34,8 @@ define [
       return DataRange1d.Collection.create(
         sources: ({ref: s.ref(), columns: columns} for s in sources)
       )
+    else if range instanceof Range1d.Model
+      return range
     else
       return Range1d.Collection.create({start: range[0], end: range[1]})
 
@@ -159,7 +164,7 @@ define [
       })
       plot.add_renderers([legend_renderer.ref()])
 
-  make_plot = (glyphspecs, data, {title, dims, xrange, yrange, xaxes, yaxes, xgrid, ygrid, tools, legend}) ->
+  make_plot = (glyphspecs, data, {title, dims, xrange, yrange, xaxes, yaxes, xgrid, ygrid, xdr, ydr, tools, legend}) ->
     title  ?= ""
     dims   ?= [400, 400]
     xrange ?= 'auto'

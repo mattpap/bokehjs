@@ -1,59 +1,60 @@
 
-Collections = require('../base').Collections
-make_glyph_test = require('../testutils').make_glyph_test
-Rand = require('../common/random').Rand
-
 xs = ((x/50) for x in _.range(630))
 ys1 = (Math.sin(x) for x in xs)
 ys2 = (Math.cos(x) for x in xs)
 
-source = Collections('ColumnDataSource').create(
+source = Bokeh.Collections('ColumnDataSource').create(
   data:
     x: xs
     y1: ys1
     y2: ys2
 )
 
-xdr = Collections('DataRange1d').create(
+xdr = Bokeh.Collections('DataRange1d').create(
   sources: [{ref: source.ref(), columns: ['x']}]
 )
 
-ydr = Collections('DataRange1d').create(
+ydr1 = Bokeh.Collections('DataRange1d').create(
   sources: [{ref: source.ref(), columns: ['y1']}]
 )
 
-ydr2 = Collections('DataRange1d').create(
+ydr2 = Bokeh.Collections('DataRange1d').create(
   sources: [{ref: source.ref(), columns: ['y2']}]
 )
 
 scatter1 = {
+  type: 'circle'
   x: 'x'
   y: 'y1'
   radius: 8
   radius_units: 'screen'
-  type: 'circle'
   fill_color: 'red'
   line_color: 'black'
 }
 
 scatter2 = {
+  type: 'rect'
   x: 'x'
   y: 'y2'
   width: 5
+  width_units: 'screen'
   height: 5
-  type: 'rects'
+  height_units: 'screen'
   fill_color: 'blue'
 }
 
-plot1 = make_glyph_test("plot1", source, {}, scatter1, xdr, ydr,
-        {dims: [600,600], plot_title: "Plot 1"})
-plot2 = make_glyph_test("plot2", source, {}, scatter2, xdr, ydr2,
-        {dims: [600,600], plot_title: "Plot 2"})
+options = {
+  title: "Scatter Demo"
+  dims: [600, 600]
+  xrange: xdr
+  xaxes: "min"
+  yaxes: "min"
+  tools: true
+  legend: false
+}
 
-gridplot = Collections('GridPlotContainer').create(children: [[plot1, plot2]])
+plot1 = Bokeh.Plotting.make_plot(scatter1, source, _.extend({title: "Plot 1", yrange: ydr1}, options))
+plot2 = Bokeh.Plotting.make_plot(scatter2, source, _.extend({title: "Plot 2", yrange: ydr2}, options))
 
-test(
-  'gridplot',
-  gridplot
-)
-
+gridplot = Bokeh.Collections('GridPlot').create(children: [[plot1, plot2]])
+Bokeh.Plotting.show(gridplot)
