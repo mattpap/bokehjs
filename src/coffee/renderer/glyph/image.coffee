@@ -45,7 +45,7 @@ define [
         canvas.height = height[i];
         ctx = canvas.getContext('2d');
         image_data = ctx.getImageData(0, 0, width[i], height[i]);
-        cmap = new ColorMapper({}, {
+        cmap = new LinearColorMapper({}, {
           palette: all_palettes[@pal[i]]
         })
         buf = cmap.v_map_screen(img[i])
