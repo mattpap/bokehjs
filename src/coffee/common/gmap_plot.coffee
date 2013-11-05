@@ -60,7 +60,7 @@ define [
       @throttled_render = _.throttle(@render, 100)
       @throttled_render_canvas = _.throttle(@render_canvas, 100)
 
-      @title_props = new text_properties(@, {}, 'title_')
+      @title_props = new Properties.text_properties(@, {}, 'title_')
 
       @view_state = new ViewState({
         canvas_width:      options.canvas_width       ? @mget('canvas_width')
