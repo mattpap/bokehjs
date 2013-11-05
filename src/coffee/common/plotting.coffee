@@ -203,7 +203,7 @@ define [
     myrender  =  ->
       view = new plot.default_view(model: plot)
       div.append(view.$el)
-      console.log("Added Plot" + plot.title)
+      console.log("added plot: " + plot.get('title'))
     _.defer(myrender)
 
 
