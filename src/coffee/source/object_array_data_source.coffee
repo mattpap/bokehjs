@@ -2,8 +2,10 @@
 define [
   "underscore",
   "backbone",
-  "common/has_properties"
-], (_, Backbone, HasProperties) ->
+  "common/has_properties",
+  "range/range1d",
+  "range/factor_range",
+], (_, Backbone, HasProperties, Range1d, FactorRange) ->
 
   class ObjectArrayDataSource extends HasProperties
     type: 'ObjectArrayDataSource'
@@ -34,7 +36,7 @@ define [
         center = (max + min) / 2.0
         [min, max] = [center - span/2.0, center + span/2.0]
 
-        @cont_ranges[field] = Collections('Range1d').create(
+        @cont_ranges[field] = Range1d.Collection.create(
             start: min
             end: max
         )
@@ -50,14 +52,14 @@ define [
     get_discrete_range: (field) ->
       if not _.exists(@discrete_ranges, field)
         factors = @compute_discrete_factor(field)
-        @discrete_ranges[field] = Collections('FactorRange').create(
+        @discrete_ranges[field] = FactorRange.Collection.create(
             values: factors
         )
         @on('change:data'
           ,
             () =>
               factors = @compute_discrete_factor(field)
-              @discrete_ranges[field] = Collections('FactorRange').set(
+              @discrete_ranges[field] = FactorRange.Collection.set(
                 'values', factors)
         )
       return @discrete_ranges[field]
