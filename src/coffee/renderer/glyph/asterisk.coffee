@@ -198,18 +198,16 @@ define [
     default_view: AsteriskView
     type: 'Glyph'
 
-  Asterisk::display_defaults = _.clone(Asterisk::display_defaults)
-  _.extend(Asterisk::display_defaults, {
-
-    line_color: 'red'
-    line_width: 1
-    line_alpha: 1.0
-    line_join: 'miter'
-    line_cap: 'butt'
-    line_dash: []
-    line_dash_offset: 0
-
-  })
+    display_defaults: () ->
+      return {
+        line_color: 'red'
+        line_width: 1
+        line_alpha: 1.0
+        line_join: 'miter'
+        line_cap: 'butt'
+        line_dash: []
+        line_dash_offset: 0
+      }
 
   return {
     "Model": Asterisk,

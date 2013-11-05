@@ -70,14 +70,14 @@ define [
           selected.push(idx)
       selected.sort()
       return selected
-  ObjectArrayDataSource::defaults = _.clone(ObjectArrayDataSource::defaults)
-  _.extend(ObjectArrayDataSource::defaults
-    ,
-      data: [{}]
-      name: 'data'
-      selected: []
-      selecting: false
-  )
+
+      defaults: () ->
+        return {
+          data: [{}]
+          name: 'data'
+          selected: []
+          selecting: false
+        }
 
   class ObjectArrayDataSources extends Backbone.Collection
     model: ObjectArrayDataSource

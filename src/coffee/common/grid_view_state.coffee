@@ -48,9 +48,9 @@ define [
       col_widths = (@maxdim('outer_width', col) for col in columns)
       return col_widths
 
-  GridViewState::defaults = _.clone(GridViewState::defaults)
-  _.extend(GridViewState::defaults
-    ,
-      childviewstates: [[]]
-      border_space: 0
-  )
+
+    defaults: () ->
+      return {
+        childviewstates: [[]]
+        border_space: 0
+      }

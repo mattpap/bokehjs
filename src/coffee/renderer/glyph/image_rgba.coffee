@@ -82,10 +82,10 @@ define [
     default_view: ImageRGBAView
     type: 'Glyph'
 
-  ImageRGBAGlyph::display_defaults = _.clone(ImageRGBAGlyph::display_defaults)
-  _.extend(ImageRGBAGlyph::display_defaults, {
-    level: 'underlay'
-  })
+    display_defaults: () ->
+      return {
+        level: 'underlay'
+      }
 
   return {
     "Model": ImageRGBAGlyph,

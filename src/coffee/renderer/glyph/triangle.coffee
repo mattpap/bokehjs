@@ -224,21 +224,18 @@ define [
     default_view: TriangleView
     type: 'Glyph'
 
-  Triangle::display_defaults = _.clone(Triangle::display_defaults)
-  _.extend(Triangle::display_defaults, {
-
-    fill_color: 'gray'
-    fill_alpha: 1.0
-
-    line_color: 'red'
-    line_width: 1
-    line_alpha: 1.0
-    line_join: 'miter'
-    line_cap: 'butt'
-    line_dash: []
-    line_dash_offset: 0
-
-  })
+    display_defaults: () ->
+      return {
+        fill_color: 'gray'
+        fill_alpha: 1.0
+        line_color: 'red'
+        line_width: 1
+        line_alpha: 1.0
+        line_join: 'miter'
+        line_cap: 'butt'
+        line_dash: []
+        line_dash_offset: 0
+      }
 
   return {
     "Model": Triangle,

@@ -88,10 +88,10 @@ define [
     default_view: ImageView
     type: 'Glyph'
 
-  ImageGlyph::display_defaults = _.clone(ImageGlyph::display_defaults)
-  _.extend(ImageGlyph::display_defaults, {
-    level: 'underlay'
-  })
+    display_defaults: () ->
+      return {
+        level: 'underlay'
+      }
 
   return {
     "Model": ImageGlyph,

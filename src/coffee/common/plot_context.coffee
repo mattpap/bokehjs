@@ -81,9 +81,11 @@ define [
     url: () ->
       return super()
 
-    defaults:
-      children: []
-      render_loop: true
+    defaults: () ->
+      return {
+        children: []
+        render_loop: true
+      } 
 
   class PlotContexts extends Backbone.Collection
     model: PlotContext

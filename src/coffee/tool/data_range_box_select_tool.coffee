@@ -26,8 +26,9 @@ define [
     default_view: DataRangeBoxSelectToolView
     type: "DataRangeBoxSelectTool"
 
-  DataRangeBoxSelectTool::defaults = _.clone(DataRangeBoxSelectTool::defaults)
-
+    defaults: () ->
+      return {}
+      
   class DataRangeBoxSelectTools extends Backbone.Collection
     model: DataRangeBoxSelectToolView
 

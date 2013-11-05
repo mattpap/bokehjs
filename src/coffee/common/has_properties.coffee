@@ -254,7 +254,8 @@ define [
       # HasProperties.prototype.sync = Backbone.sync
       return options.success(model, null, {})
 
-    defaults: {}
+    defaults: () ->
+      return {}
 
     rpc: (funcname, args, kwargs) =>
       prefix = Config.prefix

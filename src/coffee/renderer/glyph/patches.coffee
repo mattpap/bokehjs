@@ -79,21 +79,18 @@ define [
     default_view: PatchesView
     type: 'Glyph'
 
-  Patches::display_defaults = _.clone(Patches::display_defaults)
-  _.extend(Patches::display_defaults, {
-
-    fill_color: 'gray'
-    fill_alpha: 1.0
-
-    line_color: 'red'
-    line_width: 1
-    line_alpha: 1.0
-    line_join: 'miter'
-    line_cap: 'butt'
-    line_dash: []
-    line_dash_offset: 0
-
-  })
+    display_defaults: () ->
+      return {
+        fill_color: 'gray'
+        fill_alpha: 1.0
+        line_color: 'red'
+        line_width: 1
+        line_alpha: 1.0
+        line_join: 'miter'
+        line_cap: 'butt'
+        line_dash: []
+        line_dash_offset: 0
+      }
 
   return {
     "Model": Patches,

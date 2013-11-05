@@ -50,8 +50,8 @@ define [
     default_view: PreviewSaveToolView
     type: "PreviewSaveTool"
 
-  PreviewSaveTool::defaults = _.clone(PreviewSaveTool::defaults)
-  _.extend(PreviewSaveTool::defaults)
+    defaults: () ->
+      return {}
 
   class PreviewSaveTools extends Backbone.Collection
     model: PreviewSaveTool

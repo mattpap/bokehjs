@@ -208,23 +208,19 @@ define [
     default_view: OvalView
     type: 'Glyph'
 
-  Oval::display_defaults = _.clone(Oval::display_defaults)
-  _.extend(Oval::display_defaults, {
-
-    fill_color: 'gray'
-    fill_alpha: 1.0
-
-    line_color: 'red'
-    line_width: 1
-    line_alpha: 1.0
-    line_join: 'miter'
-    line_cap: 'butt'
-    line_dash: []
-    line_dash_offset: 0
-
-    angle: 0.0
-
-  })
+    display_defaults: () ->
+      return {
+        fill_color: 'gray'
+        fill_alpha: 1.0
+        line_color: 'red'
+        line_width: 1
+        line_alpha: 1.0
+        line_join: 'miter'
+        line_cap: 'butt'
+        line_dash: []
+        line_dash_offset: 0
+        angle: 0.0
+      }
 
   return {
     "Model": Oval,
