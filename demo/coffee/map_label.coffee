@@ -63,7 +63,7 @@ text = {
 }
 
 options = {
-  title: "Map Demo"
+  title: "Map with Labels Demo"
   dims: [1200, 600]
   xrange: [-130, -60]
   yrange: [25, 50]
@@ -71,7 +71,7 @@ options = {
   yaxes: false
   xgrid: false
   ygrid: false
-  tools: true
+  tools: "pan,zoom,resize,preview"
   legend: false
 }
 

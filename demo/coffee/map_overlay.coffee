@@ -1,10 +1,7 @@
-Collections = require('../base').Collections
-make_glyph_test = require('../testutils').make_glyph_test
 
-Rand = require('../common/random').Rand
-r = new Rand(123456789)
+r = new Bokeh.Random(123456789)
 
-colors = ["#DEEBF7", "#9ECAE1", "#DEEBF7",  "#3182BD",    "#3182BD",  "#3182BD",     "#3182BD",  "#3182BD",              "#DEEBF7", "#9ECAE1", "#DEEBF7", "#9ECAE1",  "#9ECAE1", "#9ECAE1", "#9ECAE1", "#DEEBF7",  "#DEEBF7",   "#9ECAE1", "#3182BD",  "#3182BD",       "#9ECAE1",  "#3182BD",   "#DEEBF7",     "#9ECAE1",  "#DEEBF7", "#9ECAE1",  "#9ECAE1","#3182BD",       "#3182BD",    "#DEEBF7",    "#9ECAE1",  "#DEEBF7",        "#9ECAE1",      "#9ECAE1","#DEEBF7",  "#9ECAE1","#9ECAE1",      "#9ECAE1",      "#DEEBF7",        "#9ECAE1",      "#DEEBF7",   "#9ECAE1", "#3182BD", "#9ECAE1", "#3182BD",   "#3182BD",   "#DEEBF7",       "#9ECAE1",   "#9ECAE1"]
+color = ["#DEEBF7", "#9ECAE1", "#DEEBF7",  "#3182BD",    "#3182BD",  "#3182BD",     "#3182BD",  "#3182BD",              "#DEEBF7", "#9ECAE1", "#DEEBF7", "#9ECAE1",  "#9ECAE1", "#9ECAE1", "#9ECAE1", "#DEEBF7",  "#DEEBF7",   "#9ECAE1", "#3182BD",  "#3182BD",       "#9ECAE1",  "#3182BD",   "#DEEBF7",     "#9ECAE1",  "#DEEBF7", "#9ECAE1",  "#9ECAE1","#3182BD",       "#3182BD",    "#DEEBF7",    "#9ECAE1",  "#DEEBF7",        "#9ECAE1",      "#9ECAE1","#DEEBF7",  "#9ECAE1","#9ECAE1",      "#9ECAE1",      "#DEEBF7",        "#9ECAE1",      "#DEEBF7",   "#9ECAE1", "#3182BD", "#9ECAE1", "#3182BD",   "#3182BD",   "#DEEBF7",       "#9ECAE1",   "#9ECAE1"]
 
 xs = [
     [-87.359296, -85.606675, -85.431413, -85.184951, -85.069935, -84.960397, -85.004212, -84.889196, -85.058981, -85.053504, -85.141136, -85.042551, -85.113751, -85.004212, -85.497137, -87.600282, -87.633143, -87.408589, -87.446927, -87.37025, -87.518128, -87.655051, -87.90699, -87.934375, -88.011052, -88.10416, -88.137022, -88.394438, -88.471115, -88.241084, -88.098683, -88.202745, -87.359296],
@@ -36,16 +33,16 @@ ys = [[35.00118, 34.984749, 34.124869, 32.859696, 32.580372, 32.421541, 32.32295
 ax = [-86.766233, -111.828711, -92.576816, -119.355165, -105.203628, -72.874365, -75.561908, -77.014001, -81.634622, -83.868887, -115.133222, -88.380238, -86.261515, -93.049161, -96.536052, -85.241819, -91.457133, -69.719931, -76.797396, -71.363628, -84.170753, -93.583003, -89.593164, -92.15377, -111.209708, -97.403875, -116.304648, -71.463342, -74.428055, -106.342108, -74.645228, -79.667654, -99.334736, -82.749366, -96.834653, -122.579524, -77.075925, -71.448902, -81.032387, -99.043799, -86.397772, -97.388631, -111.90016, -72.814309, -77.835857, -121.624501, -80.820221, -89.001006, -107.008835]
 ay = [33.001471, 33.373506, 35.080251, 35.458606, 39.500656, 41.494852, 39.397164, 38.910092, 27.79585, 33.332208, 44.242605, 41.278216, 40.163935, 41.960392, 38.454303, 37.808159, 30.69927, 44.313614, 39.145653, 42.271831, 42.866412, 45.210782, 32.56642, 38.437715, 46.813302, 41.183753, 37.165965, 43.153046, 40.438458, 34.623012, 41.507548, 35.553334, 47.375168, 40.480854, 35.59794, 44.732273, 40.463528, 41.753318, 34.034551, 44.047502, 35.795862, 30.943149, 40.438987, 44.081127, 37.750345, 47.341728, 38.767195, 43.728544, 42.675762]
 
-wcolors = new Array(ax.length*3)
+wcolor = new Array(ax.length*3)
 starts = new Array(ax.length*3)
 ends = new Array(ax.length*3)
 rs = new Array(ax.length*3)
 wx = new Array(ax.length*3)
 wy = new Array(ay.length*3)
 for i in [0..ax.length-1]
-    wcolors[i*3 + 0] = "#EDF8B1"
-    wcolors[i*3 + 1] = "#7FCDBB"
-    wcolors[i*3 + 2] = "#2C7FB8"
+    wcolor[i*3 + 0] = "#EDF8B1"
+    wcolor[i*3 + 1] = "#7FCDBB"
+    wcolor[i*3 + 2] = "#2C7FB8"
     starts[i*3 + 0] = 0 + i * 0.07
     starts[i*3 + 1] = 1.8 + i * 0.07
     starts[i*3 + 2] = 4.2 + i * 0.07
@@ -59,57 +56,57 @@ for i in [0..ax.length-1]
         wx[i*3 + j] = ax[i]
         wy[i*3 + j] = ay[i]
 
-source = Collections('ColumnDataSource').create(
-  data:
-    xs: xs
-    ys: ys
-    ax: ax
-    ay: ay
-    colors: colors
-)
-
-source2 = Collections('ColumnDataSource').create(
-  data:
-    wx: wx
-    wy: wy
-    wcolors: wcolors
-    starts: starts
-    ends: ends
-    rs: rs
-)
-
-xdr = Collections('Range1d').create({start: -130, end: -60})
-ydr = Collections('Range1d').create({start: 25, end: 50})
-
-area = {
-  xs: 'xs'
-  ys: 'ys'
-  type: 'patches',
-  line_color: 'white'
-  fill: '#665555'
-  fill_alpha: 0.6
+data1 = {
+  xs: xs
+  ys: ys
+  ax: ax
+  ay: ay
+  color: color
 }
 
-defaults = {
+data2 = {
+  wx: wx
+  wy: wy
+  rs: rs
+  starts: starts
+  ends: ends
+  wcolor: wcolor
+}
+
+area = {
+  type: 'patches',
+  xs: 'xs'
+  ys: 'ys'
+  line_color: 'white'
+  fill_color: '#665555'
+  fill_alpha: 0.6
 }
 
 wedge = {
   type: 'wedge'
-  fill:
-    field: 'wcolors'
   x: 'wx'
   y: 'wy'
   radius: 'rs'
-  line_color: 'white'
   start_angle: 'starts'
   end_angle: 'ends'
+  line_color: 'white'
+  fill_color: 'wcolor'
 }
 
+options = {
+  title: "Map with Overlay Demo"
+  dims: [1200, 600]
+  xrange: [-130, -60]
+  yrange: [25, 50]
+  xaxes: false
+  yaxes: false
+  xgrid: false
+  ygrid: false
+  tools: "pan,zoom,resize,preview"
+  legend: false
+}
 
-title = "Map with Overlay Example"
-test(
-  'map_overlay',
-  make_glyph_test('map_overlay', [source, source2], {border_fill:'#fafafa'}, [area, wedge], xdr, ydr, {dims: [1200, 600], axes:false, legend: false, plot_title:title})
-)
-
+plot = Bokeh.Plotting.make_plot([area, wedge], [data1, data2], options)
+plot.set('border_fill', '#fafafa')
+Bokeh.Plotting.show(plot)
 
