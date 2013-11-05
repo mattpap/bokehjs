@@ -30,7 +30,7 @@ options = {
   yrange: [0, 100]
   xaxes: "min",
   yaxes: "min",
-  tools: "pan,zoom,resize,select,preview",
+  tools: true,
   legend: false,
 }
 
