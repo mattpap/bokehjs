@@ -87,17 +87,16 @@
     <% end %>
     <th>index</th>
     <% for column in @columns: %>
-    <% if not @skip[column]: %>
-    <th><a class="pandascolumn"><%= column %></a>
-      
-      <% if @sort_ascendings[column] == true: %>
-      <i class="icon-caret-up"></i>
-      <% else if @sort_ascendings[column] == false: %>
-      <i class="icon-caret-down"></i>
+      <% if not @skip[column]: %>
+        <th style="white-space: nowrap;">
+          <a class="pandascolumn"><%= column %></a>
+          <% if @sort_ascendings[column] == true: %>
+            <i class="icon-caret-up"></i>
+          <% else if @sort_ascendings[column] == false: %>
+            <i class="icon-caret-down"></i>
+          <% end %>
+        </th>
       <% end %>
-      
-      <% end %>
-    </th>
     <% end %>
   </thead>
   <% for idx in _.range(@length): %>
