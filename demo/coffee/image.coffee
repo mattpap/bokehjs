@@ -1,65 +1,52 @@
-Collections = require('../base').Collections
-make_glyph_test = require('../testutils').make_glyph_test
 
 linspace = (d1,d2,n) ->
   j=0;
   L = new Array();
-
   while (j<=(n-1))
     tmp1 = j*(d2-d1)/(Math.floor(n)-1);
     tmp2 = Math.ceil((d1+tmp1)*10000)/10000;
     L.push(tmp2);
     j=j+1;
-
   return L;
 
-d = new Float32Array(600*600)
-xs = linspace(0,10,600)
-for j in [0..599]
-  for i in [0..599]
-    d[j*600+i] = Math.sin(xs[i])*Math.cos(xs[j])
+N = 600
 
-x = [0]
-y = [0]
-dw = [10]
-dh = [10]
-width = [600]
-height = [600]
-image = [d]
+d = new Float32Array(N*N)
+xs = linspace(0,10,N)
+for j in [0..(N-1)]
+  for i in [0..(N-1)]
+    d[j*N+i] = Math.sin(xs[i])*Math.cos(xs[j])
 
-
-source = Collections('ColumnDataSource').create(
-  data:
-    x: x
-    y: y
-    dw: dw
-    dh: dh
-    width: width
-    height: height
-    image: image
-)
-
-xdr = Collections('Range1d').create({start: 0, end: 10})
-ydr = Collections('Range1d').create({start: 0, end: 10})
-
-image = {
-  x: 'x',
-  y: 'y',
-  dw: 'dw',
-  dw_units: 'data'
-  dh: 'dh',
-  dh_units: 'data'
-  image: 'image'
-  width: 'width',
-  height: 'height',
-  type: 'image',
-  palette:
-    default: 'Spectral-10'
+data = {
+  image: [d]
 }
 
-title = "Image Plot Example"
-test(
-  'image',
-  make_glyph_test('image', source, {}, [image], xdr, ydr, {dims:[600, 600], plot_title:title, legend:false})
-)
+image = {
+  type: 'image',
+  x: 0
+  y: 0
+  dw: 10
+  dw_units: 'data'
+  dh: 10
+  dh_units: 'data'
+  image: 'image'
+  width: N
+  height: N
+  palette: 'Spectral-10'
+}
+
+
+options = {
+  title: "Image Demo"
+  dims: [600, 600]
+  xrange: [0, 10]
+  yrange: [0, 10]
+  xaxes: "min"
+  yaxes: "min"
+  tools: "pan,zoom,resize,preview"
+  legend: false
+}
+
+plot = Bokeh.Plotting.make_plot(image, data, options)
+Bokeh.Plotting.show(plot)
 
