@@ -130,9 +130,8 @@ module.exports = (grunt) ->
       all:
         options:
           urls:[
-            'http://localhost:8000/test/index.html',
-            'http://localhost:8000/demo/index.html',
-          ]
+            'http://localhost:8000/build/test/common_test.html']
+
 
   grunt.loadNpmTasks("grunt-contrib-coffee")
   grunt.loadNpmTasks("grunt-contrib-watch")
@@ -145,6 +144,7 @@ module.exports = (grunt) ->
   grunt.registerTask("default", ["coffee", "less",      "copy", "qunit"])
   grunt.registerTask("build",   ["coffee", "less",      "copy"         ])
   grunt.registerTask("deploy",  ["build",  "requirejs", "clean"        ])
+
 
   grunt.event.on "watch", (action, filepath, target) ->
     filepath = filepath.replace('src/coffee/', '')
