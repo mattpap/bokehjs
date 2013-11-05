@@ -113,21 +113,21 @@ define [
       tools = "pan,zoom,select,resize,preview"
     added_tools = []
 
-    if tools.indexOf "pan" > 0
+    if tools.indexOf("pan") > -1
       pan_tool = PanTool.Collection.create(
         dataranges: [xdr.ref(), ydr.ref()]
         dimensions: ['width', 'height']
       )
       added_tools.push(pan_tool)
 
-    if tools.indexOf "zoom" > 0
+    if tools.indexOf("zoom") > -1
       zoom_tool = ZoomTool.Collection.create(
         dataranges: [xdr.ref(), ydr.ref()]
         dimensions: ['width', 'height']
       )
       added_tools.push(zoom_tool)
 
-    if tools.indexOf "select" > 0
+    if tools.indexOf("select") > -1
       select_tool = BoxSelectTool.Collection.create(
         renderers: (g.ref() for g in glyphs)
       )
@@ -137,15 +137,15 @@ define [
       added_tools.push(select_tool)
       plot.add_renderers([select_overlay.ref()])
 
-    if tools.indexOf "resize" > 0
+    if tools.indexOf("resize") > -1
       resize_tool = ResizeTool.Collection.create()
       added_tools.push(resize_tool)
 
-    if tools.indexOf "preview" > 0
+    if tools.indexOf("preview") > -1
       preview_tool = PreviewSaveTool.Collection.create()
       added_tools.push(preview_tool)
 
-      plot.set_obj('tools', added_tools)
+    plot.set_obj('tools', added_tools)
 
   add_legend = (plot, legend, glyphs) ->
     if legend
