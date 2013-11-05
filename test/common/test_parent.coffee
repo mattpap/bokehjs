@@ -15,5 +15,5 @@ define [
 
   return {
     "Model": TestParent,
-    "Collection": new TestParent(),
+    "Collection": new TestParents(),
   }
