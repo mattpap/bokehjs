@@ -1,6 +1,4 @@
 
-
-
 r = new Bokeh.Random(123456789)
 
 x = (r.randf()*100 for i in _.range(4000))

@@ -54,7 +54,8 @@ options = {
   yrange: [0, 100]
   xaxes: "min"
   yaxes: "min"
-  tools: true
+  xgrid: false
+  tools: false
   legend: "bars"
 }
 
