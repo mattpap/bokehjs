@@ -29,3 +29,7 @@ define [], () ->
       div.remove()
     cache[font] = result
     return result
+
+  return {
+    "getTextHeight": getTextHeight
+  }

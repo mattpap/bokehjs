@@ -3,8 +3,9 @@ define [
   "underscore",
   "common/has_parent",
   "common/plot_widget",
+  "common/textutils",
   "renderer/properties",
-], (_, HasParent, PlotWidget, Properties) ->
+], (_, HasParent, PlotWidget, textutils, Properties) ->
 
   glyph_properties = Properties.glyph_properties
   line_properties  = Properties.line_properties
@@ -32,31 +33,26 @@ define [
   class LegendView extends PlotWidget
     initialize: (options) ->
       super(options)
-      @change_annotationspec()
+      @label_props = new text_properties(@, @model, 'label_')
+      @border_props = new line_properties(@, @model, 'border_')
+      if @mget('legend_names')
+        @legend_names = @mget('legend_names')
+      else
+        @legends = @mget('legends')
+        @legend_names =_.keys(@mget('legends'))
+      @calc_dims()
 
     delegateEvents: (events) ->
       super(events)
-      @listenTo(@model, 'change:annotationspec', @change_annotationspec)
       @listenTo(@plot_view.view_state, 'change', @calc_dims)
 
-    change_annotationspec: () ->
-      @annotationspec = @mget('annotationspec')
-      @label_props = new text_properties(@, @annotationspec, 'label_')
-      @border_props = new line_properties(@, @annotationspec, 'border_')
-      if @annotationspec.legend_names
-        @legend_names = @annotationspec.legend_names
-      else
-        @legend_names =_.keys(@annotationspec.legends)
-      @calc_dims()
-
     calc_dims: (options) ->
-      label_height = @annotationspec.label_height ? @mget('label_height')
-      @glyph_height = @annotationspec.glyph_height ? @mget('glyph_height')
-      label_width = @annotationspec.label_width ? @mget('label_width')
-      @glyph_width = @annotationspec.glyph_width ? @mget('glyph_width')
-      legend_spacing = @annotationspec.legend_spacing ? @mget('legend_spacing')
-      @label_height = _.max([textutils.getTextHeight(@label_props.font(@)),
-        label_height, @glyph_height])
+      label_height = @mget('label_height')
+      @glyph_height = @mget('glyph_height')
+      label_width = @mget('label_width')
+      @glyph_width = @mget('glyph_width')
+      legend_spacing = @mget('legend_spacing')
+      @label_height = _.max([textutils.getTextHeight(@label_props.font(@)), label_height, @glyph_height])
       @legend_height = @label_height
       #add legend spacing
       @legend_height = @legend_names.length * @legend_height + (1 + @legend_names.length) * legend_spacing
@@ -70,8 +66,8 @@ define [
       text_width = _.max(text_widths)
       @label_width = _.max([text_width, label_width])
       @legend_width = @label_width + @glyph_width + 3 * legend_spacing
-      orientation = @annotationspec.orientation ? @mget('orientation')
-      legend_padding = @annotationspec.legend_padding ? @mget('legend_padding')
+      orientation = @mget('orientation')
+      legend_padding = @mget('legend_padding')
       h_range = @plot_view.view_state.get('inner_range_horizontal')
       v_range = @plot_view.view_state.get('inner_range_vertical')
       if orientation == "top_right"
@@ -87,7 +83,7 @@ define [
         x = h_range.get('end') - legend_padding - @legend_width
         y = v_range.get('start') + legend_padding + @legend_height
       else if orientation == "absolute"
-        [x,y] = @annotationspec.absolute_coords
+        [x,y] = @absolute_coords
       x = @plot_view.view_state.sx_to_device(x)
       y = @plot_view.view_state.sy_to_device(y)
       @box_coords = [x,y]
@@ -105,7 +101,7 @@ define [
       ctx.fill()
       ctx.stroke()
       @label_props.set(ctx, @)
-      legend_spacing = @annotationspec.legend_spacing ? @mget('legend_spacing')
+      legend_spacing = @mget('legend_spacing')
       for legend_name, idx in @legend_names
         yoffset = idx * @label_height
         yspacing = (1 + idx) * legend_spacing
@@ -116,7 +112,7 @@ define [
         y1 = @box_coords[1] + yoffset + yspacing
         y2 = y1 + @glyph_height
         ctx.fillText(legend_name, x, y)
-        for renderer in @model.resolve_ref(@annotationspec.legends[legend_name])
+        for renderer in @model.resolve_ref(@legends[legend_name])
           view = @plot_view.renderers[renderer.id]
           view.draw_legend(ctx, x1,x2,y1,y2)
 

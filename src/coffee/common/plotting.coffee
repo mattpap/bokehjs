@@ -151,12 +151,12 @@ define [
     if legend
       legends = {}
       for g, idx in glyphs
-        legends[legend_name + String(idx)] = [g.ref()]
-      legend_renderer = Legend.Collection.create(
+        legends[legend + String(idx)] = [g.ref()]
+      legend_renderer = Legend.Collection.create({
         plot: plot.ref()
         orientation: "top_right"
         legends: legends
-      )
+      })
       plot.add_renderers([legend_renderer.ref()])
 
   make_plot = (glyphspecs, data, {title, dims, xrange, yrange, xaxes, yaxes, xgrid, ygrid, tools, legend}) ->
@@ -174,7 +174,7 @@ define [
     sources = create_sources(data)
 
     xdr = create_range(xrange, sources, ['x'])
-    ydr = create_range(xrange, sources, ['y'])
+    ydr = create_range(yrange, sources, ['y'])
 
     plot = Plot.Collection.create(
       x_range: xdr.ref()
