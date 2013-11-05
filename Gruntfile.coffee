@@ -82,7 +82,7 @@ module.exports = (grunt) ->
             bootstrap: "vendor/bootstrap/dist/js/bootstrap"
           include: ['main', 'underscore']
           fileExclusionRegExp: /^test/
-          out: 'bokeh.js'
+          out: 'build/bokeh.js'
           wrap: {
             startFile: 'src/start.frag',
             endFile: 'src/end.frag'

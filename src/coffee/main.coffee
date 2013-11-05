@@ -20,6 +20,7 @@ define (require, exports, module) ->
   Bokeh.HasParent         = require("common/has_parent")
   Bokeh.HasProperties     = require("common/has_properties")
   Bokeh.Plot              = require("common/plot")
+  Bokeh.Plotting          = require("common/plotting")
 
   Bokeh.Affine = require("common/affine")
   Bokeh.build_views = require("common/build_views")
