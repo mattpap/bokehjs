@@ -52,7 +52,7 @@ define [
     else
       for val in _.zip(glyphspecs, sources)
         [spec, source] = val
-        glyph = Collections('Glyph').create({
+        glyph = GlyphFactory.Collection.create({
           data_source: source.ref()
           glyphspec: spec
         })
