@@ -210,16 +210,20 @@ class PandasPivotView extends ContinuumView
       colors : colors
       index : @mget('tabledata').data.index
 
-    @$el.empty()
     html = @template(template_data)
     @$el.html(html)
+    @$el.addClass("bokehtable")
+    @$el.find(".bokehdatatable > thead > tr").sortable(
+      stop: (event, ui) ->
+        console.log(ui)
+    )
+
     @$(".pandasagg")
       .find("option[value=\"#{@mget('agg')}\"]")
       .attr('selected', 'selected')
     @$(".tablecontrolstate")
       .find("option[value=\"#{@mget('tablecontrolstate')}\"]")
       .attr('selected', 'selected')
-    @$el.addClass("bokehtable")
 
 class PandasPivotTable extends HasParent
   type : 'PandasPivotTable'
