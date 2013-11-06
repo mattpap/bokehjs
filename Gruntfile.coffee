@@ -69,8 +69,27 @@ module.exports = (grunt) ->
           sourceMap : true
 
     requirejs:
-      compile:
+      dist:
         options:
+          baseUrl: 'build/js'
+          name: 'vendor/almond/almond'
+          paths:
+            jquery: "vendor/jquery/jquery"
+            jquery_ui: "vendor/jquery-ui-amd/jquery-ui-1.10.0/jqueryui"
+            jquery_mousewheel: "vendor/jquery-mousewheel/jquery.mousewheel"
+            underscore: "vendor/underscore-amd/underscore"
+            backbone: "vendor/backbone-amd/backbone"
+            bootstrap: "vendor/bootstrap/dist/js/bootstrap"
+          include: ['main', 'underscore']
+          fileExclusionRegExp: /^test/
+          out: 'build/bokeh.js'
+          wrap: {
+            startFile: 'src/start.frag',
+            endFile: 'src/end.frag'
+          }
+      dev:
+        options:
+          optimize: "none"
           baseUrl: 'build/js'
           name: 'vendor/almond/almond'
           paths:
@@ -126,9 +145,10 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks("grunt-contrib-clean")
   grunt.loadNpmTasks("grunt-contrib-qunit")
 
-  grunt.registerTask("default", ["coffee", "less",      "copy", "qunit"])
-  grunt.registerTask("build",   ["coffee", "less",      "copy"         ])
-  grunt.registerTask("deploy",  ["build",  "requirejs", "clean"        ])
+  grunt.registerTask("default",    ["coffee", "less",           "copy", "qunit"])
+  grunt.registerTask("build",      ["coffee", "less",           "copy"         ])
+  grunt.registerTask("deploy",     ["build",  "requirejs:dist", "clean"        ])
+  grunt.registerTask("devdeploy",  ["build",  "requirejs:dev",  "clean"        ])
 
 
   grunt.event.on "watch", (action, filepath, target) ->
