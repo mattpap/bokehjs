@@ -118,6 +118,8 @@ define [
       return @_padding_request()
 
     _draw_rule: (ctx) ->
+      if not @rule_props.do_stroke
+        return
       [x, y] = coords = @mget('rule_coords')
       [sx, sy] = @plot_view.map_to_screen(x, "data", y, "data")
       @rule_props.set(ctx, @)
@@ -129,6 +131,8 @@ define [
       return
 
     _draw_major_ticks: (ctx) ->
+      if not @major_tick_props.do_stroke
+        return
       [x, y] = coords = @mget('major_coords')
       [sx, sy] = @plot_view.map_to_screen(x, "data", y, "data")
       [nx, ny] = @mget('normals')
