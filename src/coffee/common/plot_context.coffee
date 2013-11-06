@@ -89,7 +89,7 @@ define [
     model: PlotContext
 
   return {
-    "PlotContext": PlotContext,
-    "plotlists": new PlotContexts(),
-    "PlotContextView": PlotContextView,
+    "Model": PlotContext,
+    "Collection": new PlotContexts(),
+    "View": PlotContextView,
   }
