@@ -1,7 +1,7 @@
 
 require [
   "common/base",
-  "../test/common/test_object",
+  "../test/common/test_parent"
 ], (base, test_parent) ->
 
   Collections = base.Collections
@@ -16,11 +16,17 @@ require [
       id : 'parent'
       testprop : 'aassddff'
     )
+
+    parent_ref = parent.ref()
+
     child = Collections('TestParent').create(
       id : 'first'
-      parent : parent.ref()
+      'parent' : parent_ref
     )
-    ok(child.get('testprop') == parent.get('testprop'))
+    child_test_prop = child.get('testprop')
+    parent_test_prop = parent.get('testprop')
+
+    ok(child_test_prop == parent_test_prop)
   )
 
   test('display_defaults_propagate', () ->
@@ -30,7 +36,7 @@ require [
     )
     child = Collections('TestParent').create(
       id : 'first'
-      parent : parent.ref()
+      'parent' : parent.ref()
     )
     ok(child.get('testprop') == parent.get('testprop'));
   )

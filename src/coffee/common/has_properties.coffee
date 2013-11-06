@@ -192,13 +192,14 @@ define [
       # overrides backbone get.  checks properties,
       # calls getter, or goes to cache
       # if necessary.  If it's not a property, then just call super
+
       if _.has(@properties, prop_name)
         prop_spec = @properties[prop_name]
         if prop_spec.use_cache and @has_cache(prop_name)
           return @property_cache[prop_name]
         else
           getter = prop_spec.getter
-          computed = getter.apply(this, this)
+          computed = getter.apply(this)
           if @properties[prop_name].use_cache
             @add_cache(prop_name, computed)
           return computed
