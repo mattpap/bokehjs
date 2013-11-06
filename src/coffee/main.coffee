@@ -27,6 +27,7 @@ define (require, exports, module) ->
   Bokeh.bulk_save = require("common/bulk_save")
   Bokeh.ContinuumView = require("common/continuum_view")
   Bokeh.GridViewState = require("common/grid_view_state")
+  Bokeh.load_models = require("common/load_models")
   Bokeh.PlotContext = require("common/plot_context")
   Bokeh.PlotWidget = require("common/plot_widget")
   Bokeh.PNGView = require("common/png_view")
