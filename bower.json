@@ -11,6 +11,8 @@
     "bootstrap": null,
     "requirejs": null,
     "text": null,
+    "timezone": null,
+    "sprintf": null,
     "qunit": "1.10.0"
   }
 }

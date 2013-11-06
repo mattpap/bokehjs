@@ -80,6 +80,11 @@ module.exports = (grunt) ->
             underscore: "vendor/underscore-amd/underscore"
             backbone: "vendor/backbone-amd/backbone"
             bootstrap: "vendor/bootstrap/dist/js/bootstrap"
+            timezone: "vendor/timezone/src/timezone"
+            sprintf: "vendor/sprintf/src/sprintf"
+          shim:
+            sprintf:
+              exports: 'sprintf'
           include: ['main', 'underscore']
           fileExclusionRegExp: /^test/
           out: 'build/bokeh.js'
@@ -99,6 +104,11 @@ module.exports = (grunt) ->
             underscore: "vendor/underscore-amd/underscore"
             backbone: "vendor/backbone-amd/backbone"
             bootstrap: "vendor/bootstrap/dist/js/bootstrap"
+            timezone: "vendor/timezone/src/timezone"
+            sprintf: "vendor/sprintf/src/sprintf"
+          shim:
+            sprintf:
+              exports: 'sprintf'
           include: ['main', 'underscore']
           fileExclusionRegExp: /^test/
           out: 'build/bokeh.js'

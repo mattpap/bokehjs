@@ -1,10 +1,9 @@
 
 define [
   "underscore",
-], (_) ->
-
-  sprintf = window.sprintf
-  tz = window.tz
+  "timezone",
+  "sprintf",
+], (_, tz, sprintf) ->
 
   log10 = (num) ->
     """
