@@ -30,7 +30,10 @@ define [
       if max != min
         span = (max - min) * (1 + @get('rangepadding'))
       else
-        span = max * (1 + @get('rangepadding'))
+        if max != 0
+          span = max * (1 + @get('rangepadding'))
+        else
+          span = 2
       center = (max + min) / 2.0
       [min, max] = [center - span/2.0, center + span/2.0]
       return [min, max]
