@@ -20,12 +20,11 @@ define [
       @add_dependencies('max', this, ['start', 'end'])
 
 
-  Range1d::defaults = _.clone(Range1d::defaults)
-  _.extend(Range1d::defaults
-    ,
-      start: 0
-      end: 1
-  )
+    defaults: () ->
+      return {
+        start: 0
+        end: 1
+      }
 
   class Range1ds extends Backbone.Collection
     model: Range1d

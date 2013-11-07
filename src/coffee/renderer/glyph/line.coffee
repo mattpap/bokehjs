@@ -133,18 +133,16 @@ define [
     default_view: LineView
     type: 'Glyph'
 
-  Line::display_defaults = _.clone(Line::display_defaults)
-  _.extend(Line::display_defaults, {
-
-    line_color: 'red'
-    line_width: 1
-    line_alpha: 1.0
-    line_join: 'miter'
-    line_cap: 'butt'
-    line_dash: []
-    line_dash_offset: 0
-
-  })
+    display_defaults: () ->
+      return {
+        line_color: 'red'
+        line_width: 1
+        line_alpha: 1.0
+        line_join: 'miter'
+        line_cap: 'butt'
+        line_dash: []
+        line_dash_offset: 0
+      }
 
   return {
     "Model": Line,

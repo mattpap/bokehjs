@@ -41,8 +41,9 @@ define [
           not _.isUndefined(@get_obj('parent').get(attr)))
         return @get_obj('parent').get(attr)
       else
-        retval = @display_defaults[attr]
-        return retval
+        if _.isFunction(@display_defaults)
+          return @display_defaults()[attr]
+        return @display_defaults[attr]
 
     get: (attr) ->
       ## no fallback for 'parent'

@@ -26,14 +26,12 @@ define [
       @add_dependencies('values', @get_obj('data_source'),
         ['data_source', 'columns'])
 
-
-  DataFactorRange::defaults = _.clone(DataFactorRange::defaults)
-  _.extend(DataFactorRange::defaults
-    ,
-      values: []
-      columns: []
-      data_source: null
-  )
+    defaults: () ->
+      return {
+        values: []
+        columns: []
+        data_source: null
+      }
 
   class DataFactorRanges extends Backbone.Collection
     model: DataFactorRange

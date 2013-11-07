@@ -165,11 +165,11 @@ define [
     type: 'GridPlot'
     default_view: GridPlotView
 
-  GridPlot::defaults = _.clone(GridPlot::defaults)
-  _.extend(GridPlot::defaults, {
-    children: [[]]
-    border_space: 0
-  })
+    defaults: () ->
+      return {
+        children: [[]]
+        border_space: 0
+      }
 
   class GridPlots extends Backbone.Collection
     model: GridPlot

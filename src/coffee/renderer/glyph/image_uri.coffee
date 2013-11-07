@@ -83,10 +83,10 @@ define [
     default_view: ImageURIView
     type: 'Glyph'
 
-  ImageURIGlyph::display_defaults = _.clone(ImageURIGlyph::display_defaults)
-  _.extend(ImageURIGlyph::display_defaults, {
-    level: 'underlay'
-  })
+    display_defaults: () ->
+      return {
+        level: 'underlay'
+      }
 
   return {
     "Model": ImageURIGlyph,

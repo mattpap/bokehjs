@@ -110,20 +110,17 @@ define [
     default_view: ArcView
     type: 'Glyph'
 
-  Arc::display_defaults = _.clone(Arc::display_defaults)
-  _.extend(Arc::display_defaults, {
-
-    direction: 'anticlock'
-
-    line_color: 'red'
-    line_width: 1
-    line_alpha: 1.0
-    line_join: 'miter'
-    line_cap: 'butt'
-    line_dash: []
-    line_dash_offset: 0
-
-  })
+    display_defaults: () ->
+      return {
+        direction: 'anticlock'
+        line_color: 'red'
+        line_width: 1
+        line_alpha: 1.0
+        line_join: 'miter'
+        line_cap: 'butt'
+        line_dash: []
+        line_dash_offset: 0
+      }
 
   return {
     "Model": Arc,

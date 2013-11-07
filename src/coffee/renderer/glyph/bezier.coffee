@@ -80,18 +80,16 @@ define [
     default_view: BezierView
     type: 'Glyph'
 
-  Bezier::display_defaults = _.clone(Bezier::display_defaults)
-  _.extend(Bezier::display_defaults, {
-
-    line_color: 'red'
-    line_width: 1
-    line_alpha: 1.0
-    line_join: 'miter'
-    line_cap: 'butt'
-    line_dash: []
-    line_dash_offset: 0
-
-  })
+    display_defaults: () ->
+      return {
+        line_color: 'red'
+        line_width: 1
+        line_alpha: 1.0
+        line_join: 'miter'
+        line_cap: 'butt'
+        line_dash: []
+        line_dash_offset: 0
+      }
 
   return {
     "Model": Bezier,

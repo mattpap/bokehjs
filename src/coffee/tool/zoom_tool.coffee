@@ -58,14 +58,13 @@ define [
     default_view: ZoomToolView
     type: "ZoomTool"
 
-  ZoomTool::defaults = _.clone(ZoomTool::defaults)
-  _.extend(ZoomTool::defaults
-    ,
-      dimensions: []
-      dataranges: []
-      speed: 1/600
-  )
-
+    defaults: () ->
+      return {
+        dimensions: []
+        dataranges: []
+        speed: 1/600
+      }
+      
   class ZoomTools extends Backbone.Collection
     model: ZoomTool
 

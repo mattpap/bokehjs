@@ -242,23 +242,21 @@ define [
     default_view: AnnularWedgeView
     type: 'Glyph'
 
-  AnnularWedge::display_defaults = _.clone(AnnularWedge::display_defaults)
-  _.extend(AnnularWedge::display_defaults, {
+    display_defaults: () ->
+      return {
+        direction: 'anticlock'
 
-    direction: 'anticlock'
+        fill_color: 'gray'
+        fill_alpha: 1.0
 
-    fill_color: 'gray'
-    fill_alpha: 1.0
-
-    line_color: 'red'
-    line_width: 1
-    line_alpha: 1.0
-    line_join: 'miter'
-    line_cap: 'butt'
-    line_dash: []
-    line_dash_offset: 0
-
-  })
+        line_color: 'red'
+        line_width: 1
+        line_alpha: 1.0
+        line_join: 'miter'
+        line_cap: 'butt'
+        line_dash: []
+        line_dash_offset: 0
+      }
 
   return {
     "Model": AnnularWedge,

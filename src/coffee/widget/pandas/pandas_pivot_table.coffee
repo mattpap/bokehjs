@@ -280,20 +280,19 @@ define [
 
     default_view: PandasPivotView
 
-  PandasPivotTable::defaults = _.clone(PandasPivotTable::defaults)
-
-  _.extend(PandasPivotTable::defaults, {
-    sort: []
-    group: []
-    agg: 'sum'
-    offset: 0
-    length: 100
-    maxlength: 1000
-    tabledata: null
-    columns_names: []
-    width: null
-    tablecontrolstate: 'groupby'
-  })
+    defaults: () ->
+      return {
+        sort: []
+        group: []
+        agg: 'sum'
+        offset: 0
+        length: 100
+        maxlength: 1000
+        tabledata: null
+        columns_names: []
+        width: null
+        tablecontrolstate: 'groupby'
+      }
 
   class PandasPivotTables extends Backbone.Collection
     model: PandasPivotTable
