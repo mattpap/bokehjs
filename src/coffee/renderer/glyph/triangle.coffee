@@ -148,7 +148,6 @@ define [
         a = @size[i] * Math.sqrt(3)/6
         r = @size[i]/2
         h = @size[i] * Math.sqrt(3)/2
-        console.log a, r, h
         ctx.beginPath()
         # TODO use viewstate to take y-axis inversion into account
         ctx.moveTo(@sx[i]-r, @sy[i]+a)
