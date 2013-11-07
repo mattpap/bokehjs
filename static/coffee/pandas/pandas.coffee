@@ -214,8 +214,11 @@ class PandasPivotView extends ContinuumView
     @$el.html(html)
     @$el.addClass("bokehtable")
     @$el.find(".bokehdatatable > thead > tr").sortable(
-      stop: (event, ui) ->
+      stop: (event, ui) =>
         console.log(ui)
+        columns = _.map(@$el.find(".pandascolumn"), (el) -> $(el).text())
+        console.log(columns)
+        @model.save('columns', columns, {'wait': true})
     )
 
     @$(".pandasagg")
@@ -287,6 +290,7 @@ class PandasPivotTable extends HasParent
     @save()
 
   defaults :
+    columns : []
     sort : []
     group : []
     agg : 'sum'
@@ -294,7 +298,6 @@ class PandasPivotTable extends HasParent
     length : 100
     maxlength : 1000
     tabledata : null
-    columns_names : []
     width : null
     tablecontrolstate : 'groupby'
 
