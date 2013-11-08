@@ -501,9 +501,6 @@ define [
         side = 'right'
       return side
 
-    defaults: () ->
-      return {}
-      
     display_defaults: () ->
       return {
         level: 'overlay'

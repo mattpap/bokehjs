@@ -61,13 +61,11 @@ define [
      default_view: EmbedToolView
      type: "EmbedTool"
 
-     defaults: () ->
-       return {}
-
-
-
   class EmbedTools extends Backbone.Collection
     model: EmbedTool
+
+    display_defaults: () ->
+      super()
 
   return {
     "Model": EmbedTool,

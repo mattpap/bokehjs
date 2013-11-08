@@ -26,11 +26,11 @@ define [
     default_view: DataRangeBoxSelectToolView
     type: "DataRangeBoxSelectTool"
 
-    defaults: () ->
-      return {}
-      
   class DataRangeBoxSelectTools extends Backbone.Collection
     model: DataRangeBoxSelectToolView
+
+    display_defaults: () ->
+      super()
 
   return {
     "Model": DataRangeBoxSelectTool,

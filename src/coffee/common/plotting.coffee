@@ -47,6 +47,7 @@ define [
       for spec in glyphspecs
         glyph = GlyphFactory.Collection.create({
           data_source: sources[0].ref()
+          parent: plot.ref()
           glyphspec: spec
           nonselection_glyphspec:
             fill_alpha: 0.1
@@ -58,6 +59,7 @@ define [
       for val in _.zip(glyphspecs, sources)
         [spec, source] = val
         glyph = GlyphFactory.Collection.create({
+          parent: plot.ref()
           data_source: source.ref()
           glyphspec: spec
         })
@@ -76,6 +78,7 @@ define [
           dimension: 0
           axis_label: 'x'
           location: loc
+          parent: plot.ref()
           plot: plot.ref()
         )
         axes.push(axis)
@@ -89,6 +92,7 @@ define [
           dimension: 1
           axis_label: 'y'
           location: loc
+          parent: plot.ref()
           plot: plot.ref()
         )
         axes.push(axis)
@@ -99,12 +103,14 @@ define [
     if xgrid
       grid = Grid.Collection.create(
         dimension: 0
+        parent: plot.ref()
         plot: plot.ref()
       )
       grids.push(grid)
     if ygrid
       grid = Grid.Collection.create(
         dimension: 1
+        parent: plot.ref()
         plot: plot.ref()
       )
       grids.push(grid)
@@ -158,6 +164,7 @@ define [
       for g, idx in glyphs
         legends[legend + String(idx)] = [g.ref()]
       legend_renderer = Legend.Collection.create({
+        parent: plot.ref()
         plot: plot.ref()
         orientation: "top_right"
         legends: legends

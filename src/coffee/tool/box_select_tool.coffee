@@ -144,6 +144,9 @@ define [
         data_source_options: {} #backbone options for save on datasource
       }
 
+    display_defaults: () ->
+      super()
+
   class BoxSelectTools extends Backbone.Collection
     model: BoxSelectTool
 

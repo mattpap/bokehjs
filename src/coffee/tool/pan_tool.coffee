@@ -74,6 +74,8 @@ define [
         dataranges: [] #references of datarange objects
       }
 
+    display_defaults: () ->
+      super()
 
   class PanTools extends Backbone.Collection
     model: PanTool

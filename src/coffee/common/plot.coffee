@@ -233,7 +233,6 @@ define [
       # should only bind events on NEW views and tools
       views = @build_views()
       tools = @build_tools()
-      debugger
       for v in views
         level = v.mget('level')
         @levels[level][v.model.id] = v

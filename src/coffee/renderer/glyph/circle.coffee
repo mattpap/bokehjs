@@ -63,7 +63,8 @@ define [
         else
           @mask[i] = true
 
-      selected = @mget_obj('data_source').get('selected')
+      ds = @mget_obj('data_source')
+      selected = ds.get('selected')
       for idx in selected
         @selected_mask[idx] = true
       ctx = @plot_view.ctx
@@ -195,7 +196,7 @@ define [
     type: 'Glyph'
 
     display_defaults: () ->
-      return {
+      return _.extend(super(), {
         fill_color: 'gray'
         fill_alpha: 1.0
         line_color: 'red'
@@ -205,7 +206,7 @@ define [
         line_cap: 'butt'
         line_dash: []
         line_dash_offset: 0
-      }
+      })
 
   return {
     "Model": Circle,

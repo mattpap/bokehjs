@@ -73,13 +73,13 @@ define [
       selected.sort()
       return selected
 
-      defaults: () ->
-        return {
-          data: [{}]
-          name: 'data'
-          selected: []
-          selecting: false
-        }
+    defaults: () ->
+      return {
+        data: [{}]
+        name: 'data'
+        selected: []
+        selecting: false
+      }
 
   class ObjectArrayDataSources extends Backbone.Collection
     model: ObjectArrayDataSource

@@ -111,7 +111,7 @@ define [
     type: 'Glyph'
 
     display_defaults: () ->
-      return {
+      return _.extend(super(), {
         direction: 'anticlock'
         line_color: 'red'
         line_width: 1
@@ -120,7 +120,7 @@ define [
         line_cap: 'butt'
         line_dash: []
         line_dash_offset: 0
-      }
+      })
 
   return {
     "Model": Arc,

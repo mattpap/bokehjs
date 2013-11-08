@@ -116,9 +116,6 @@ define [
 
       return coords
 
-    defaults: () ->
-      return {}
-
     display_defaults: () ->
       return {
         level: 'underlay'

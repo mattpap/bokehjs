@@ -94,7 +94,7 @@ define [
     type: 'Glyph'
 
     display_defaults: () ->
-      return {
+      return _.extend(super(), {
         text_font: "helvetica"
         text_font_size: "12pt"
         text_font_style: "normal"
@@ -102,7 +102,7 @@ define [
         text_alpha: 1.0
         text_align: "left"
         text_baseline: "bottom"
-      }
+      })
 
   return {
     "Model": Text,

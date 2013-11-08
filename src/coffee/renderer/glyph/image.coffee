@@ -89,9 +89,9 @@ define [
     type: 'Glyph'
 
     display_defaults: () ->
-      return {
+      return _.extend(super(), {
         level: 'underlay'
-      }
+      })
 
   return {
     "Model": ImageGlyph,

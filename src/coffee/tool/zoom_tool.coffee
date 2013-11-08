@@ -64,9 +64,12 @@ define [
         dataranges: []
         speed: 1/600
       }
-      
+
   class ZoomTools extends Backbone.Collection
     model: ZoomTool
+
+    display_defaults: () ->
+      super()
 
   return {
     "Model": ZoomTool,

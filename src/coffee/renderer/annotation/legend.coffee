@@ -122,9 +122,6 @@ define [
     default_view: LegendView
     type: 'Legend'
 
-    defaults: () ->
-      return {}
-
     display_defaults: () ->
       return {
         level: 'overlay'
