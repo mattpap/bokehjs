@@ -60,6 +60,7 @@ define [
       @throttled_render = _.throttle(@render, 100)
       @throttled_render_canvas = _.throttle(@render_canvas, 100)
 
+      @outline_props = new Properties.line_properties(@, {}, 'title_')
       @title_props = new Properties.text_properties(@, {}, 'title_')
 
       @view_state = new ViewState({
@@ -344,6 +345,13 @@ define [
       @ctx.fillStyle = @mget('border_fill')
       @ctx.fill()
 
+      if @outline_props.do_stroke
+        @outline_props.set(@ctx, {})
+        @ctx.strokeRect(
+          @view_state.get('border_left'), @view_state.get('border_top'),
+          @view_state.get('inner_width'), @view_state.get('inner_height'),
+        )
+
       have_new_mapper_state = false
       xms = @xmapper.get('mapper_state')[0]
       yms = @xmapper.get('mapper_state')[0]
@@ -431,6 +439,15 @@ define [
         title_text_alpha: 1.0,
         title_text_align: "center",
         title_text_baseline: "alphabetic"
+
+        outline_line_color: '#aaaaaa'
+        outline_line_width: 1
+        outline_line_alpha: 1.0
+        outline_line_join: 'miter'
+        outline_line_cap: 'butt'
+        outline_line_dash: []
+        outline_line_dash_offset: 0
+
       }
 
   class GMapPlots extends Backbone.Collection

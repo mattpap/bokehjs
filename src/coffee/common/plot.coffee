@@ -15,6 +15,7 @@ define [
   "tool/active_tool_manager",
 ], (_, Backbone, require, build_views, safebind, bulk_save, ContinuumView, HasParent, ViewState, LinearMapper, GridMapper, Properties, ActiveToolManager) ->
 
+  line_properties = Properties.line_properties
   text_properties = Properties.text_properties
 
   LEVELS = ['image', 'underlay', 'glyph', 'overlay', 'annotation', 'tool']
@@ -99,6 +100,7 @@ define [
       #@throttled_render = _.throttle(@render, 15)
       @throttled_render = throttle_animation(@render, 15)
       @throttled_render_canvas = throttle_animation(@render_canvas, 15)
+      @outline_props = new line_properties(@, {}, 'outline_')
       @title_props = new text_properties(@, {}, 'title_')
 
       @view_state = new ViewState({
@@ -357,6 +359,13 @@ define [
         @view_state.get('inner_width'), @view_state.get('inner_height'),
       )
 
+      if @outline_props.do_stroke
+        @outline_props.set(@ctx, {})
+        @ctx.strokeRect(
+          @view_state.get('border_left'), @view_state.get('border_top'),
+          @view_state.get('inner_width'), @view_state.get('inner_height'),
+        )
+
       have_new_mapper_state = false
       xms = @xmapper.get('mapper_state')[0]
       yms = @ymapper.get('mapper_state')[0]
@@ -446,6 +455,14 @@ define [
         title_text_alpha: 1.0,
         title_text_align: "center",
         title_text_baseline: "alphabetic"
+
+        outline_line_color: '#aaaaaa'
+        outline_line_width: 1
+        outline_line_alpha: 1.0
+        outline_line_join: 'miter'
+        outline_line_cap: 'butt'
+        outline_line_dash: []
+        outline_line_dash_offset: 0
       }
 
   class Plots extends Backbone.Collection
