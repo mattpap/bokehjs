@@ -1,7 +1,6 @@
-Collections = require('base').Collections
 
-all_palettes = require('../palettes/palettes').all_palettes
-ColorMapper = require('../mappers/color/linear_color_mapper').LinearColorMapper
+Collections  = Bokeh.Collections
+all_palettes = Bokeh.Palettes.all_palettes
 
 NUM_SAMPLES = 1024
 SAMPLING_RATE = 44100
