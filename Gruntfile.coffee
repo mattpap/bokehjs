@@ -86,15 +86,18 @@ module.exports = (grunt) ->
             exports: 'sprintf'
         include: ['main', 'underscore']
         fileExclusionRegExp: /^test/
-        out: 'build/bokeh.js'
         wrap: {
-          startFile: 'src/start.frag',
-          endFile: 'src/end.frag'
+          startFile: 'src/js/_start.js.frag',
+          endFile: 'src/js/_end.js.frag'
         }
-      dist: {}
+      dist:
+        options:
+          optimize: "uglify2"
+          out: 'build/bokeh.min.js'
       dev:
         options:
           optimize: "none"
+          out: 'build/bokeh.js'
 
 
     watch:
