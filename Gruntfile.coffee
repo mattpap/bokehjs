@@ -1,6 +1,21 @@
 module.exports = (grunt) ->
-  grunt.initConfig
+  fs = require("fs")
 
+  # (task: String)(input: String) => Boolean
+  hasChanged = (task) -> (input) ->
+    cwd  = grunt.config.get("#{task}.cwd")
+    dest = grunt.config.get("#{task}.dest")
+    ext  = grunt.config.get("#{task}.ext")
+
+    output = input.replace(cwd, dest)
+                  .replace(/\..+$/, ext)
+
+    if not fs.existsSync(output)
+      true
+    else
+      fs.statSync(input).mtime > fs.statSync(output).mtime
+
+  grunt.initConfig
     copy:
       template:
         files: [
@@ -40,15 +55,17 @@ module.exports = (grunt) ->
           src: ['*.less'],     # actual pattern(s) to match
           dest: 'build/css',   # destination path prefix
           ext: '.css',         # dest filepaths will have this extension
+          filter: hasChanged("less.development.files.0")
         }]
 
     coffee:
-      src:
+      compile:
         expand: true           # enable dynamic expansion
         cwd: 'src/coffee'      # source dir for coffee files
         src: '**/*.coffee'     # traverse *.coffee files relative to cwd
         dest: 'build/js'       # destination for compiled js files
         ext: '.js'             # file extension for compiled files
+        filter: hasChanged("coffee.compile")
         options:
           sourceMap : true
       test:
@@ -57,6 +74,7 @@ module.exports = (grunt) ->
         src: '**/*.coffee'     # traverse *.coffee files relative to cwd
         dest: 'build/test'     # destination for compiled js files
         ext: '.js'             # file extension for compiled files
+        filter: hasChanged("coffee.test")
         options:
           sourceMap : true
       demo:
@@ -65,6 +83,7 @@ module.exports = (grunt) ->
         src: '**/*.coffee'     # traverse *.coffee files relative to cwd
         dest: 'build/demo/js'  # destination for compiled js files
         ext: '.js'             # file extension for compiled files
+        filter: hasChanged("coffee.demo")
         options:
           sourceMap : true
 
